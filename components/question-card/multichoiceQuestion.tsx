@@ -1,0 +1,116 @@
+import React, { useState } from 'react'
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
+import { motion } from 'framer-motion'
+import { ToastContainerCustom, toast } from '../../utils/ToastCustom'
+import { PrimaryButton } from '../../utils/button'
+
+function MultichoiceQuestion({
+    title = 'Full text question',
+    question,
+    hint,
+    answers,
+    updateNumberCorrect,
+    next,
+}: {
+    title: String
+    question: String
+    hint: any
+    answers: [
+        {
+            text: string
+            isSolution: boolean
+        }
+    ]
+    updateNumberCorrect: Function
+    next: any
+}) {
+    const [chosenIndex, setChosenIndex] = useState(-1)
+    const [checked, setChecked] = useState(false)
+
+    const checkButtonOnclick = () => {
+        if (chosenIndex == -1) {
+            return toast.error('Please choose the answer!')
+        }
+
+        setChecked(true)
+        if (answers[chosenIndex]?.isSolution) {
+            if (typeof updateNumberCorrect == 'function') {
+                updateNumberCorrect((prevNum: any) => prevNum + 1)
+            }
+            toast.success('Yeahhhh! Keep going')
+        } else {
+            toast.error("Oh no! It's wrong")
+        }
+    }
+
+    const getLabel = (index: number) => {
+        if (checked && index == chosenIndex && !answers[index].isSolution) {
+            return 'incorrect'
+        } else if (checked && answers[index].isSolution) {
+            return 'correct'
+        } else if (!checked && index === chosenIndex) {
+            return 'chosen'
+        }
+        return ''
+    }
+
+    return (
+        <div className="questionCard multichoiceQuestion">
+            <div className="flex flex-col space-y-2">
+                <div className="flex flex-row space-x-2">
+                    <QuestionMarkCircleIcon className="w-5"></QuestionMarkCircleIcon>
+                    <p>{title}</p>
+                </div>
+                <p className="text-lg font-bold">{question}</p>
+                {hint && <p className="italic">Hint: {hint}</p>}
+            </div>
+
+            <div className="flex flex-col w-full space-y-2">
+                {answers?.map((ans, index) => {
+                    const ansLabel = getLabel(index)
+
+                    return (
+                        <motion.button
+                            key={index}
+                            className={
+                                'border rounded-lg w-full p-3 text-left ' +
+                                ansLabel
+                            }
+                            onClick={() => {
+                                if (!checked) {
+                                    if (index == chosenIndex) {
+                                        setChosenIndex(-1)
+                                    } else {
+                                        setChosenIndex(index)
+                                    }
+                                }
+                            }}
+                            whileHover={{ scale: checked ? 1 : 1.05 }}
+                            whileTap={{ scale: checked ? 1 : 0.9 }}
+                        >
+                            {ansLabel == 'correct' && (
+                                <CheckCircleIcon className="w-6 inline-block mb-0.5 mr-2" />
+                            )}
+                            {ansLabel == 'incorrect' && (
+                                <XCircleIcon className="w-6 inline-block mb-0.5 mr-2" />
+                            )}
+                            {ans.text}
+                        </motion.button>
+                    )
+                })}
+            </div>
+
+            <PrimaryButton
+                onClick={checked ? next : checkButtonOnclick}
+                animate={{ x: checked ? 155 : 0 }}
+            >
+                {!checked ? 'Check' : 'Next question'}
+            </PrimaryButton>
+
+            <ToastContainerCustom />
+        </div>
+    )
+}
+
+export { MultichoiceQuestion }

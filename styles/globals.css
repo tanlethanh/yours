@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .questionCard {
+        @apply flex flex-col p-10 rounded-xl border space-y-4;
+    }
+
+    .chosen {
+        @apply border-green-700 text-green-700 font-medium;
+    }
+
+    .correct {
+        @apply !border-green-500 text-green-500 font-medium;
+    }
+
+    .incorrect {
+        @apply !border-red-500 text-red-500 font-medium;
+    }
+
+    .multichoiceQuestion .correct {
+        @apply border-green-500 text-green-500 font-medium border-2;
+    }
+
+    .multichoiceQuestion .incorrect {
+        @apply border-red-500 text-red-500 font-medium border-2;
+    }
+}
+
+.questionCard {
+    width: 420px;
+}
+
+.min-height-200px {
+    min-height: 200px;
+}
