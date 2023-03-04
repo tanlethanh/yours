@@ -55,8 +55,15 @@ function MultichoiceQuestion({
         return ''
     }
 
+    console.log('MultichoiceQuestion rerender')
+
     return (
-        <div className="questionCard multichoiceQuestion">
+        <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            className="questionCard multichoiceQuestion"
+        >
             <div className="flex flex-col space-y-2">
                 <div className="flex flex-row space-x-2">
                     <QuestionMarkCircleIcon className="w-5"></QuestionMarkCircleIcon>
@@ -109,7 +116,7 @@ function MultichoiceQuestion({
             </PrimaryButton>
 
             <ToastContainerCustom />
-        </div>
+        </motion.div>
     )
 }
 
