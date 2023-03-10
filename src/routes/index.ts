@@ -7,8 +7,9 @@ class ApiRoute {
     constructor(_express: Application) {
         this.app = _express;
     }
-
+ 
     public static mountRoute(_express: Application) {
+        console.log('Mount API route')
         ApiRoute.mountRouteV1(_express)
     }
 
