@@ -16,7 +16,8 @@ class Locals {
 			MAX_UPLOAD_LIMIT: process.env.MAX_UPLOAD_LIMIT,
 			NOTION_OAUTH_ID: process.env.NOTION_OAUTH_ID,
 			NOTION_OAUTH_SECRET: process.env.NOTION_OAUTH_SECRET,
-			NOTION_TOKEN: process.env.NOTION_TOKEN
+			NOTION_TOKEN: process.env.NOTION_TOKEN,
+			MONGOOSE_URI: process.env.MONGOOSE_URI
 		};
 	}
 
