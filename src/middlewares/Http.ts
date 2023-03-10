@@ -19,7 +19,7 @@ class Http {
 
 		// Enables the request body parser
 		_express.use(bodyParser.json({
-			limit: Locals.config().maxUploadLimit
+			limit: Locals.config().MAX_UPLOAD_LIMIT
 		}));
 		_express.use(bodyParser.urlencoded({
 			limit: Locals.config().maxUploadLimit,

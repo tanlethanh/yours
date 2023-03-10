@@ -9,7 +9,7 @@ class CORS {
 		Log.info('Booting the \'CORS\' middleware...');
 
 		const options : cors.CorsOptions = {
-			origin: Locals.config().url,
+			origin: '*',
 			optionsSuccessStatus: 200		// Some legacy browsers choke on 204
 		};
 
