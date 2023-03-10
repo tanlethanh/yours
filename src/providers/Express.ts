@@ -3,6 +3,7 @@ import Locals from "./Locals";
 import { ApiRoute } from "../routes/";
 import MoutMiddlewares from "../middlewares";
 import Handler from "../exception/Handler";
+import MongoDB from "./MongoDB";
 
 class ExpressApp {
     public app: Application;
@@ -10,6 +11,10 @@ class ExpressApp {
     constructor() {
         // The order of all mounting methods is important!
         this.app = express();
+
+        // Connect to mongoDB
+        MongoDB.connect();
+
         this.mountEnv();
         this.moutMidlewares();
         this.mountRoutes();
