@@ -19,12 +19,12 @@ const sentenceSchema = new Schema<ISentence>(
         number_of_usages: {
             type: Number,
             default: ZeroDefault,
-            required: true
+            required: true,
         },
         number_of_wrongs: {
             type: Number,
             default: ZeroDefault,
-            required: true
+            required: true,
         },
         list_question_core: [
             {
@@ -32,6 +32,11 @@ const sentenceSchema = new Schema<ISentence>(
                 ref: "QuestionCore",
             },
         ],
+        is_deleted: {
+            type: Boolean,
+            default: false,
+            require: true,
+        },
     },
     {
         timestamps: {
@@ -57,10 +62,15 @@ const pageSchema = new Schema<IPage>(
         },
         number_of_usages: {
             type: Number,
-            default: ZeroDefault, 
-            required: true
+            default: ZeroDefault,
+            required: true,
         },
         sentences: [sentenceSchema],
+        id_deleted: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
     },
     {
         timestamps: {

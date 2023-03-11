@@ -16,6 +16,7 @@ export interface IPage extends Document {
     url: string;
     number_of_usages: number;
     sentences: Array<ISentence>;
+    id_deleted: Boolean
 }
 
 export interface ISentence extends Document {
@@ -28,6 +29,7 @@ export interface ISentence extends Document {
     number_of_usages: number;
     number_of_wrongs: number;
     list_question_core: Schema.Types.ObjectId | IQuestionCore;
+    is_deleted: Boolean
 }
 
 export enum QuestionType {
