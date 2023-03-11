@@ -1,66 +1,69 @@
-interface IUser {
+import { Document } from "mongoose";
+
+export interface IUser extends Document {
     id: string;
     email: string;
     username: string;
     password: string;
 }
 
-interface IPage {
+export interface IPage extends Document {
     id: string;
     page_id: string;
-    create_time: Date;
+    created_time: Date;
     last_edited_time: Date;
     title: string;
     url: string;
     number_of_usages: number;
 }
 
-interface ISentece {
+export interface ISentece extends Document {
     id: string;
     page_mapping_id: string;
     plain_text: string;
     last_edited_time: Date;
+    created_time: Date;
     number_of_usages: number;
     number_of_wrongs: number;
 }
 
-enum QuestionType {
-    DUPLEX = "DUPLEX",
-    FILL = "FILL",
+export enum QuestionType {
+    CORE_DUPLEX = "DUPLEX",
+    CORE_FILL = "FILL",
 }
 
-interface IQuestionCore {
+export interface IQuestionCore extends Document {
     id: string;
     sentence_id: string;
     dificulty: number;
     number_of_usages: number;
     number_of_wrong: number;
     last_edited_time: number;
-    create_time: Date;
+    created_time: Date;
     type: QuestionType;
 }
 
-enum Language {
+export enum Language {
     ENGLISH = "ENGLISH",
     VIETNAMESE = "VIETNAMESE",
 }
 
-interface IWords {
+export interface IWords {
     text: string;
     language: Language;
 }
 
-interface IDuplexQuestion extends IQuestionCore {
+export interface IDuplexQuestionCore extends IQuestionCore {
     first: IWords;
     second: IWords;
-    type: QuestionType.DUPLEX;
+    type: QuestionType.CORE_DUPLEX;
 }
 
-interface IFillWordQuestion extends IQuestionCore {
+export interface IFillWordQuestionCore extends IQuestionCore {
     list_words: [IWords];
     fill_field_indexes: [number];
     language: Language;
-    type: QuestionType.FILL;
+    type: QuestionType.CORE_FILL;
 }
 
 interface IPracticeTest {}
@@ -68,7 +71,5 @@ interface IPracticeTest {}
 interface IPracticeQuestion {}
 
 interface IMultichoiceQuestion extends IPracticeQuestion {}
-
-interface IFillWordQuestion extends IPracticeQuestion {}
 
 interface ITranslateQuestion extends IPracticeQuestion {}
