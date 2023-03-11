@@ -1,30 +1,33 @@
-import { Document } from "mongoose";
+import { Document, Schema } from "mongoose";
 
 export interface IUser extends Document {
-    id: string;
+    _id: Schema.Types.ObjectId;
     email: string;
     username: string;
     password: string;
 }
 
 export interface IPage extends Document {
-    id: string;
-    page_id: string;
+    _id: Schema.Types.ObjectId;
+    root_id: string;
     created_time: Date;
     last_edited_time: Date;
     title: string;
     url: string;
     number_of_usages: number;
+    sentences: Array<ISentence>;
 }
 
 export interface ISentence extends Document {
-    id: string;
-    page_mapping_id: string;
+    _id: Schema.Types.ObjectId;
+    root_id: string;
+    page: Schema.Types.ObjectId | IPage;
     plain_text: string;
-    last_edited_time: Date;
     created_time: Date;
+    last_edited_time: Date;
     number_of_usages: number;
     number_of_wrongs: number;
+    list_question_core: Schema.Types.ObjectId | IQuestionCore;
 }
 
 export enum QuestionType {
@@ -33,8 +36,8 @@ export enum QuestionType {
 }
 
 export interface IQuestionCore extends Document {
-    id: string;
-    sentence_id: string;
+    _id: Schema.Types.ObjectId;
+    sentence: Schema.Types.ObjectId | ISentence;
     dificulty: number;
     number_of_usages: number;
     number_of_wrong: number;

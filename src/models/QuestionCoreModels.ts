@@ -6,7 +6,7 @@ import {
     IWords,
     Language,
 } from "../interfaces/IData";
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
@@ -16,9 +16,9 @@ const questionCoreSchema = new Schema<IQuestionCore>(
             required: true,
             default: uuidv4,
         },
-        sentence_id: {
-            type: String,
-            required: true,
+        sentence: {
+            type: Schema.Types.ObjectId,
+            ref: "Sentence",
         },
         dificulty: {
             type: Number,
