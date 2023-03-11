@@ -84,7 +84,7 @@ class Log {
         });
     }
 
-    public consoleLog(prefix: string, title: string, message: string) {
+    public consoleLog(prefix: string, title: string, message: any) {
         console.log(`[${prefix}] -> [${title}]: \n\t ${message}`);
     }
 }
