@@ -33,9 +33,10 @@ class NotionProvider {
 
         return new Promise((resolve, reject) => {
             request.post(options, (error: any, res: any, body: any) => {
-                if (error) {
+                console.log(error);
+                if (body.error) {
                     Log.consoleLog(this.LOG_PREFIX, LogTitle.ERROR, error);
-                    reject(error);
+                    reject(body.error);
                 } else resolve(body);
             });
         });

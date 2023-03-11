@@ -15,6 +15,9 @@ class ExpressApp {
         // Connect to mongoDB
         MongoDB.connect();
 
+        // Init data
+        MongoDB.initData();
+
         this.mountEnv();
         this.moutMidlewares();
         this.mountRoutes();

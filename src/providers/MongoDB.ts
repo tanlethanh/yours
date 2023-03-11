@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 import Locals from "./Locals";
-import { Page } from "../models";
-import { IPage } from "../interfaces/IData";
+import { Page, User } from "../models";
+import { IPage, IUser } from "../interfaces/IData";
 
 class MongoDB {
-    public static async connect() {
+    connection: any;
+    defaultUser: IUser | any;
+
+    public async connect() {
         try {
             console.log(`MongoDB URI: ${Locals.config().MONGOOSE_URI}`);
-            await mongoose.connect(Locals.config().MONGOOSE_URI);
+            this.connection = mongoose.connect(Locals.config().MONGOOSE_URI);
+            await this.connection;
             console.log("MongoDB connected!");
             // const newPage: IPage = new Page({
             //     root_id: "abc",
@@ -22,6 +26,25 @@ class MongoDB {
             process.exit(1);
         }
     }
+
+    public async initData() {
+        try {
+            await this.connection;
+            const defautUser: IUser = new User({
+                email: "tantainang8266@gmail.com",
+                username: "tanle",
+                password: "123456",
+                notion_data: new Object(),
+            });
+            await defautUser.save();
+            this.defaultUser = defautUser;
+        } catch (error) {
+            // console.log(erorr);
+            this.defaultUser = await User.findOne({
+                email: "tantainang8266@gmail.com",
+            });
+        }
+    }
 }
 
-export default MongoDB;
+export default new MongoDB();
