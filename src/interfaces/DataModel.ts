@@ -18,30 +18,50 @@ interface IPage {
 interface ISentece {
     id: string;
     page_mapping_id: string;
-    number_of_usages: number;
-    number_of_wrongs: number;
     plain_text: string;
     last_edited_time: Date;
+    number_of_usages: number;
+    number_of_wrongs: number;
 }
 
 enum QuestionType {
+    DUPLEX = "DUPLEX",
+    FILL = "FILL",
 }
 
 interface IQuestionCore {
     id: string;
     sentence_id: string;
-    question: string;
-    solution: string;
+    dificulty: number;
+    number_of_usages: number;
+    number_of_wrong: number;
+    last_edited_time: number;
+    create_time: Date;
+    type: QuestionType;
 }
 
-interface IMultichoiceQuestionCore {
-    first: string;
-    second: string;
+enum Language {
+    ENGLISH = "ENGLISH",
+    VIETNAMESE = "VIETNAMESE",
 }
 
-interface IFillWordQuestionCore {}
+interface IWords {
+    text: string;
+    language: Language;
+}
 
-interface ITranslateQuestionCore {}
+interface IDuplexQuestion extends IQuestionCore {
+    first: IWords;
+    second: IWords;
+    type: QuestionType.DUPLEX;
+}
+
+interface IFillWordQuestion extends IQuestionCore {
+    list_words: [IWords];
+    fill_field_indexes: [number];
+    language: Language;
+    type: QuestionType.FILL;
+}
 
 interface IPracticeTest {}
 
