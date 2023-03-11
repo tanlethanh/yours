@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import Log from "../helpers/Log";
 import NotionProvider from "../providers/Notion";
 import UserRepo from "../repositories/UserRepo";
-import { Page, Sentence, User } from "../models";
+import { DuplexQuestionCore, Page, Sentence, User } from "../models";
 import { IPage } from "../interfaces";
 import {
     BlockObjectResponse,
@@ -10,14 +10,16 @@ import {
     PartialBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
+import { franc } from "franc";
+
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
     SYNC_FAIL = "SYNC_FAIL",
 }
 
-class NotionProcessingService {
-    // constructor() {}
+const SEPERATE_CHARS = [":", "→"];
 
+class NotionProcessingService {
     async getAndSaveAccessTokenFromNotion(
         userId: Types.ObjectId,
         code: string
@@ -128,29 +130,131 @@ class NotionProcessingService {
         });
 
         // Create all sentence for current image
-        const sentenceImages = await Promise.all(
+        let sentenceImages = await Promise.all(
             sentenceList.map(async (sentence) => {
                 const sentenceImage = await this.createSentenceWithQuestionCore(
                     sentence
                 );
 
                 // Ref id
-                sentenceImage.page = newPageImage._id;
+                if (sentenceImage) {
+                    sentenceImage.page = newPageImage._id;
+                }
                 return sentenceImage;
             })
         );
 
-        newPageImage.sentences = sentenceImages.map((ele) => ele._id);
+        sentenceImages = sentenceImages.filter((ele) => ele != null);
+
+        newPageImage.sentences = sentenceImages.map((ele: any) => ele._id);
 
         // Store all of them
-        await Promise.all([newPageImage, ...sentenceImages]);
+        await Promise.all(
+            [newPageImage, ...sentenceImages].map(async (ele) => ele?.save())
+        );
     }
 
     /**
-     * 
-     * */ 
-    async createSentenceWithQuestionCore(sentence: PartialBlockObjectResponse) {
-        return new Sentence();
+     *
+     * */
+    async createSentenceWithQuestionCore(sentence: any) {
+        const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
+            (prev: any, cur: any) => {
+                return prev + cur.plain_text;
+            },
+            ""
+        );
+
+        const senteceImage = new Sentence({
+            root_id: sentence.id,
+            plain_text: plant_text,
+        });
+
+        try {
+            this.generateQuestionCore(sentence, senteceImage._id as any);
+        } catch (error) {
+            return null;
+        }
+
+        return senteceImage;
+    }
+
+    async generateQuestionCore(sentence: any, sentenceImageId: Types.ObjectId) {
+        let count_seperate = 0;
+        const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
+            (prev: any, cur: any) => {
+                return prev + cur.plain_text;
+            },
+            ""
+        );
+
+        const seperated_chars = plant_text.match(
+            new RegExp(SEPERATE_CHARS.join("|"), "g")
+        );
+
+        // Invalid sentence to generate question
+        if (seperated_chars.length !== 1) {
+            throw Error("The sentence must have only one seperated char");
+        }
+
+        const modifiedText = (
+            sentence.bulleted_list_item.rich_text as []
+        ).reduce((prev: any, cur: any) => {
+            // Merge string
+
+            if (cur.annotations.bold) {
+                const listStr: String[] = cur.plain_text.split(
+                    seperated_chars[0]
+                );
+
+                /**
+                 * Process the string, if the string is bold, surround it by |\b and \b|
+                 * | and | use to seperate list string
+                 * \b and \b use to which is bold
+                 * Notice that the seperate char is in our text
+                 * */
+                return (
+                    prev.trim() +
+                    " " +
+                    listStr
+                        .map((str) => {
+                            if (str.trim().length > 0) {
+                                return "|\\b" + str.trim() + "|\\b";
+                            } else {
+                                return "";
+                            }
+                        })
+                        .join(seperated_chars[0])
+                );
+            } else {
+                return prev.trim() + " " + cur.plain_text.trim();
+            }
+        }, "");
+
+        // We will use modifiedText to generate question
+        let left, right;
+        [left, right] = modifiedText.split(seperated_chars[0]);
+
+        // Generate duplexQuestionCore
+        this.createDuplexQuestionCore(
+            sentenceImageId,
+            left.replace("|\\b", "").replace("\\b|", ""),
+            right.replace("|\\b", "").replace("\\b|", "")
+        );
+
+        // Generate fillWordQuestionCore
+    }
+
+    createDuplexQuestionCore(
+        sentenceImageId: Types.ObjectId,
+        left: string,
+        right: string
+    ) {
+        console.log();
+
+        const questionCore = new DuplexQuestionCore({
+            sentence: sentenceImageId,
+        });
     }
 }
 

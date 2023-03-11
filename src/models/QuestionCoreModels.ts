@@ -69,7 +69,13 @@ const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({
 
 const QuestionCore = model<IQuestionCore>("QuestionCore", questionCoreSchema);
 
-QuestionCore.discriminator(QuestionType.CORE_DUPLEX, duplexQuestionCoreSchema);
-QuestionCore.discriminator(QuestionType.CORE_FILL, fillWordQuestionCoreSchema);
+const DuplexQuestionCore = QuestionCore.discriminator<IDuplexQuestionCore>(
+    QuestionType.CORE_DUPLEX,
+    duplexQuestionCoreSchema
+);
+const FillWordQuestionCore = QuestionCore.discriminator<IFillWordQuestionCore>(
+    QuestionType.CORE_FILL,
+    fillWordQuestionCoreSchema
+);
 
-export { QuestionCore };
+export { QuestionCore, DuplexQuestionCore, FillWordQuestionCore };
