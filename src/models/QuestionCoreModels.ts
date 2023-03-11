@@ -3,6 +3,8 @@ import {
     IDuplexQuestionCore,
     IFillWordQuestionCore,
     QuestionType,
+    IWords,
+    Language,
 } from "../interfaces/IData";
 import { Document, model, Schema } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
@@ -32,11 +34,6 @@ const questionCoreSchema = new Schema<IQuestionCore>(
             required: true,
             default: 0,
         },
-        type: {
-            type: String,
-            enum: Object.values(QuestionType),
-            required: true,
-        },
     },
     {
         timestamps: {
@@ -47,9 +44,33 @@ const questionCoreSchema = new Schema<IQuestionCore>(
     }
 );
 
-const duplexQuestionCoreSchema = new Schema<IDuplexQuestionCore>({});
+const WordsSchema = new Schema<IWords>({
+    text: {
+        type: String,
+        default: "None text",
+        required: true,
+    },
+    language: {
+        type: String,
+        enum: Object.values(Language),
+        required: true,
+    },
+});
 
-const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({});
+const duplexQuestionCoreSchema = new Schema<IDuplexQuestionCore>({
+    first: WordsSchema,
+    second: WordsSchema,
+});
+
+const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({
+    list_words: [WordsSchema],
+    fill_field_indexes: [Number],
+    language: {
+        type: String,
+        enum: Object.values(Language),
+        required: true,
+    },
+});
 
 const QuestionCore = model<IQuestionCore>("QuestionCore", questionCoreSchema);
 

@@ -17,7 +17,7 @@ export interface IPage extends Document {
     number_of_usages: number;
 }
 
-export interface ISentece extends Document {
+export interface ISentence extends Document {
     id: string;
     page_mapping_id: string;
     plain_text: string;
@@ -60,8 +60,8 @@ export interface IDuplexQuestionCore extends IQuestionCore {
 }
 
 export interface IFillWordQuestionCore extends IQuestionCore {
-    list_words: [IWords];
-    fill_field_indexes: [number];
+    list_words: Array<IWords>;
+    fill_field_indexes: Array<Number>;
     language: Language;
     type: QuestionType.CORE_FILL;
 }
