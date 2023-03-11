@@ -1,5 +1,6 @@
 import { Schema, Types, model } from "mongoose";
-import { IPage, ISentence } from "../interfaces/IData";
+import { IPage, ISentence } from "../interfaces";
+import { ZeroDefault } from "../utils";
 
 const sentenceSchema = new Schema<ISentence>(
     {
@@ -17,11 +18,13 @@ const sentenceSchema = new Schema<ISentence>(
         },
         number_of_usages: {
             type: Number,
-            default: 0,
+            default: ZeroDefault,
+            required: true
         },
         number_of_wrongs: {
             type: Number,
-            default: 0,
+            default: ZeroDefault,
+            required: true
         },
         list_question_core: [
             {
@@ -54,8 +57,8 @@ const pageSchema = new Schema<IPage>(
         },
         number_of_usages: {
             type: Number,
-            required: true,
-            defautl: 0,
+            default: ZeroDefault, 
+            required: true
         },
         sentences: [sentenceSchema],
     },

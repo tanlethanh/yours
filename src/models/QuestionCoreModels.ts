@@ -5,17 +5,12 @@ import {
     QuestionType,
     IWords,
     Language,
-} from "../interfaces/IData";
+} from "../interfaces";
 import { model, Schema } from "mongoose";
-import { v4 as uuidv4 } from "uuid";
+import { ZeroDefault } from "../utils";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
     {
-        id: {
-            type: String,
-            required: true,
-            default: uuidv4,
-        },
         sentence: {
             type: Schema.Types.ObjectId,
             ref: "Sentence",
@@ -27,12 +22,12 @@ const questionCoreSchema = new Schema<IQuestionCore>(
         number_of_usages: {
             type: Number,
             required: true,
-            default: 0,
+            default: ZeroDefault,
         },
         number_of_wrong: {
             type: Number,
             required: true,
-            default: 0,
+            default: ZeroDefault,
         },
     },
     {
