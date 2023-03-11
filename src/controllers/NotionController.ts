@@ -5,15 +5,37 @@ import Locals from "../providers/Locals";
 import MongoDB from "../providers/MongoDB";
 
 class NotionController {
-    public static syncDataByUserId = async (req: Request, res: Response) => {
-        const userId = req.query.userId;
-        if (userId) {
-        } else {
+    // Hello world
+
+    public static syncDataByUserId = async (
+        req: Request | any,
+        res: Response
+    ) => {
+        let userId = req.userId;
+        if (Locals.config().NODE_ENV === "development") {
+            userId = req.userId ? req.userId : MongoDB.defaultUser._id;
+        }
+
+        let result = null;
+        try {
+            result = await NotionProcessingService.syncDataByUserId(userId);
+        } catch (error: any) {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                message: error.message,
+            });
+        }
+
+        if (!result) {
             return res.status(StatusCodes.BAD_REQUEST).json({
-                message: "Require userId as a param",
+                message: "Something wrong",
+            });
+        } else {
+            return res.status(StatusCodes.ACCEPTED).json({
+                data: result,
             });
         }
     };
+
     public static postAuthCode = async (req: Request | any, res: Response) => {
         const { code } = req.query;
 
@@ -24,8 +46,6 @@ class NotionController {
         }
 
         let userId = req.userId;
-        console.log(Locals.config().NODE_ENV)
-        console.log(MongoDB.defaultUser._id)
         if (Locals.config().NODE_ENV === "development") {
             userId = req.userId ? req.userId : MongoDB.defaultUser._id;
         }

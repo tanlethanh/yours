@@ -1,6 +1,7 @@
 import request from "request";
 import Log, { LogTitle } from "../helpers/Log";
 import Locals from "./Locals";
+import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {
     GET_ACCESS_TOKE_SUCCESS,
@@ -33,13 +34,40 @@ class NotionProvider {
 
         return new Promise((resolve, reject) => {
             request.post(options, (error: any, res: any, body: any) => {
-                console.log(error);
                 if (body.error) {
-                    Log.consoleLog(this.LOG_PREFIX, LogTitle.ERROR, error);
+                    Log.consoleLog(
+                        this.LOG_PREFIX,
+                        LogTitle.ERROR,
+                        error.message
+                    );
                     reject(body.error);
                 } else resolve(body);
             });
         });
+    }
+
+    async getAllSharedPagesOfUser(accessToken: string) {
+        const notion = new Client({
+            auth: accessToken,
+        });
+        return await notion.search({
+            query: "",
+            sort: {
+                direction: "descending",
+                timestamp: "last_edited_time",
+            },
+        });
+    }
+
+    async getPageChildren(accessToken: string, pageId: string) {
+        const notion = new Client({
+            auth: accessToken,
+        });
+        const data = await notion.blocks.children.list({
+            block_id: pageId,
+        });
+
+        return data?.results;
     }
 }
 

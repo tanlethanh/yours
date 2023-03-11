@@ -1,5 +1,18 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "../interfaces";
+import { IUser, INotionData } from "../interfaces";
+
+const notionDataSchema = new Schema<INotionData>({
+    access_token: {
+        type: String,
+    },
+    token_type: { type: String },
+    bot_id: { type: String },
+    workspace_name: { type: String },
+    workspace_icon: { type: String },
+    workspace_id: { type: String },
+    owner: Object,
+    duplicated_template_id: { type: String },
+});
 
 const userSchema = new Schema<IUser>(
     {
@@ -18,7 +31,7 @@ const userSchema = new Schema<IUser>(
             required: true,
         },
         notion_data: {
-            type: Object,
+            type: notionDataSchema,
             required: true,
         },
         pages: [

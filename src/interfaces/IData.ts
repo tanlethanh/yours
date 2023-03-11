@@ -1,32 +1,34 @@
 import { Document, Schema } from "mongoose";
 
-export interface IUser extends Document {
-    _id: Schema.Types.ObjectId;
-    email: string
-    username: string;
-    password: string;
-    notion_data: {
-        access_token: string;
-        token_type: string;
-        bot_id: string;
-        workspace_name: string;
-        workspace_icon: string;
-        workspace_id: string;
-        owner: {
+export interface INotionData {
+    access_token: string;
+    token_type: string;
+    bot_id: string;
+    workspace_name: string;
+    workspace_icon: string;
+    workspace_id: string;
+    owner: {
+        type: string;
+        user: {
+            object: string;
+            id: string;
+            name: string;
+            avatar_url: string;
             type: string;
-            user: {
-                object: string;
-                id: string;
-                name: string;
-                avatar_url: string;
-                type: string;
-                person: {
-                    email: string;
-                };
+            person: {
+                email: string;
             };
         };
-        duplicated_template_id: string;
     };
+    duplicated_template_id: string;
+}
+
+export interface IUser extends Document {
+    _id: Schema.Types.ObjectId;
+    email: string;
+    username: string;
+    password: string;
+    notion_data: INotionData;
     pages: Array<IPage>;
 }
 
@@ -38,7 +40,7 @@ export interface IPage extends Document {
     title: string;
     url: string;
     number_of_usages: number;
-    sentences: Array<ISentence>;
+    sentences: Array<ISentence> | Array<Schema.Types.ObjectId>;
     id_deleted: Boolean;
 }
 
