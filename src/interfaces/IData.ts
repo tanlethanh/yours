@@ -2,9 +2,32 @@ import { Document, Schema } from "mongoose";
 
 export interface IUser extends Document {
     _id: Schema.Types.ObjectId;
-    email: string;
+    email: string
     username: string;
     password: string;
+    notion_data: {
+        access_token: string;
+        token_type: string;
+        bot_id: string;
+        workspace_name: string;
+        workspace_icon: string;
+        workspace_id: string;
+        owner: {
+            type: string;
+            user: {
+                object: string;
+                id: string;
+                name: string;
+                avatar_url: string;
+                type: string;
+                person: {
+                    email: string;
+                };
+            };
+        };
+        duplicated_template_id: string;
+    };
+    pages: Array<IPage>;
 }
 
 export interface IPage extends Document {
@@ -16,7 +39,7 @@ export interface IPage extends Document {
     url: string;
     number_of_usages: number;
     sentences: Array<ISentence>;
-    id_deleted: Boolean
+    id_deleted: Boolean;
 }
 
 export interface ISentence extends Document {
@@ -29,7 +52,7 @@ export interface ISentence extends Document {
     number_of_usages: number;
     number_of_wrongs: number;
     list_question_core: Schema.Types.ObjectId | IQuestionCore;
-    is_deleted: Boolean
+    is_deleted: Boolean;
 }
 
 export enum QuestionType {
