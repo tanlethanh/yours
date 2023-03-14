@@ -11,6 +11,7 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 
 import { franc } from "franc";
+import { isGeneratorFunction } from "util/types";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -63,12 +64,14 @@ class NotionProcessingService {
         pageImages: IPage[],
         pages: PageObjectResponse[]
     ): SyncResult {
+        console.log("pages", pages);
+        console.log("page images ", pageImages);
         pages.forEach((page) => {
             const pageImage = pageImages.find((pageImage) => {
                 return pageImage.root_id === page.id;
             });
 
-            if (!pageImages) {
+            if (!pageImage) {
                 // Add new image of page
                 this.addNewPageImageForUser(userId, accessToken, page);
             } else if (
@@ -112,8 +115,9 @@ class NotionProcessingService {
     async addNewPageImageForUser(
         userId: Types.ObjectId,
         accessToken: string,
-        page: PageObjectResponse
+        page: any
     ) {
+        console.log("Add new page image");
         // Just use bulleted_list_item to handle
         const sentenceList = (
             await NotionProvider.getPageChildren(accessToken, page.id)
@@ -121,13 +125,17 @@ class NotionProcessingService {
             return (block as any).type === "bulleted_list_item";
         });
 
+        console.log("sentenceList", sentenceList);
+
         // Create image for this page
         const newPageImage = new Page({
             root_id: page.id,
-            title: page.properties.title,
-            url: page.properties.url,
+            title: page.properties.title.title[0].plain_text,
+            url: page.url,
             sentences: [],
         });
+
+        console.log("page image", newPageImage);
 
         // Create all sentence for current image
         let sentenceImages = await Promise.all(
@@ -147,11 +155,19 @@ class NotionProcessingService {
         sentenceImages = sentenceImages.filter((ele) => ele != null);
 
         newPageImage.sentences = sentenceImages.map((ele: any) => ele._id);
+        // (newPageImage.sentences as any) = sentenceImages;
+
+        console.log("sentences image", newPageImage.sentences);
 
         // Store all of them
         await Promise.all(
             [newPageImage, ...sentenceImages].map(async (ele) => ele?.save())
         );
+
+        try {
+        } catch {
+            return null;
+        }
     }
 
     /**
@@ -170,11 +186,15 @@ class NotionProcessingService {
             plain_text: plant_text,
         });
 
+        console.log("senteceImage ", senteceImage);
+
         try {
             this.generateQuestionCore(sentence, senteceImage._id as any);
         } catch (error) {
             return null;
         }
+
+        console.log("senteceImage ", senteceImage);
 
         return senteceImage;
     }
@@ -191,6 +211,8 @@ class NotionProcessingService {
         const seperated_chars = plant_text.match(
             new RegExp(SEPERATE_CHARS.join("|"), "g")
         );
+
+        console.log("sepeared_chars ", seperated_chars);
 
         // Invalid sentence to generate question
         if (seperated_chars.length !== 1) {
@@ -250,11 +272,12 @@ class NotionProcessingService {
         left: string,
         right: string
     ) {
-        console.log();
+        console.log(`Left string: ${left}`);
+        console.log(`Right string ${right}`);
 
-        const questionCore = new DuplexQuestionCore({
-            sentence: sentenceImageId,
-        });
+        // const questionCore = new DuplexQuestionCore({
+        //     sentence: sentenceImageId,
+        // });
     }
 }
 
