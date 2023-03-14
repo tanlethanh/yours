@@ -15,7 +15,7 @@ class UserRepo {
     async getAllPageImagesOfUser(userId: Types.ObjectId) {
         const user = await User.findById(userId, {
             pages: 1,
-        });
+        }).populate('pages')
 
         if (!user?.pages) {
             return [];
