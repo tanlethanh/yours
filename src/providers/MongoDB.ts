@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Locals from "./Locals";
-import { Page, User } from "../models";
-import { IPage, IUser } from "../interfaces/IData";
+import Locals from "./Locals.js";
+import { Page, User } from "../models/index.js";
+import { IPage, IUser } from "../interfaces/IData.js";
 
 class MongoDB {
     connection: any;

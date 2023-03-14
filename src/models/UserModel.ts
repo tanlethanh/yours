@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser, INotionData } from "../interfaces";
+import { IUser, INotionData } from "../interfaces/index.js";
 
 const notionDataSchema = new Schema<INotionData>({
     access_token: {

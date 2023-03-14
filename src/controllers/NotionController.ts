@@ -1,8 +1,8 @@
 import { Request, Response, query } from "express";
 import { StatusCodes } from "http-status-codes";
-import NotionProcessingService from "../services/NotionProcessingService";
-import Locals from "../providers/Locals";
-import MongoDB from "../providers/MongoDB";
+import NotionProcessingService from "../services/NotionProcessingService.js";
+import Locals from "../providers/Locals.js";
+import MongoDB from "../providers/MongoDB.js";
 
 class NotionController {
     // Hello world

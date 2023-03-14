@@ -1,14 +1,14 @@
 import { Types } from "mongoose";
-import Log from "../helpers/Log";
-import NotionProvider from "../providers/Notion";
-import UserRepo from "../repositories/UserRepo";
-import { DuplexQuestionCore, Page, Sentence, User } from "../models";
-import { IPage } from "../interfaces";
+import Log from "../helpers/Log.js";
+import NotionProvider from "../providers/Notion.js";
+import UserRepo from "../repositories/UserRepo.js";
+import { DuplexQuestionCore, Page, Sentence, User } from "../models/index.js";
+import { IPage } from "../interfaces/index.js";
 import {
     BlockObjectResponse,
     PageObjectResponse,
     PartialBlockObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+} from "@notionhq/client/build/src/api-endpoints.js";
 
 // import { franc } from "franc";
 import { isGeneratorFunction } from "util/types";

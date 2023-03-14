@@ -1,6 +1,6 @@
 import request from "request";
-import Log, { LogTitle } from "../helpers/Log";
-import Locals from "./Locals";
+import Log, { LogTitle } from "../helpers/Log.js";
+import Locals from "./Locals.js";
 import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {

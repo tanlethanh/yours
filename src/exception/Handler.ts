@@ -1,5 +1,5 @@
-import Log from '../helpers/Log';
-import Locals from '../providers/Locals';
+import Log from '../helpers/Log.js';
+import Locals from '../providers/Locals.js';
 import { Request, Response } from "express"
 
 class Handler {

@@ -6,9 +6,15 @@ import * as fs from "fs";
 import { FileHandle } from "fs/promises";
 import * as path from "path";
 
+import url from "url";
+
 export enum LogTitle {
     ERROR = "ERROR",
 }
+
+const __filename = url.fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 class Log {
     public baseDir: string;

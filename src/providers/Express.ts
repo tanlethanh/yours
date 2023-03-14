@@ -1,9 +1,9 @@
 import express, { Application } from "express";
-import Locals from "./Locals";
-import { ApiRoute } from "../routes/";
-import MoutMiddlewares from "../middlewares";
-import Handler from "../exception/Handler";
-import MongoDB from "./MongoDB";
+import Locals from "./Locals.js";
+import { ApiRoute } from "../routes/index.js";
+import MoutMiddlewares from "../middlewares/index.js";
+import Handler from "../exception/Handler.js";
+import MongoDB from "./MongoDB.js";
 
 class ExpressApp {
     public app: Application;

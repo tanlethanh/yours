@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { User } from "../models";
+import { User } from "../models/index.js";
 
 class UserRepo {
     // Hello UserRepo

@@ -1,6 +1,12 @@
 import { Application } from "express";
 import * as path from "path";
 import * as dotenv from "dotenv";
+import * as url from 'url'
+
+const __filename = url.fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
 dotenv.config();
 class Locals {
     /**
@@ -8,6 +14,7 @@ class Locals {
      * throughout the app's runtime
      */
     public static config(): any {
+        // const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
         dotenv.config({ path: path.join(__dirname, "../../.env") });
 
         return {

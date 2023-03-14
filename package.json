@@ -3,12 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "main": "src/index.ts",
+    "type": "module",
     "scripts": {
         "build": "npx tsc",
         "start": "node build/index.js",
-        "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
-        "debug": "nodemon --inspect --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-        "watch:debug": "nodemon --inspect=5858 -e ts,tsx --exec node -r ts-node/register ./src/index.ts"
+        "dev": "concurrently \"npx tsc --watch\" \"nodemon --inspect -q build/index.js\""
     },
     "author": "Tan Le",
     "license": "ISC",

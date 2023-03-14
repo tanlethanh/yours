@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import SampleController from '../../controllers/SampleController';
-import NotionController from '../../controllers/NotionController';
+import SampleController from '../../controllers/SampleController.js';
+import NotionController from '../../controllers/NotionController.js';
 
 const apiV1: Router = express.Router()
 

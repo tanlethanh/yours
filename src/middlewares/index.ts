@@ -1,11 +1,11 @@
 import { Application } from "express";
 
-import CORS from "./CORS";
-import Http from "./Http";
-import Statics from "./Statics";
-import StatusMonitor from "../helpers/StatusMonitor";
-import Locals from "../providers/Locals";
-import Proxy from "./Proxy";
+import CORS from "./CORS.js";
+import Http from "./Http.js";
+import Statics from "./Statics.js";
+import StatusMonitor from "../helpers/StatusMonitor.js";
+import Locals from "../providers/Locals.js";
+import Proxy from "./Proxy.js";
 
 class MoutMiddlewares {
     public static mountMidlewares(_express: Application) {

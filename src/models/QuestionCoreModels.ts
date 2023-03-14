@@ -5,9 +5,9 @@ import {
     QuestionType,
     IWords,
     Language,
-} from "../interfaces";
+} from "../interfaces/index.js";
 import { model, Schema } from "mongoose";
-import { ZeroDefault } from "../utils";
+import { ZeroDefault } from "../utils/index.js";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
     {
