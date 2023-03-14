@@ -50,13 +50,14 @@ class NotionProvider {
         const notion = new Client({
             auth: accessToken,
         });
-        return await notion.search({
+        const data = await notion.search({
             query: "",
             sort: {
                 direction: "descending",
                 timestamp: "last_edited_time",
             },
         });
+        return data?.results;
     }
 
     async getPageChildren(accessToken: string, pageId: string) {
