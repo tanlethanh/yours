@@ -14,7 +14,7 @@ const sentenceSchema = new Schema<ISentence>(
         },
         plain_text: {
             type: String,
-            required: true,
+            // required: true,
         },
         number_of_usages: {
             type: Number,
@@ -65,7 +65,12 @@ const pageSchema = new Schema<IPage>(
             default: ZeroDefault,
             required: true,
         },
-        sentences: [sentenceSchema],
+        sentences: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Sentence",
+            },
+        ],
         id_deleted: {
             type: Boolean,
             default: false,
