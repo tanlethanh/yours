@@ -10,7 +10,7 @@ import {
     PartialBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
-import { franc } from "franc";
+// import { franc } from "franc";
 import { isGeneratorFunction } from "util/types";
 
 export enum SyncResult {
@@ -53,7 +53,7 @@ class NotionProcessingService {
         const pages = await NotionProvider.getAllSharedPagesOfUser(accessToken);
         const pageImages = await UserRepo.getAllPageImagesOfUser(userId);
 
-        this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
+        this.syncAllPagesOfUser(userId, accessToken, [], pages as any);
 
         return pages;
     }
@@ -190,7 +190,7 @@ class NotionProcessingService {
     }
 
     async generateQuestionCore(sentence: any, sentenceImageId: Types.ObjectId) {
-        let count_seperate = 0;
+
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
                 return prev + cur.plain_text;
@@ -229,7 +229,7 @@ class NotionProcessingService {
                     listStr
                         .map((str) => {
                             if (str.trim().length > 0) {
-                                return "|\\b" + str.trim() + "|\\b";
+                                return "|\\b" + str.trim() + "\\b|";
                             } else {
                                 return "";
                             }
