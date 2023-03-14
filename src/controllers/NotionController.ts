@@ -20,7 +20,7 @@ class NotionController {
         try {
             result = await NotionProcessingService.syncDataByUserId(userId);
         } catch (error: any) {
-            res.status(StatusCodes.BAD_REQUEST).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 message: error.message,
             });
         }
@@ -34,6 +34,7 @@ class NotionController {
                 data: result,
             });
         }
+
     };
 
     public static postAuthCode = async (req: Request | any, res: Response) => {
