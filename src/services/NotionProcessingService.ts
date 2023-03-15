@@ -365,7 +365,7 @@ class NotionProcessingService {
         const questionIds = [];
 
         // Generate document
-        if (leftBoldWords.length === rightBoldWords.length) {
+        if (leftBoldWords.length === rightBoldWords.length && leftBoldWords.length > 0) {
             leftBoldWords.forEach(async (word, index) => {
                 const question = await DuplexQuestionCore.create({
                     first: {
@@ -423,6 +423,11 @@ class NotionProcessingService {
             }
             return word.trim();
         });
+
+        // Dont have bold fields
+        if (fillFieldIndexes.length === 0) {
+            return
+        }
 
         const question = await FillWordQuestionCore.create({
             sentence: sentenceImage._id,
