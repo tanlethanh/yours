@@ -62,10 +62,16 @@ export enum QuestionType {
     CORE_FILL = "FILL",
 }
 
+export enum Difficulty {
+    EASY = 0,
+    MEDIUM = 10,
+    HARD = 20,
+}
+
 export interface IQuestionCore extends Document {
     _id: Schema.Types.ObjectId;
     sentence: Schema.Types.ObjectId | ISentence;
-    dificulty: number;
+    dificulty: Difficulty;
     number_of_usages: number;
     number_of_wrong: number;
     last_edited_time: number;
@@ -76,6 +82,7 @@ export interface IQuestionCore extends Document {
 export enum Language {
     ENGLISH = "ENGLISH",
     VIETNAMESE = "VIETNAMESE",
+    UNDEFINED = "UNDEFINED",
 }
 
 export interface IWords {

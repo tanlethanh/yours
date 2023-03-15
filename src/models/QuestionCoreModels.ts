@@ -5,6 +5,7 @@ import {
     QuestionType,
     IWords,
     Language,
+    Difficulty,
 } from "../interfaces/index.js";
 import { model, Schema } from "mongoose";
 import { ZeroDefault } from "../utils/index.js";
@@ -17,7 +18,8 @@ const questionCoreSchema = new Schema<IQuestionCore>(
         },
         dificulty: {
             type: Number,
-            required: true,
+            // enum: Object.values(Difficulty),
+            // required: true,
         },
         number_of_usages: {
             type: Number,
@@ -49,6 +51,7 @@ const WordsSchema = new Schema<IWords>({
         type: String,
         enum: Object.values(Language),
         required: true,
+        default: Language.UNDEFINED,
     },
 });
 
@@ -58,12 +61,13 @@ const duplexQuestionCoreSchema = new Schema<IDuplexQuestionCore>({
 });
 
 const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({
-    list_words: [WordsSchema],
+    list_words: [String],
     fill_field_indexes: [Number],
     language: {
         type: String,
         enum: Object.values(Language),
         required: true,
+        default: Language.UNDEFINED,
     },
 });
 
