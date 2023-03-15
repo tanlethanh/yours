@@ -6,6 +6,7 @@ import {
     DuplexQuestionCore,
     FillWordQuestionCore,
     Page,
+    QuestionCore,
     Sentence,
     User,
 } from "../models/index.js";
@@ -101,7 +102,7 @@ class NotionProcessingService {
                 this.addNewPageImageForUser(userId, accessToken, page);
             } else {
                 if (
-                    (pageImage?.last_edited_time as Date) >=
+                    (pageImage?.last_edited_time as Date) <=
                     new Date(page?.last_edited_time)
                 ) {
                     /*
@@ -137,6 +138,50 @@ class NotionProcessingService {
             page.id
         );
 
+        const detailPageImages = await Page.findById(pageImage._id).populate(
+            "sentences"
+        );
+
+        sentenceList.forEach(async (sentence: any) => {
+            const senteceImage = (detailPageImages?.sentences as any).find(
+                (ele: ISentence) => {
+                    return ele.root_id == sentence.id;
+                }
+            );
+
+            if (!senteceImage) {
+                const newSentenceImage = await this.createSentenceWithQuestionCore(
+                    sentence,
+                    detailPageImages as IPage
+                );
+
+                await (newSentenceImage as ISentence).save();
+            } else {
+
+                senteceImage.is_deleted = true
+
+                if (
+                    senteceImage.last_edited_time <=
+                    new Date(sentence.last_edited_time)
+                ) {
+                    // Delete all old question core
+                    QuestionCore.deleteMany({
+                        $in: {
+                            _id: senteceImage.list_question_core,
+                        },
+                    });
+
+                    // Regenerate question cores
+                    await this.generateQuestionCore(sentence, senteceImage);
+                } else {
+                    // No need to sync
+                    return;
+                }
+            }
+        });
+
+        console.log(detailPageImages);
+
         return SyncResult.SYNC_SUCCESS;
     }
 
@@ -169,20 +214,12 @@ class NotionProcessingService {
         let sentenceImages = await Promise.all(
             sentenceList.map(async (sentence: any) => {
                 const sentenceImage = await this.createSentenceWithQuestionCore(
-                    sentence
+                    sentence,
+                    newPageImage
                 );
-
-                // Ref id
-                if (sentenceImage) {
-                    sentenceImage.page = newPageImage._id;
-                }
                 return sentenceImage;
             })
         );
-
-        sentenceImages = sentenceImages.filter((ele) => ele != null);
-
-        newPageImage.sentences = sentenceImages.map((ele: any) => ele._id);
 
         // Store all of them
         await Promise.all(
@@ -203,7 +240,7 @@ class NotionProcessingService {
      * This method create sentence image
      * And its question cores
      * */
-    async createSentenceWithQuestionCore(sentence: any) {
+    async createSentenceWithQuestionCore(sentence: any, pageImage: IPage) {
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
                 return prev + cur.plain_text;
@@ -214,6 +251,7 @@ class NotionProcessingService {
         const senteceImage = new Sentence({
             root_id: sentence.id,
             plain_text: plant_text,
+            page: pageImage._id,
         });
 
         try {
@@ -221,6 +259,12 @@ class NotionProcessingService {
         } catch (error) {
             return null;
         }
+
+        await pageImage.updateOne({
+            $push: {
+                sentences: senteceImage._id,
+            },
+        });
 
         return senteceImage;
     }
