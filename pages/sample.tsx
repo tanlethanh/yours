@@ -35,6 +35,9 @@ const Home: NextPage = () => {
                         text: 'Xin chao tat ca cac ban',
                     },
                 ]}
+                updateNumberCorrect={undefined}
+                title={'Hello'}
+                next={() => {}}
             />
 
             <FullTextQuestion
