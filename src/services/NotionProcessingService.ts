@@ -2,16 +2,17 @@ import { Types } from "mongoose";
 import Log from "../helpers/Log.js";
 import NotionProvider from "../providers/Notion.js";
 import UserRepo from "../repositories/UserRepo.js";
-import { DuplexQuestionCore, Page, Sentence, User } from "../models/index.js";
-import { IPage } from "../interfaces/index.js";
 import {
-    BlockObjectResponse,
+    DuplexQuestionCore,
+    FillWordQuestionCore,
+    Page,
+    Sentence,
+    User,
+} from "../models/index.js";
+import { Difficulty, IPage, Language } from "../interfaces/index.js";
+import {
     PageObjectResponse,
-    PartialBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints.js";
-
-// import { franc } from "franc";
-import { isGeneratorFunction } from "util/types";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -190,7 +191,6 @@ class NotionProcessingService {
     }
 
     async generateQuestionCore(sentence: any, sentenceImageId: Types.ObjectId) {
-
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
                 return prev + cur.plain_text;
@@ -245,27 +245,86 @@ class NotionProcessingService {
         let left, right;
         [left, right] = modifiedText.split(seperated_chars[0]);
 
-        // Generate duplexQuestionCore
-        this.createDuplexQuestionCore(
-            sentenceImageId,
-            left.replace("|\\b", "").replace("\\b|", ""),
-            right.replace("|\\b", "").replace("\\b|", "")
-        );
+        // Create all duplex questions
+        await this.createDuplexQuestionCore(sentenceImageId, left, right);
 
-        // Generate fillWordQuestionCore
+        // Create fill word question
+        await this.createFillWordQuestionCore(sentenceImageId, left);
     }
 
-    createDuplexQuestionCore(
+    async createDuplexQuestionCore(
         sentenceImageId: Types.ObjectId,
         left: string,
         right: string
     ) {
-        console.log(`Left string: ${left}`);
-        console.log(`Right string ${right}`);
+        const boldRegExp = new RegExp("\\\\b.*\\\\b");
 
-        // const questionCore = new DuplexQuestionCore({
-        //     sentence: sentenceImageId,
-        // });
+        // Handle list string
+        const leftBoldWords = left
+            .split("|")
+            .filter((word) => {
+                return boldRegExp.test(word);
+            })
+            .map((word) => word.replaceAll("\\b", "").trim());
+
+        const rightBoldWords = right
+            .split("|")
+            .filter((word) => {
+                return boldRegExp.test(word);
+            })
+            .map((word) => word.replaceAll("\\b", "").trim());
+
+        // Generate document
+        if (leftBoldWords.length === rightBoldWords.length) {
+            leftBoldWords.forEach(async (word, index) => {
+                await DuplexQuestionCore.create({
+                    first: {
+                        text: word,
+                    },
+                    second: {
+                        text: rightBoldWords[index],
+                    },
+                    sentence: sentenceImageId,
+                    dificulty: Difficulty.EASY,
+                });
+            });
+        }
+
+        await DuplexQuestionCore.create({
+            first: {
+                text: left.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+            },
+            second: {
+                text: right.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+            },
+            dificulty: Difficulty.HARD,
+        });
+    }
+
+    async createFillWordQuestionCore(
+        sentenceImageId: Types.ObjectId,
+        modifiedText: string
+    ) {
+        const listWords = modifiedText.split("|");
+
+        const fillFieldIndexes: Array<Number> = [];
+
+        const boldRegExp = new RegExp("\\\\b.*\\\\b");
+        const newListWords = listWords.map((word, index) => {
+            if (boldRegExp.test(word)) {
+                fillFieldIndexes.push(index);
+                // Remove \b chars
+                return word.replaceAll("\\b", "").trim();
+            }
+            return word.trim();
+        });
+
+        await FillWordQuestionCore.create({
+            sentence: sentenceImageId,
+            list_words: newListWords,
+            fill_field_indexes: fillFieldIndexes,
+            dificulty: Difficulty.MEDIUM,
+        });
     }
 }
 
