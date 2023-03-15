@@ -20,9 +20,9 @@ function MultichoiceQuestion({
         {
             text: string
             isSolution: boolean
-        }
-    ]
-    updateNumberCorrect: Function
+        } 
+    ] | any
+    updateNumberCorrect: Function | undefined
     next: any
 }) {
     const [chosenIndex, setChosenIndex] = useState(-1)
@@ -74,7 +74,7 @@ function MultichoiceQuestion({
             </div>
 
             <div className="flex flex-col w-full space-y-2">
-                {answers?.map((ans, index) => {
+                {answers?.map((ans: any, index: any) => {
                     const ansLabel = getLabel(index)
 
                     return (

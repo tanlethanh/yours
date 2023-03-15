@@ -3,7 +3,7 @@ import { MultichoiceQuestion } from '.'
 import { useRouter } from 'next/router'
 import { AnimatePresence } from 'framer-motion'
 
-function QuestionCard({ testId, id }) {
+function QuestionCard({ testId, id }: any) {
     const router = useRouter()
 
     return (
@@ -31,6 +31,7 @@ function QuestionCard({ testId, id }) {
                 next={() => {
                     router.push(`/tests/${testId}/${Number(id) + 1}`)
                 }}
+                updateNumberCorrect={undefined}
             />
         </>
     )
