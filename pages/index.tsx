@@ -6,6 +6,7 @@ import {
     FullTextQuestion,
     HalfTextQuestion,
 } from '../components/question-card'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
     return (
@@ -14,16 +15,12 @@ const Home: NextPage = () => {
             <a target="_blank" href={process.env.AUTHORIZATION_URL?.toString()}>
                 Add to Notion
             </a>
+            <Link href="/login">
+                Go to Login
+            </Link>
         </div>
     )
 }
 
 export default Home
 
-// export async function getStaticProps() {
-//     return {
-//         AUTHORIZATION_URL: process.env.AUTHORIZATION_URL,
-//         OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
-//         OAUTH_CLIENT_SECRET: process.env.OAUTH_CLIENT_SECRET,
-//     }
-// }
