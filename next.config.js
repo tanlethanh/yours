@@ -4,7 +4,7 @@ module.exports = {
     async rewrites() {
         return [
             {
-                source: '/:slug*',
+                source: '/api/:slug*',
                 destination: 'http://localhost:4040/:slug*',
             },
         ]
