@@ -10,9 +10,7 @@ import {
     User,
 } from "../models/index.js";
 import { Difficulty, IPage, Language } from "../interfaces/index.js";
-import {
-    PageObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints.js";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -45,6 +43,12 @@ class NotionProcessingService {
         return updateResult;
     }
 
+    /**
+     * This method is a service function for sync data of user
+     * TODO: Get data and pass to children function
+     * 
+     * @userId Id of user from request body or anywhere
+     * */ 
     async syncDataByUserId(userId: Types.ObjectId) {
         const accessToken = await UserRepo.getAccessTokenOfUser(userId);
 
@@ -59,6 +63,17 @@ class NotionProcessingService {
         return pages;
     }
 
+    /**
+     * This method is a service function for sync all pages of user
+     * If a page is deleted, we mark page image to deleted
+     * Else we will sync all sentences of this page
+     *
+     * @param userId
+     * @param accessToken access token of user
+     * @param pageImages page image data from database
+     * @param pages page data from notion response
+     * @returns
+     */
     syncAllPagesOfUser(
         userId: Types.ObjectId,
         accessToken: string,
@@ -166,7 +181,8 @@ class NotionProcessingService {
     }
 
     /**
-     *
+     * This method create sentence image
+     * And its question cores
      * */
     async createSentenceWithQuestionCore(sentence: any) {
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
@@ -190,6 +206,9 @@ class NotionProcessingService {
         return senteceImage;
     }
 
+    /**
+     * This method generate question core from a sentence
+     */
     async generateQuestionCore(sentence: any, sentenceImageId: Types.ObjectId) {
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
@@ -252,6 +271,12 @@ class NotionProcessingService {
         await this.createFillWordQuestionCore(sentenceImageId, left);
     }
 
+    /**
+     * This method generate duplex question core
+     * Include:
+     * * Whole string question
+     * * Marked string questions
+     * */
     async createDuplexQuestionCore(
         sentenceImageId: Types.ObjectId,
         left: string,
@@ -301,6 +326,10 @@ class NotionProcessingService {
         });
     }
 
+    /**
+     * This method generate fill word question core
+     * From whole string and marked words
+     */
     async createFillWordQuestionCore(
         sentenceImageId: Types.ObjectId,
         modifiedText: string
