@@ -150,15 +150,15 @@ class NotionProcessingService {
             );
 
             if (!senteceImage) {
-                const newSentenceImage = await this.createSentenceWithQuestionCore(
-                    sentence,
-                    detailPageImages as IPage
-                );
+                const newSentenceImage =
+                    await this.createSentenceWithQuestionCore(
+                        sentence,
+                        detailPageImages as IPage
+                    );
 
                 await (newSentenceImage as ISentence).save();
             } else {
-
-                senteceImage.is_deleted = true
+                senteceImage.is_deleted = true;
 
                 if (
                     senteceImage.last_edited_time <=
@@ -172,7 +172,11 @@ class NotionProcessingService {
                     });
 
                     // Regenerate question cores
-                    await this.generateQuestionCore(sentence, senteceImage);
+                    try {
+                        await this.generateQuestionCore(sentence, senteceImage);
+                    } catch (error) {
+                        console.log(error);
+                    }
                 } else {
                     // No need to sync
                     return;
@@ -255,7 +259,7 @@ class NotionProcessingService {
         });
 
         try {
-            this.generateQuestionCore(sentence, senteceImage);
+            await this.generateQuestionCore(sentence, senteceImage);
         } catch (error) {
             return null;
         }
@@ -327,6 +331,10 @@ class NotionProcessingService {
         let left, right;
         [left, right] = modifiedText.split(seperated_chars[0]);
 
+        if (left.trim().length === 0 || right.trim().length === 0) {
+            throw Error("Both two sides must have data");
+        }
+
         // Create all duplex questions
         await this.createDuplexQuestionCore(sentenceImage, left, right);
 
@@ -365,7 +373,10 @@ class NotionProcessingService {
         const questionIds = [];
 
         // Generate document
-        if (leftBoldWords.length === rightBoldWords.length && leftBoldWords.length > 0) {
+        if (
+            leftBoldWords.length === rightBoldWords.length &&
+            leftBoldWords.length > 0
+        ) {
             leftBoldWords.forEach(async (word, index) => {
                 const question = await DuplexQuestionCore.create({
                     first: {
@@ -426,7 +437,7 @@ class NotionProcessingService {
 
         // Dont have bold fields
         if (fillFieldIndexes.length === 0) {
-            return
+            return;
         }
 
         const question = await FillWordQuestionCore.create({
