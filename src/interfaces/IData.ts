@@ -23,6 +23,11 @@ export interface INotionData {
     duplicated_template_id: string;
 }
 
+export enum UserRole {
+    ADMIN='ADMIN',
+    USER='USER'
+}
+
 export interface IUser extends Document {
     _id: Schema.Types.ObjectId;
     email: string;
@@ -30,6 +35,8 @@ export interface IUser extends Document {
     password: string;
     notion_data: INotionData;
     pages: Array<IPage>;
+    firebase_uid: String;
+    role: UserRole
 }
 
 export interface IPage extends Document {
