@@ -30,9 +30,10 @@ class MongoDB {
                 firebase_uid: Locals.config().DEFAULT_USER_FIREBASE_UID,
             });
             await defautUser.save();
+            console.log("Default user is created")
             this.defaultUser = defautUser;
         } catch (error) {
-            // console.log(erorr);
+            // console.log(error);
             this.defaultUser = await User.findOne({
                 email: Locals.config().DEFAULT_USER_EMAIL,
             });
