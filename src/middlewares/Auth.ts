@@ -13,7 +13,7 @@ class Auth {
         next: Function
     ) {
         try {
-            let user;
+            let user; 
 
             if (
                 // For dev mode
@@ -51,7 +51,7 @@ class Auth {
 
             (req as any).user = user;
 
-            return next(req, res);
+            return next();
         } catch (error: any) {
             console.log(error);
             return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -77,7 +77,7 @@ class Auth {
             });
         }
 
-        return next(req, res);
+        return next();
     }
 }
 
