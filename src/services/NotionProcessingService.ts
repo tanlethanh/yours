@@ -226,7 +226,7 @@ class NotionProcessingService {
                         detailPageImages as IPage
                     );
 
-                await (newSentenceImage as ISentence).save();
+                await (newSentenceImage as ISentence)?.save();
             } else {
                 senteceImage.is_deleted = true;
 
@@ -280,11 +280,9 @@ class NotionProcessingService {
         try {
             await this.generateQuestionCore(sentence, senteceImage);
         } catch (error) {
-            console.log(error);
             return null;
         }
 
-        console.log("update page image");
         await pageImage.updateOne({
             $push: {
                 sentences: senteceImage._id,
@@ -427,10 +425,13 @@ class NotionProcessingService {
         questionIds.push(question._id);
 
         // Push children to sentence image
+        /**
+         * Some trouble here
+         * Does updateOne work with local document?
+         * */
+        (sentenceImage.list_question_core as any) = questionIds;
         await sentenceImage.updateOne({
-            $pullAll: {
-                list_question_core: questionIds,
-            },
+            list_question_core: questionIds,
         });
     }
 
