@@ -9,3 +9,4 @@ src/test.ts
 temp.js
 /.logs
 private/
+.env
