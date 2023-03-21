@@ -1,8 +1,8 @@
 import cors from 'cors';
 import { Application } from 'express';
 
-import Log from '../helpers/Log';
-import Locals from '../providers/Locals';
+import Log from '../helpers/Log.js';
+import Locals from '../providers/Locals.js';
 
 class CORS {
 	public static mount(_express: Application) {

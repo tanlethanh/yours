@@ -1,5 +1,5 @@
 import { Application } from "express";
-import apiV1 from "./api/v1";
+import apiV1 from "./api/v1.js";
 
 class ApiRoute {
     app: Application;

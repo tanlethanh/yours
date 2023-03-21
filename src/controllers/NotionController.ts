@@ -1,20 +1,17 @@
 import { Request, Response, query } from "express";
 import { StatusCodes } from "http-status-codes";
-import NotionProcessingService from "../services/NotionProcessingService";
-import Locals from "../providers/Locals";
-import MongoDB from "../providers/MongoDB";
+import NotionProcessingService from "../services/NotionProcessingService.js";
+import Locals from "../providers/Locals.js";
+import { IUser } from "../interfaces/IData.js";
 
 class NotionController {
     // Hello world
 
     public static syncDataByUserId = async (
-        req: Request | any,
+        req: Request & { user: IUser },
         res: Response
     ) => {
-        let userId = req.userId;
-        if (Locals.config().NODE_ENV === "development") {
-            userId = req.userId ? req.userId : MongoDB.defaultUser._id;
-        }
+        let userId = req.user.id;
 
         let result = null;
         try {
@@ -34,10 +31,12 @@ class NotionController {
                 data: result,
             });
         }
-
     };
 
-    public static postAuthCode = async (req: Request | any, res: Response) => {
+    public static postAuthCode = async (
+        req: Request & { user: IUser },
+        res: Response
+    ) => {
         const { code } = req.query;
 
         if (!code) {
@@ -46,14 +45,11 @@ class NotionController {
             });
         }
 
-        let userId = req.userId;
-        if (Locals.config().NODE_ENV === "development") {
-            userId = req.userId ? req.userId : MongoDB.defaultUser._id;
-        }
+        let userId = req.user.id;
 
         const result = NotionProcessingService.getAndSaveAccessTokenFromNotion(
             userId,
-            code
+            code as string
         );
 
         if (!result) {

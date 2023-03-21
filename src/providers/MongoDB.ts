@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Locals from "./Locals";
-import { Page, User } from "../models";
-import { IPage, IUser } from "../interfaces/IData";
+import Locals from "./Locals.js";
+import { Page, User } from "../models/index.js";
+import { IPage, IUser, UserRole } from "../interfaces/IData.js";
 
 class MongoDB {
     connection: any;
@@ -13,13 +13,6 @@ class MongoDB {
             this.connection = mongoose.connect(Locals.config().MONGOOSE_URI);
             await this.connection;
             console.log("MongoDB connected!");
-            // const newPage: IPage = new Page({
-            //     root_id: "abc",
-            //     title: "Page đầu tiên",
-            //     url: "https://google.com"
-
-            // })
-            // newPage.save()
         } catch (error: any) {
             console.log("MongoDB error");
             console.error(error.message);
@@ -31,17 +24,18 @@ class MongoDB {
         try {
             await this.connection;
             const defautUser: IUser = new User({
-                email: "tantainang8266@gmail.com",
-                username: "tanle",
-                password: "123456",
+                email: Locals.config().DEFAULT_USER_EMAIL,
                 notion_data: new Object(),
+                role: UserRole.ADMIN,
+                firebase_uid: Locals.config().DEFAULT_USER_FIREBASE_UID,
             });
             await defautUser.save();
+            console.log("Default user is created")
             this.defaultUser = defautUser;
         } catch (error) {
-            // console.log(erorr);
+            // console.log(error);
             this.defaultUser = await User.findOne({
-                email: "tantainang8266@gmail.com",
+                email: Locals.config().DEFAULT_USER_EMAIL,
             });
         }
     }

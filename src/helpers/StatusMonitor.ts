@@ -1,8 +1,8 @@
 import { Application } from 'express';
 import expressStatusMonitor from 'express-status-monitor';
 
-import Log from './Log';
-import Locals from '../providers/Locals';
+import Log from './Log.js';
+import Locals from '../providers/Locals.js';
 
 class StatusMonitor {
 	public static mount (_express: Application) {

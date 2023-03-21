@@ -1,17 +1,17 @@
 import { Types } from "mongoose";
-import Log from "../helpers/Log";
-import NotionProvider from "../providers/Notion";
-import UserRepo from "../repositories/UserRepo";
-import { DuplexQuestionCore, Page, Sentence, User } from "../models";
-import { IPage } from "../interfaces";
+import Log from "../helpers/Log.js";
+import NotionProvider from "../providers/Notion.js";
+import UserRepo from "../repositories/UserRepo.js";
 import {
-    BlockObjectResponse,
-    PageObjectResponse,
-    PartialBlockObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
-
-// import { franc } from "franc";
-import { isGeneratorFunction } from "util/types";
+    DuplexQuestionCore,
+    FillWordQuestionCore,
+    Page,
+    QuestionCore,
+    Sentence,
+    User,
+} from "../models/index.js";
+import { Difficulty, IPage, ISentence } from "../interfaces/index.js";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -44,6 +44,12 @@ class NotionProcessingService {
         return updateResult;
     }
 
+    /**
+     * This method is a service function for sync data of user
+     * TODO: Get data and pass to children function
+     *
+     * @userId Id of user from request body or anywhere
+     * */
     async syncDataByUserId(userId: Types.ObjectId) {
         const accessToken = await UserRepo.getAccessTokenOfUser(userId);
 
@@ -53,11 +59,33 @@ class NotionProcessingService {
         const pages = await NotionProvider.getAllSharedPagesOfUser(accessToken);
         const pageImages = await UserRepo.getAllPageImagesOfUser(userId);
 
-        this.syncAllPagesOfUser(userId, accessToken, [], pages as any);
+        this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
+
+        // Mark deleted Page
+        const deletedPageImages = pageImages.filter((pageImg) => {
+            return !(pageImg as any).isSynced;
+        });
+
+        deletedPageImages.forEach((page) => {
+            page.updateOne({
+                is_deleted: true,
+            });
+        });
 
         return pages;
     }
 
+    /**
+     * This method is a service function for sync all pages of user
+     * If a page is deleted, we mark page image to deleted
+     * Else we will sync all sentences of this page
+     *
+     * @param userId
+     * @param accessToken access token of user
+     * @param pageImages page image data from database
+     * @param pages page data from notion response
+     * @returns
+     */
     syncAllPagesOfUser(
         userId: Types.ObjectId,
         accessToken: string,
@@ -72,35 +100,92 @@ class NotionProcessingService {
             if (!pageImage) {
                 // Add new image of page
                 this.addNewPageImageForUser(userId, accessToken, page);
-            } else if (
-                (pageImage?.last_edited_time as Date) >=
-                new Date(page?.last_edited_time)
-            ) {
-                /*
-                    Just sync data when having image of this page,
-                    And the image have not updated after last update of page
-                */
-                this.syncSinglePage(
-                    userId,
-                    accessToken,
-                    page,
-                    pageImage as IPage
-                );
             } else {
-                // No need to sync
-                return;
+                if (
+                    (pageImage?.last_edited_time as Date) <=
+                    new Date(page?.last_edited_time)
+                ) {
+                    /*
+                        Just sync data when having image of this page,
+                        And the image have not updated after last update of page
+                    */
+                    this.syncSinglePage(
+                        userId,
+                        accessToken,
+                        page,
+                        pageImage as IPage
+                    );
+                } else {
+                    // No need to sync
+                    return;
+                }
+
+                (pageImage as any).isSynced = true;
             }
         });
 
         return SyncResult.SYNC_SUCCESS;
     }
 
-    syncSinglePage(
+    async syncSinglePage(
         userId: Types.ObjectId,
         accessToken: string,
         page: any,
         pageImage: IPage
-    ): SyncResult {
+    ) {
+        const sentenceList = await this.getNotionSentences(
+            accessToken,
+            page.id
+        );
+
+        const detailPageImages = await Page.findById(pageImage._id).populate(
+            "sentences"
+        );
+
+        sentenceList.forEach(async (sentence: any) => {
+            const senteceImage = (detailPageImages?.sentences as any).find(
+                (ele: ISentence) => {
+                    return ele.root_id == sentence.id;
+                }
+            );
+
+            if (!senteceImage) {
+                const newSentenceImage =
+                    await this.createSentenceWithQuestionCore(
+                        sentence,
+                        detailPageImages as IPage
+                    );
+
+                await (newSentenceImage as ISentence).save();
+            } else {
+                senteceImage.is_deleted = true;
+
+                if (
+                    senteceImage.last_edited_time <=
+                    new Date(sentence.last_edited_time)
+                ) {
+                    // Delete all old question core
+                    QuestionCore.deleteMany({
+                        $in: {
+                            _id: senteceImage.list_question_core,
+                        },
+                    });
+
+                    // Regenerate question cores
+                    try {
+                        await this.generateQuestionCore(sentence, senteceImage);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                } else {
+                    // No need to sync
+                    return;
+                }
+            }
+        });
+
+        console.log(detailPageImages);
+
         return SyncResult.SYNC_SUCCESS;
     }
 
@@ -116,11 +201,10 @@ class NotionProcessingService {
         page: any
     ) {
         // Just use bulleted_list_item to handle
-        const sentenceList = (
-            await NotionProvider.getPageChildren(accessToken, page.id)
-        ).filter((block) => {
-            return (block as any).type === "bulleted_list_item";
-        });
+        const sentenceList = await this.getNotionSentences(
+            accessToken,
+            page.id
+        );
 
         // Create image for this page
         const newPageImage = new Page({
@@ -132,22 +216,14 @@ class NotionProcessingService {
 
         // Create all sentence for current image
         let sentenceImages = await Promise.all(
-            sentenceList.map(async (sentence) => {
+            sentenceList.map(async (sentence: any) => {
                 const sentenceImage = await this.createSentenceWithQuestionCore(
-                    sentence
+                    sentence,
+                    newPageImage
                 );
-
-                // Ref id
-                if (sentenceImage) {
-                    sentenceImage.page = newPageImage._id;
-                }
                 return sentenceImage;
             })
         );
-
-        sentenceImages = sentenceImages.filter((ele) => ele != null);
-
-        newPageImage.sentences = sentenceImages.map((ele: any) => ele._id);
 
         // Store all of them
         await Promise.all(
@@ -165,9 +241,10 @@ class NotionProcessingService {
     }
 
     /**
-     *
+     * This method create sentence image
+     * And its question cores
      * */
-    async createSentenceWithQuestionCore(sentence: any) {
+    async createSentenceWithQuestionCore(sentence: any, pageImage: IPage) {
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
                 return prev + cur.plain_text;
@@ -178,19 +255,28 @@ class NotionProcessingService {
         const senteceImage = new Sentence({
             root_id: sentence.id,
             plain_text: plant_text,
+            page: pageImage._id,
         });
 
         try {
-            this.generateQuestionCore(sentence, senteceImage._id as any);
+            await this.generateQuestionCore(sentence, senteceImage);
         } catch (error) {
             return null;
         }
 
+        await pageImage.updateOne({
+            $push: {
+                sentences: senteceImage._id,
+            },
+        });
+
         return senteceImage;
     }
 
-    async generateQuestionCore(sentence: any, sentenceImageId: Types.ObjectId) {
-
+    /**
+     * This method generate question core from a sentence
+     */
+    async generateQuestionCore(sentence: any, sentenceImage: ISentence) {
         const plant_text = (sentence.bulleted_list_item.rich_text as []).reduce(
             (prev: any, cur: any) => {
                 return prev + cur.plain_text;
@@ -245,27 +331,139 @@ class NotionProcessingService {
         let left, right;
         [left, right] = modifiedText.split(seperated_chars[0]);
 
-        // Generate duplexQuestionCore
-        this.createDuplexQuestionCore(
-            sentenceImageId,
-            left.replace("|\\b", "").replace("\\b|", ""),
-            right.replace("|\\b", "").replace("\\b|", "")
-        );
+        if (left.trim().length === 0 || right.trim().length === 0) {
+            throw Error("Both two sides must have data");
+        }
 
-        // Generate fillWordQuestionCore
+        // Create all duplex questions
+        await this.createDuplexQuestionCore(sentenceImage, left, right);
+
+        // Create fill word question
+        await this.createFillWordQuestionCore(sentenceImage, left);
     }
 
-    createDuplexQuestionCore(
-        sentenceImageId: Types.ObjectId,
+    /**
+     * This method generate duplex question core
+     * Include:
+     * * Whole string question
+     * * Marked string questions
+     * */
+    async createDuplexQuestionCore(
+        sentenceImage: ISentence,
         left: string,
         right: string
     ) {
-        console.log(`Left string: ${left}`);
-        console.log(`Right string ${right}`);
+        const boldRegExp = new RegExp("\\\\b.*\\\\b");
 
-        // const questionCore = new DuplexQuestionCore({
-        //     sentence: sentenceImageId,
-        // });
+        // Handle list string
+        const leftBoldWords = left
+            .split("|")
+            .filter((word) => {
+                return boldRegExp.test(word);
+            })
+            .map((word) => word.replaceAll("\\b", "").trim());
+
+        const rightBoldWords = right
+            .split("|")
+            .filter((word) => {
+                return boldRegExp.test(word);
+            })
+            .map((word) => word.replaceAll("\\b", "").trim());
+
+        const questionIds = [];
+
+        // Generate document
+        if (
+            leftBoldWords.length === rightBoldWords.length &&
+            leftBoldWords.length > 0
+        ) {
+            leftBoldWords.forEach(async (word, index) => {
+                const question = await DuplexQuestionCore.create({
+                    first: {
+                        text: word,
+                    },
+                    second: {
+                        text: rightBoldWords[index],
+                    },
+                    sentence: sentenceImage._id,
+                    dificulty: Difficulty.EASY,
+                });
+
+                questionIds.push(question._id);
+            });
+        }
+
+        const question = await DuplexQuestionCore.create({
+            first: {
+                text: left.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+            },
+            second: {
+                text: right.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+            },
+            dificulty: Difficulty.HARD,
+        });
+
+        questionIds.push(question._id);
+
+        // Push children to sentence image
+        await sentenceImage.updateOne({
+            $pullAll: {
+                list_question_core: questionIds,
+            },
+        });
+    }
+
+    /**
+     * This method generate fill word question core
+     * From whole string and marked words
+     */
+    async createFillWordQuestionCore(
+        sentenceImage: ISentence,
+        modifiedText: string
+    ) {
+        const listWords = modifiedText.split("|");
+
+        const fillFieldIndexes: Array<Number> = [];
+
+        const boldRegExp = new RegExp("\\\\b.*\\\\b");
+        const newListWords = listWords.map((word, index) => {
+            if (boldRegExp.test(word)) {
+                fillFieldIndexes.push(index);
+                // Remove \b chars
+                return word.replaceAll("\\b", "").trim();
+            }
+            return word.trim();
+        });
+
+        // Dont have bold fields
+        if (fillFieldIndexes.length === 0) {
+            return;
+        }
+
+        const question = await FillWordQuestionCore.create({
+            sentence: sentenceImage._id,
+            list_words: newListWords,
+            fill_field_indexes: fillFieldIndexes,
+            dificulty: Difficulty.MEDIUM,
+        });
+
+        // Push child to sentence image
+        await sentenceImage.updateOne({
+            $push: {
+                list_question_core: question._id,
+            },
+        });
+    }
+
+    private async getNotionSentences(
+        accessToken: string,
+        pageId: string
+    ): Promise<Array<Object>> {
+        return (
+            await NotionProvider.getPageChildren(accessToken, pageId)
+        ).filter((block) => {
+            return (block as any).type === "bulleted_list_item";
+        });
     }
 }
 

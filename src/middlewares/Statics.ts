@@ -1,11 +1,16 @@
 import * as path from 'path';
 import express, { Application } from 'express';
 
-import Log from '../helpers/Log';
+import Log from '../helpers/Log.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 class Statics {
 	public static mount(_express: Application) {
-		Log.info('Booting the \'Statics\' middleware...');
+		Log.info('Booting the \'Statics\' middleiware...');
 
 		// Loads Options
 		const options = { maxAge: 31557600000 };

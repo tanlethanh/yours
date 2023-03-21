@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser, INotionData } from "../interfaces";
+import { IUser, INotionData, UserRole } from "../interfaces/index.js";
 
 const notionDataSchema = new Schema<INotionData>({
     access_token: {
@@ -23,16 +23,25 @@ const userSchema = new Schema<IUser>(
         },
         username: {
             type: String,
-            required: true,
-            unique: true,
+            required: false,
+            unique: false,
         },
         password: {
             type: String,
-            required: true,
+            required: false,
         },
         notion_data: {
             type: notionDataSchema,
-            required: true,
+            required: false,
+        },
+        firebase_uid: {
+            type: String,
+            required: true
+        },
+        role: {
+            type: String,
+            enum: Object.values(UserRole),
+            required:  true
         },
         pages: [
             {
