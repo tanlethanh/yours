@@ -9,6 +9,7 @@ export function withAuth(Component: any) {
 
         useEffect(() => {
             if (!loading && !user) {
+                console.log("Not found user, require to sign in")
                 router.replace(`/login?redirect=${router.asPath}`)
             }
         }, [user, loading, router])
