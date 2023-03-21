@@ -3,6 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import NotionProcessingService from "../services/NotionProcessingService.js";
 import Locals from "../providers/Locals.js";
 import { IUser } from "../interfaces/IData.js";
+import { Types } from "mongoose";
 
 class NotionController {
     // Hello world
@@ -11,11 +12,11 @@ class NotionController {
         req: Request & { user: IUser },
         res: Response
     ) => {
-        let userId = req.user.id;
+        let userId = req.user._id;
 
         let result = null;
         try {
-            result = await NotionProcessingService.syncDataByUserId(userId);
+            result = await NotionProcessingService.syncDataByUserId(userId as any);
         } catch (error: any) {
             return res.status(StatusCodes.BAD_REQUEST).json({
                 message: error.message,

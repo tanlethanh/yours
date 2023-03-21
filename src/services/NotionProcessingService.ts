@@ -56,7 +56,9 @@ class NotionProcessingService {
         if (!accessToken) {
             throw new Error("Can not find access token of this user");
         }
-        const pages = await NotionProvider.getAllSharedPagesOfUser(accessToken);
+
+        // Use custom method of this service to filter page data
+        const pages = await this.getNotionPages(accessToken);
         const pageImages = await UserRepo.getAllPageImagesOfUser(userId);
 
         this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
@@ -127,6 +129,74 @@ class NotionProcessingService {
         return SyncResult.SYNC_SUCCESS;
     }
 
+    /**
+     * This method get all children of current page
+     * Then map the block child to sentence image
+     * @param userId
+     * @param page Page object from Notion Provider
+     */
+    async addNewPageImageForUser(
+        userId: Types.ObjectId,
+        accessToken: string,
+        page: any
+    ) {
+        // Just use bulleted_list_item to handle
+        const sentenceList = await this.getNotionSentences(
+            accessToken,
+            page.id
+        );
+
+        // Create image for this page
+        let title = "Undefined";
+        try {
+            title =
+                page.properties.Name?.title[0].plain_text ||
+                page.properties.title?.title[0].plain_text ||
+                title;
+        } catch (error) {}
+
+        const newPageImage = new Page({
+            root_id: page.id,
+            title: title,
+            url: page.url,
+            sentences: [],
+        });
+
+        // Create all sentence for current image
+        let sentenceImages = (
+            await Promise.all(
+                sentenceList.map(async (sentence: any) => {
+                    const sentenceImage =
+                        await this.createSentenceWithQuestionCore(
+                            sentence,
+                            newPageImage
+                        );
+                    return sentenceImage;
+                })
+            )
+        ).filter((st) => st);
+
+        /**
+         * Important, if document has not saved yet,
+         * we can use updated function to update document
+         * */
+        (newPageImage.sentences as any) = sentenceImages.map((ele) => ele?._id);
+
+        // Store all of them
+        await Promise.all(
+            [newPageImage, ...sentenceImages].map(async (ele) => ele?.save())
+        );
+
+        await User.updateOne(
+            { _id: userId },
+            {
+                $push: {
+                    pages: newPageImage._id,
+                },
+            }
+        );
+    }
+
     async syncSinglePage(
         userId: Types.ObjectId,
         accessToken: string,
@@ -156,7 +226,7 @@ class NotionProcessingService {
                         detailPageImages as IPage
                     );
 
-                await (newSentenceImage as ISentence).save();
+                await (newSentenceImage as ISentence)?.save();
             } else {
                 senteceImage.is_deleted = true;
 
@@ -187,57 +257,6 @@ class NotionProcessingService {
         console.log(detailPageImages);
 
         return SyncResult.SYNC_SUCCESS;
-    }
-
-    /**
-     * This method get all children of current page
-     * Then map the block child to sentence image
-     * @param userId
-     * @param page Page object from Notion Provider
-     */
-    async addNewPageImageForUser(
-        userId: Types.ObjectId,
-        accessToken: string,
-        page: any
-    ) {
-        // Just use bulleted_list_item to handle
-        const sentenceList = await this.getNotionSentences(
-            accessToken,
-            page.id
-        );
-
-        // Create image for this page
-        const newPageImage = new Page({
-            root_id: page.id,
-            title: page.properties.title.title[0].plain_text,
-            url: page.url,
-            sentences: [],
-        });
-
-        // Create all sentence for current image
-        let sentenceImages = await Promise.all(
-            sentenceList.map(async (sentence: any) => {
-                const sentenceImage = await this.createSentenceWithQuestionCore(
-                    sentence,
-                    newPageImage
-                );
-                return sentenceImage;
-            })
-        );
-
-        // Store all of them
-        await Promise.all(
-            [newPageImage, ...sentenceImages].map(async (ele) => ele?.save())
-        );
-
-        await User.updateOne(
-            { _id: userId },
-            {
-                $push: {
-                    pages: newPageImage._id,
-                },
-            }
-        );
     }
 
     /**
@@ -395,21 +414,28 @@ class NotionProcessingService {
 
         const question = await DuplexQuestionCore.create({
             first: {
-                text: left.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+                text: left.replaceAll("|\\b", "").replaceAll("\\b|", "").trim(),
             },
             second: {
-                text: right.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+                text: right
+                    .replaceAll("|\\b", "")
+                    .replaceAll("\\b|", "")
+                    .trim(),
             },
+            sentence: sentenceImage._id,
             dificulty: Difficulty.HARD,
         });
 
         questionIds.push(question._id);
 
         // Push children to sentence image
+        /**
+         * Some trouble here
+         * Does updateOne work with local document?
+         * */
+        (sentenceImage.list_question_core as any) = questionIds;
         await sentenceImage.updateOne({
-            $pullAll: {
-                list_question_core: questionIds,
-            },
+            list_question_core: questionIds,
         });
     }
 
@@ -463,6 +489,14 @@ class NotionProcessingService {
             await NotionProvider.getPageChildren(accessToken, pageId)
         ).filter((block) => {
             return (block as any).type === "bulleted_list_item";
+        });
+    }
+
+    private async getNotionPages(accessToken: string): Promise<Array<Object>> {
+        return (
+            await NotionProvider.getAllSharedPagesOfUser(accessToken)
+        ).filter((page) => {
+            return (page as any).object === "page";
         });
     }
 }

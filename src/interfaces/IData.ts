@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Document, Schema, Types } from "mongoose";
 
 export interface INotionData {
     access_token: string;
@@ -24,8 +24,8 @@ export interface INotionData {
 }
 
 export enum UserRole {
-    ADMIN='ADMIN',
-    USER='USER'
+    ADMIN = "ADMIN",
+    USER = "USER",
 }
 
 export interface IUser extends Document {
@@ -36,7 +36,7 @@ export interface IUser extends Document {
     notion_data: INotionData;
     pages: Array<IPage>;
     firebase_uid: String;
-    role: UserRole
+    role: UserRole;
 }
 
 export interface IPage extends Document {
@@ -110,10 +110,54 @@ export interface IFillWordQuestionCore extends IQuestionCore {
     type: QuestionType.CORE_FILL;
 }
 
-interface IPracticeTest {}
+export enum PracticeTestStatus {
+    INIT = "INIT",
+    INPROGRESS = "INPROGRESS",
+    DONE = "DONE",
+}
 
-interface IPracticeQuestion {}
+export enum TestGenerationStrategies {
+    DEFAULT = "DEFAULT",
+}
 
-interface IMultichoiceQuestion extends IPracticeQuestion {}
+export interface IPracticeTest extends Document {
+    _id: Schema.Types.ObjectId;
+    questions: Array<Types.ObjectId> | IPracticeQuestion;
+    count_wrongs: Number;
+    created_time: Date;
+    last_edited_time: Date;
+    submited_time: Date | undefined;
+    status: PracticeTestStatus;
+    strategy: TestGenerationStrategies;
+}
 
-interface ITranslateQuestion extends IPracticeQuestion {}
+export enum PracticeQuestionType {
+    MULTICHOICE = "MULTICHOICE",
+    FILLWORD = "FILLWORD",
+    TRANSLATE = "TRANSLATE",
+}
+
+export interface IPracticeQuestion extends Document {
+    _id: Schema.Types.ObjectId;
+    difficulty: Number;
+    type: PracticeQuestionType;
+}
+
+export interface IMultichoiceQuestion extends IPracticeQuestion {
+    question_text: String;
+    answers: Array<String> | undefined;
+    solution_index: Number;
+    user_answer: Number;
+}
+
+export interface ITranslateQuestion extends IPracticeQuestion {
+    question_text: String;
+    solution: String;
+    user_answer: String;
+}
+
+export interface IFillWordQuestion extends IPracticeQuestion {
+    list_words: Array<String>;
+    solution_index: Number;
+    user_answer: String;
+}
