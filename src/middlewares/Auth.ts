@@ -13,7 +13,7 @@ class Auth {
         next: Function
     ) {
         try {
-            let user; 
+            let user;
 
             if (
                 // For dev mode
