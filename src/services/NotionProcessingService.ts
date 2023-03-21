@@ -414,10 +414,13 @@ class NotionProcessingService {
 
         const question = await DuplexQuestionCore.create({
             first: {
-                text: left.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+                text: left.replaceAll("|\\b", "").replaceAll("\\b|", "").trim(),
             },
             second: {
-                text: right.replace("|\\b", "").replaceAll("\\b|", "").trim(),
+                text: right
+                    .replaceAll("|\\b", "")
+                    .replaceAll("\\b|", "")
+                    .trim(),
             },
             sentence: sentenceImage._id,
             dificulty: Difficulty.HARD,
