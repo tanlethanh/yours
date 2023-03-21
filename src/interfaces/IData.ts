@@ -139,7 +139,6 @@ export enum PracticeQuestionType {
 
 export interface IPracticeQuestion extends Document {
     _id: Schema.Types.ObjectId;
-    question_number: Number;
     difficulty: Number;
     type: PracticeQuestionType;
 }

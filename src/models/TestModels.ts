@@ -12,7 +12,6 @@ import {
 
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     {
-        question_number: Number,
         difficulty: {
             required: true,
             type: Number,
