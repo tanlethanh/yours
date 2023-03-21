@@ -119,7 +119,7 @@ export enum PracticeTestStatus {
 export interface IPracticeTest extends Document {
     _id: Schema.Types.ObjectId;
     questions: Array<Types.ObjectId> | IPracticeQuestion;
-    countWrongs: Number;
+    count_wrongs: Number;
     created_time: Date;
     last_edited_time: Date;
     submited_time: Date | undefined;
@@ -134,26 +134,26 @@ export enum PracticeQuestionType {
 
 export interface IPracticeQuestion extends Document {
     _id: Schema.Types.ObjectId;
-    questionNumber: Number;
+    question_number: Number;
     difficulty: Number;
     type: PracticeQuestionType;
 }
 
 export interface IMultichoiceQuestion extends IPracticeQuestion {
-    questionText: String;
-    answers: Array<String>;
-    solutionIndex: Number;
-    userAnswer: Number;
+    question_text: String;
+    answers: Array<String> | undefined;
+    solution_index: Number;
+    user_answer: Number;
 }
 
 export interface ITranslateQuestion extends IPracticeQuestion {
-    questionText: String;
+    question_text: String;
     solution: String;
-    userAnswer: String;
+    user_answer: String;
 }
 
 export interface IFillWordQuestion extends IPracticeQuestion {
-    listWords: Array<String>;
-    solutionIndex: Number;
-    userAnswer: String;
+    list_words: Array<String>;
+    solution_index: Number;
+    user_answer: String;
 }
