@@ -10,15 +10,21 @@ function RedirectPage() {
     const dataFetchedRef = useRef(false)
 
     const fetchData = async () => {
-        console.log('Query string: ', query.code)
         const res = await apiAxios.post(`notion/auth?code=${query.code}`)
         console.log(res)
+
+        router.push('/tests')
     }
 
     useEffect(() => {
         if (!router.isReady || dataFetchedRef.current) return
         dataFetchedRef.current = true
-        fetchData()
+        try {
+            fetchData()
+        } catch (error) {
+            console.log('Something wrong')
+            console.log(error)
+        }
     }, [router.isReady])
 
     return (
