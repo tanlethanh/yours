@@ -42,8 +42,6 @@ class ExpressApp {
 
     private mountExceptionHander() {
         this.app.use("*", Handler.useNotFoundHandler);
-        this.app.use(Handler.useLogErrors);
-        this.app.use(Handler.useClientErrorHandler);
         this.app.use(Handler.useErrorHandler);
     }
 }
