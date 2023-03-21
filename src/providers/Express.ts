@@ -4,6 +4,7 @@ import { ApiRoute } from "../routes/index.js";
 import MoutMiddlewares from "../middlewares/index.js";
 import Handler from "../exception/Handler.js";
 import MongoDB from "./MongoDB.js";
+import Firebase from "./Firebase.js";
 
 class ExpressApp {
     public app: Application;
@@ -17,6 +18,9 @@ class ExpressApp {
 
         // Init data
         MongoDB.initData();
+
+        // Init firebase app
+        Firebase.initFirebaseApp();
 
         this.mountEnv();
         this.moutMidlewares();
