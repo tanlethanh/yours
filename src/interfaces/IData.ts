@@ -116,6 +116,10 @@ export enum PracticeTestStatus {
     DONE = "DONE",
 }
 
+export enum TestGenerationStrategies {
+    DEFAULT = "DEFAULT",
+}
+
 export interface IPracticeTest extends Document {
     _id: Schema.Types.ObjectId;
     questions: Array<Types.ObjectId> | IPracticeQuestion;
@@ -124,6 +128,7 @@ export interface IPracticeTest extends Document {
     last_edited_time: Date;
     submited_time: Date | undefined;
     status: PracticeTestStatus;
+    strategy: TestGenerationStrategies;
 }
 
 export enum PracticeQuestionType {

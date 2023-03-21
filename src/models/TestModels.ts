@@ -7,38 +7,8 @@ import {
     ITranslateQuestion,
     PracticeQuestionType,
     PracticeTestStatus,
+    TestGenerationStrategies,
 } from "../interfaces/IData.js";
-
-const PraticeTestSchema = new Schema<IPracticeTest>(
-    {
-        questions: {
-            required: true,
-            default: [],
-            type: Array<IPracticeQuestion>,
-            ref: "PracticeQuestion",
-        },
-        count_wrongs: {
-            required: false,
-            type: Number,
-            default: 0,
-        },
-        submited_time: {
-            required: false,
-            type: Date,
-        },
-        status: {
-            required: true,
-            enum: Object.values(PracticeTestStatus),
-            default: PracticeTestStatus.INIT,
-        },
-    },
-    {
-        timestamps: {
-            createdAt: "created_time",
-            updatedAt: "last_edited_time",
-        },
-    }
-);
 
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     {
@@ -106,6 +76,38 @@ const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
         required: false,
     },
 });
+
+const PraticeTestSchema = new Schema<IPracticeTest>(
+    {
+        questions: [PraticeQuestionShema],
+        count_wrongs: {
+            required: false,
+            type: Number,
+            default: 0,
+        },
+        submited_time: {
+            required: false,
+            type: Date,
+        },
+        status: {
+            required: true,
+            type: String,
+            enum: Object.values(PracticeTestStatus),
+            default: PracticeTestStatus.INIT,
+        },
+        strategy: {
+            type: String,
+            enum: Object.values(TestGenerationStrategies),
+            required: true,
+        },
+    },
+    {
+        timestamps: {
+            createdAt: "created_time",
+            updatedAt: "last_edited_time",
+        },
+    }
+);
 
 export const PracticeTest = model<IPracticeTest>(
     "PracticeTest",
