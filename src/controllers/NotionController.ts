@@ -12,9 +12,6 @@ class NotionController {
         req: Request & { user: IUser },
         res: Response
     ) => {
-
-        console.log("Sync Data for user " + req.user.email)
-
         let userId = req.user._id;
 
         let result = null;
