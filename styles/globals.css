@@ -31,6 +31,14 @@
 .questionCard {
     width: 420px;
 }
+.image {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    right: -5%;
+    top: -40px;
+    opacity: 0.1;
+}
 
 .min-height-200px {
     min-height: 200px;
