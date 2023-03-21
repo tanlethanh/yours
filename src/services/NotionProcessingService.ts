@@ -419,6 +419,7 @@ class NotionProcessingService {
             second: {
                 text: right.replace("|\\b", "").replaceAll("\\b|", "").trim(),
             },
+            sentence: sentenceImage._id,
             dificulty: Difficulty.HARD,
         });
 
