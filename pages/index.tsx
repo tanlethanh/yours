@@ -12,15 +12,20 @@ const Home: NextPage = () => {
     return (
         <div className="flex h-screen w-screen items-center justify-center flex-col">
             <h1 className="text-3xl">Hello world</h1>
-            <a target="_blank" href={process.env.AUTHORIZATION_URL?.toString()}>
+            <Link
+                href={
+                    process.env.AUTHORIZATION_URL
+                        ? process.env.AUTHORIZATION_URL.toString()
+                        : '/'
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 Add to Notion
-            </a>
-            <Link href="/login">
-                Go to Login
             </Link>
+            <Link href="/login">Go to Login</Link>
         </div>
     )
 }
 
 export default Home
-
