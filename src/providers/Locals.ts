@@ -28,8 +28,7 @@ class Locals {
             NOTION_OAUTH_SECRET: process.env.NOTION_OAUTH_SECRET,
             NOTION_TOKEN: process.env.NOTION_TOKEN,
             MONGOOSE_URI: process.env.MONGOOSE_URI,
-            FIREBASE_REFRESH_TOKEN: process.env.FIREBASE_REFRESH_TOKEN,
-            FIREBASE_DB_URL: process.env.FIREBASE_DB_URL,
+            FIREBASE_ADMIN_PATH: process.env.FIREBASE_ADMIN_PATH,
         };
     }
 
