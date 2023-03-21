@@ -41,6 +41,8 @@ class TestsController {
                 strategy as any
             );
 
+            console.log(test);
+
             return res.status(StatusCodes.OK).json({
                 test: test,
                 strategy: strategy,
