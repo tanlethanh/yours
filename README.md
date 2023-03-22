@@ -16,7 +16,7 @@ Create new file has name **sipo-english-8266-firebase-adminsdk.json**
 - You can change how to store the file, but make sure you ignore this before push code to repo 
 
 ### Setup .env
-You need to create **.env** file in **src** directory with following data
+You need to create **.env** file in root directory with following data
 ```
 NODE_ENV='development'
 USE_DEFAULT_USER="false"  // set to true if you want to use default user account (without auth in frontend)
@@ -37,6 +37,9 @@ NOTION_OAUTH_SECRET=''
 // Change the link to suite with you admin sdk file
 FIREBASE_ADMIN_PATH='../private/sipo-english-8266-firebase-adminsdk.json' 
 ```
+### Logging
+You must create **.logs** folder in root directory to running
+
 ## Booting the project
 Run project
 ```
