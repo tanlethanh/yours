@@ -13,7 +13,7 @@ You need to setup mongodb in your local machine for development stage
 In the root directory of project, make new directory has name **private**
 Create new file has name **sipo-english-8266-firebase-adminsdk.json**
 - This file contains all private information to use admin sdk of firebase.
-- You can change how to store the file, but make sure you ignore this before push code to repo 
+- You can change how to store the file, but make sure you ignore it before push code to repo 
 
 ### Setup .env
 You need to create **.env** file in root directory with following data
