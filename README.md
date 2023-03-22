@@ -1,11 +1,11 @@
 
 # Hello world
+## Setup
 
 ### Install all needed packages
 ```
 npm install
 ```
-
 ### Database
 You need to setup mongodb in your local machine for development stage
 
@@ -37,3 +37,10 @@ NOTION_OAUTH_SECRET=''
 // Change the link to suite with you admin sdk file
 FIREBASE_ADMIN_PATH='../private/sipo-english-8266-firebase-adminsdk.json' 
 ```
+## Booting the project
+Run project
+```
+npm run dev
+```
+You can detach debugger in vscode with my config
+
