@@ -23,7 +23,7 @@ USE_DEFAULT_USER="false"  // set to true if you want to use default user account
 
 // fill this field if USE_DEFAULT_USER is setted to **true**
 DEFAULT_USER_EMAIL=""     
-DEFAULT_USER_FIREBASE_UID="Gkl7TRULcyX6brypIvdOUn1Lslj2"
+DEFAULT_USER_FIREBASE_UID=""
 
 MAX_UPLOAD_LIMIT=2000
 PORT=4040
