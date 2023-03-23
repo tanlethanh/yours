@@ -6,6 +6,9 @@
 ```
 npm install
 ```
+### Logging
+You must create **.logs** folder in root directory to running
+
 ### Database
 You need to setup mongodb in your local machine for development stage
 
@@ -37,8 +40,6 @@ NOTION_OAUTH_SECRET=''
 // Change the link to suite with you admin sdk file
 FIREBASE_ADMIN_PATH='../private/sipo-english-8266-firebase-adminsdk.json' 
 ```
-### Logging
-You must create **.logs** folder in root directory to running
 
 ## Booting the project
 Run project
