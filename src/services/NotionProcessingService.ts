@@ -40,7 +40,7 @@ class NotionProcessingService {
         if (!notionData) {
             return null;
         }
-        const updateResult = UserRepo.saveNotionDataForUser(userId, notionData);
+        const updateResult = await UserRepo.saveNotionDataForUser(userId, notionData);
         return updateResult;
     }
 
