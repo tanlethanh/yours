@@ -48,7 +48,7 @@ class NotionController {
 
         let userId = req.user.id;
 
-        const result = NotionProcessingService.getAndSaveAccessTokenFromNotion(
+        const result = await NotionProcessingService.getAndSaveAccessTokenFromNotion(
             userId,
             code as string
         );
