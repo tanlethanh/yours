@@ -13,7 +13,7 @@ function RedirectPage() {
         const res = await apiAxios.post(`notion/auth?code=${query.code}`)
         console.log(res)
 
-        router.push('/tests')
+        router.push('/dashboard')
     }
 
     useEffect(() => {

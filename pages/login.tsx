@@ -1,28 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 import { useRouter } from 'next/router'
+import { useAuth } from '../hooks/useAuth'
 
 function Login() {
     const googleProvider = new GoogleAuthProvider()
     const router = useRouter()
+    const { user, loading } = useAuth()
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
-        auth.onAuthStateChanged((user) => {
+        if (!loading) {
             if (user) {
                 // User is signed in.
                 console.log('User is currently logged in')
                 if (!router.query.redirect) {
-                    router.replace('/')
+                    router.replace('/dashboard')
                 } else {
                     router.replace(router.query.redirect as string)
                 }
             } else {
                 // No user is signed in.
                 console.log('No user is currently logged in')
+                setRender(true)
             }
-        })
-    }, [])
+        }
+    }, [user, loading])
 
     const sighInGoogleOnclick = () => {
         signInWithPopup(auth, googleProvider)
@@ -46,7 +50,7 @@ function Login() {
             })
     }
 
-    return (
+    return render ? (
         <div className="flex flex-col min-h-screen justify-center items-center space-y-5">
             <div className="h-[500px] w-[400px] flex flex-col item-centers space-y-10">
                 <h1 className="text-5xl font-semibold">Sign in</h1>
@@ -65,6 +69,8 @@ function Login() {
                 </p>
             </div>
         </div>
+    ) : (
+        'loading'
     )
 }
 
