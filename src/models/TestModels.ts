@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import {
     IFillWordQuestion,
     IMultichoiceQuestion,
@@ -9,6 +9,43 @@ import {
     PracticeTestStatus,
     TestGenerationStrategies,
 } from "../interfaces/IData.js";
+
+const PraticeTestSchema = new Schema<IPracticeTest>(
+    {
+        questions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "PracticeQuestion",
+            },
+        ],
+        count_wrongs: {
+            required: false,
+            type: Number,
+            default: 0,
+        },
+        submited_time: {
+            required: false,
+            type: Date,
+        },
+        status: {
+            required: true,
+            type: String,
+            enum: Object.values(PracticeTestStatus),
+            default: PracticeTestStatus.INIT,
+        },
+        strategy: {
+            type: String,
+            enum: Object.values(TestGenerationStrategies),
+            required: true,
+        },
+    },
+    {
+        timestamps: {
+            createdAt: "created_time",
+            updatedAt: "last_edited_time",
+        },
+    }
+);
 
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     {
@@ -57,7 +94,7 @@ const TranslateQuestionSchema = new Schema<ITranslateQuestion>({
     },
     user_answer: {
         type: String,
-        required: true,
+        required: false,
     },
 });
 
@@ -75,38 +112,6 @@ const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
         required: false,
     },
 });
-
-const PraticeTestSchema = new Schema<IPracticeTest>(
-    {
-        questions: [PraticeQuestionShema],
-        count_wrongs: {
-            required: false,
-            type: Number,
-            default: 0,
-        },
-        submited_time: {
-            required: false,
-            type: Date,
-        },
-        status: {
-            required: true,
-            type: String,
-            enum: Object.values(PracticeTestStatus),
-            default: PracticeTestStatus.INIT,
-        },
-        strategy: {
-            type: String,
-            enum: Object.values(TestGenerationStrategies),
-            required: true,
-        },
-    },
-    {
-        timestamps: {
-            createdAt: "created_time",
-            updatedAt: "last_edited_time",
-        },
-    }
-);
 
 export const PracticeTest = model<IPracticeTest>(
     "PracticeTest",

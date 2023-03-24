@@ -20,6 +20,7 @@ import { User } from "../models/UserModel.js";
 import { QuestionCore } from "../models/QuestionCoreModels.js";
 import { formatStringText, isEqualPureString } from "../utils/stringUtils.js";
 import { shuffleArray } from "../utils/arrayUtils.js";
+import { UserError } from "../exception/Error.js";
 
 export enum PickedType {
     DEFAULT = "DEFAULT",
@@ -43,12 +44,17 @@ class TestGenerationService {
 
         const test = new PracticeTest({
             strategy: strategy,
-            questions: this.arrangeQuestions(questions),
+            questions: this.arrangeQuestionsAndGetIds(questions),
         });
 
-        await test.save();
+        const result = await (
+            await test.save()
+        ).populate({
+            path: "questions",
+            options: { strictPopulate: false },
+        });
 
-        return test;
+        return result;
     }
 
     private async filterSentences(
@@ -59,7 +65,7 @@ class TestGenerationService {
         const curUser = await User.findById(user._id);
 
         if (!curUser) {
-            throw Error(
+            throw new UserError(
                 "Something wrong, can not find this user in db by user object"
             );
         }
@@ -82,7 +88,7 @@ class TestGenerationService {
         }, []);
 
         if (allSentences.length < numberOfQuestion) {
-            throw Error(
+            throw new UserError(
                 `Don't have enough resources, require greater than ${numberOfQuestion} sentences`
             );
         }
@@ -142,7 +148,9 @@ class TestGenerationService {
     private async generateQuestionsWithDefaultStrategy(
         sentences: Array<ISentence>
     ) {
-        const questions: IPracticeQuestion[] = [];
+        const questions: any[] = [];
+
+        // Create word dictionary to create multichoice question
         const multichoieDicts = (
             await QuestionCore.find(
                 {
@@ -167,9 +175,8 @@ class TestGenerationService {
                 sentence: sentences[i]._id,
             });
 
-            console.log(questionCores);
-
-            questionCores.forEach((core) => {
+            for (let j = 0; j < questionCores.length; j++) {
+                const core = questionCores[j];
                 if (core.type == QuestionType.CORE_DUPLEX) {
                     const currentCore = core as IDuplexQuestionCore;
 
@@ -182,7 +189,7 @@ class TestGenerationService {
                     }
 
                     // Generate translate question
-                    const translateQt = new TranslateQuestion({
+                    const translateQt = await TranslateQuestion.create({
                         question_text: formatStringText(
                             currentCore.second.text
                         ),
@@ -208,7 +215,7 @@ class TestGenerationService {
                             answers.push(solution);
                             answers = shuffleArray(answers);
 
-                            const multQt = new MultichoiceQuestion({
+                            const multQt = await MultichoiceQuestion.create({
                                 question_text: formatStringText(
                                     currentCore.second.text
                                 ),
@@ -225,26 +232,26 @@ class TestGenerationService {
                     const len = (core as IFillWordQuestionCore)
                         .fill_field_indexes.length;
 
-                    for (let i = 0; i < len; i++) {
-                        const qt = new FillWordQuestion({
+                    for (let k = 0; k < len; k++) {
+                        const fillQt = await FillWordQuestion.create({
                             list_words: (core as IFillWordQuestionCore)
                                 .list_words,
                             solution_index: (core as IFillWordQuestionCore)
-                                .fill_field_indexes[i],
+                                .fill_field_indexes[k],
                             difficulty: Difficulty.MEDIUM,
                         });
-                        questions.push(qt);
+                        questions.push(fillQt);
                     }
                 }
-            });
+            }
         }
 
-        console.log(questions.length);
+        // console.log(questions.length);
 
         return questions;
     }
 
-    private arrangeQuestions(questions: Array<IPracticeQuestion>) {
+    private arrangeQuestionsAndGetIds(questions: Array<IPracticeQuestion>) {
         const part1 = questions.filter(
             (ele) => ele.difficulty == Difficulty.EASY
         );
@@ -260,7 +267,7 @@ class TestGenerationService {
         results.push(...shuffleArray(part2));
         results.push(...shuffleArray(part3));
 
-        return results;
+        return results.map((ele) => ele._id);
     }
 }
 

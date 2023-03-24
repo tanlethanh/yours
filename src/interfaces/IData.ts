@@ -122,7 +122,7 @@ export enum TestGenerationStrategies {
 
 export interface IPracticeTest extends Document {
     _id: Schema.Types.ObjectId;
-    questions: Array<Types.ObjectId> | IPracticeQuestion;
+    questions: Array<Schema.Types.ObjectId | IPracticeQuestion>;
     count_wrongs: Number;
     created_time: Date;
     last_edited_time: Date;

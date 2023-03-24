@@ -4,24 +4,19 @@ import NotionProcessingService from "../services/NotionProcessingService.js";
 import Locals from "../providers/Locals.js";
 import { IUser } from "../interfaces/IData.js";
 import { Types } from "mongoose";
+import { UserError } from "../exception/Error.js";
 
 class NotionController {
     // Hello world
 
     public static syncDataByUserId = async (
         req: Request & { user: IUser },
-        res: Response
+        res: Response,
+        next: Function
     ) => {
         let userId = req.user._id;
-
         let result = null;
-        try {
-            result = await NotionProcessingService.syncDataByUserId(userId as any);
-        } catch (error: any) {
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                message: error.message,
-            });
-        }
+        result = await NotionProcessingService.syncDataByUserId(userId as any);
 
         if (!result) {
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -36,7 +31,8 @@ class NotionController {
 
     public static postAuthCode = async (
         req: Request & { user: IUser },
-        res: Response
+        res: Response,
+        next: Function
     ) => {
         const { code } = req.query;
 
@@ -48,10 +44,11 @@ class NotionController {
 
         let userId = req.user.id;
 
-        const result = await NotionProcessingService.getAndSaveAccessTokenFromNotion(
-            userId,
-            code as string
-        );
+        const result =
+            await NotionProcessingService.getAndSaveAccessTokenFromNotion(
+                userId,
+                code as string
+            );
 
         if (!result) {
             return res.status(StatusCodes.BAD_REQUEST).json({

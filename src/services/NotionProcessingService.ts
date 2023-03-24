@@ -12,6 +12,7 @@ import {
 } from "../models/index.js";
 import { Difficulty, IPage, ISentence } from "../interfaces/index.js";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
+import { UserError } from "../exception/Error.js";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -40,7 +41,10 @@ class NotionProcessingService {
         if (!notionData) {
             return null;
         }
-        const updateResult = await UserRepo.saveNotionDataForUser(userId, notionData);
+        const updateResult = await UserRepo.saveNotionDataForUser(
+            userId,
+            notionData
+        );
         return updateResult;
     }
 
@@ -309,7 +313,9 @@ class NotionProcessingService {
 
         // Invalid sentence to generate question
         if (seperated_chars.length !== 1) {
-            throw Error("The sentence must have only one seperated char");
+            throw new UserError(
+                "The sentence must have only one seperated char"
+            );
         }
 
         const modifiedText = (
@@ -351,7 +357,7 @@ class NotionProcessingService {
         [left, right] = modifiedText.split(seperated_chars[0]);
 
         if (left.trim().length === 0 || right.trim().length === 0) {
-            throw Error("Both two sides must have data");
+            throw new UserError("Both two sides must have data");
         }
 
         // Create all duplex questions
