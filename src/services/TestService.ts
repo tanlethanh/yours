@@ -4,8 +4,12 @@ import {
     IMultichoiceQuestion,
     IPracticeTest,
     PracticeQuestionType,
+    PickedType,
 } from "../interfaces/IData.js";
 import { UserError } from "../exception/Error.js";
+import { isEqualPureString } from "../utils/stringUtils.js";
+import { Sentence } from "../models/NotionImageModels.js";
+import { stringify } from "querystring";
 
 class TestService {
     async updateUserAnswer(questionId: any, userAnswer: any) {
@@ -17,7 +21,7 @@ class TestService {
         }
 
         switch (question.type) {
-            case PracticeQuestionType.MULTICHOICE: {
+            case PracticeQuestionType.MULTICHOICE:
                 if (
                     typeof userAnswer != "number" ||
                     userAnswer < 0 ||
@@ -25,20 +29,78 @@ class TestService {
                 ) {
                     throw new UserError("Invalid userAnswer");
                 }
-            }
+                break;
+
             case PracticeQuestionType.TRANSLATE:
                 if (typeof userAnswer != "string") {
+                    console.log("Here");
                     throw new UserError("Invalid userAnswer");
                 }
+                break;
+
             case PracticeQuestionType.FILLWORD:
                 if (typeof userAnswer != "string") {
+                    console.log("hehehe");
                     throw new UserError("Invalid userAnswer");
                 }
+                break;
         }
 
-        return await question.updateOne({
-            user_answer: userAnswer,
-        });
+        const updatedQuestion = await PracticeQuestion.findByIdAndUpdate(
+            question._id,
+            {
+                user_answer: userAnswer,
+            },
+            {
+                new: true,
+            }
+        );
+
+        if (
+            question.picked_type == PickedType.DEFAULT ||
+            !(question as any).user_answer
+        ) {
+            let countWrong = 1;
+            if (question.type == PracticeQuestionType.TRANSLATE) {
+                if (
+                    isEqualPureString(
+                        (question as any).solution,
+                        String(userAnswer)
+                    )
+                ) {
+                    countWrong = 0;
+                }
+            } else if (question.type == PracticeQuestionType.FILLWORD) {
+                if (
+                    isEqualPureString(
+                        (question as any).list_words[
+                            (question as any).solution_index
+                        ],
+                        userAnswer as string
+                    )
+                ) {
+                    countWrong = 0;
+                }
+            } else {
+                if ((question as any).solution_index == userAnswer) {
+                    countWrong = 0;
+                }
+            }
+
+            await Sentence.updateOne(
+                {
+                    _id: question.sentence_id,
+                },
+                {
+                    $inc: {
+                        number_of_wrongs: countWrong,
+                        number_of_usages: 1,
+                    },
+                }
+            );
+        }
+
+        return updatedQuestion;
     }
 }
 
