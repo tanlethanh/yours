@@ -10,7 +10,8 @@ import {
     TestGenerationStrategies,
     PickedType,
 } from "../interfaces/IData.js";
-
+import { Sentence } from "./NotionImageModels.js";
+import { isEqualPureString } from "../utils/stringUtils.js";
 const PracticeTestSchema = new Schema<IPracticeTest>(
     {
         questions: [
@@ -84,6 +85,7 @@ const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     },
     {
         discriminatorKey: "type",
+        strict: false
     }
 );
 
@@ -136,27 +138,70 @@ const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
     },
 });
 
-export const PracticeTest = model<IPracticeTest>(
-    "PracticeTest",
-    PracticeTestSchema
-);
+const PracticeTest = model<IPracticeTest>("PracticeTest", PracticeTestSchema);
 
-export const PracticeQuestion = model<IPracticeQuestion>(
+const PracticeQuestion = model<IPracticeQuestion>(
     "PracticeQuestion",
     PraticeQuestionShema
 );
 
-export const MultichoiceQuestion = PracticeQuestion.discriminator(
+const MultichoiceQuestion = PracticeQuestion.discriminator(
     PracticeQuestionType.MULTICHOICE,
     MultichoiceQuestionSchema
 );
 
-export const TranslateQuestion = PracticeQuestion.discriminator(
+const TranslateQuestion = PracticeQuestion.discriminator(
     PracticeQuestionType.TRANSLATE,
     TranslateQuestionSchema
 );
 
-export const FillWordQuestion = PracticeQuestion.discriminator(
+const FillWordQuestion = PracticeQuestion.discriminator(
     PracticeQuestionType.FILLWORD,
     FillWordQuestionSchema
 );
+
+// const questionChangeStream = PracticeQuestion.watch();
+
+// questionChangeStream.on("change", async (change) => {
+//     if (change.operationType == "update") {
+//         const currentDoc = change.fullDocument;
+
+//         if (currentDoc.picked_type == PickedType.DEFAULT) {
+//             let countWrong = 0;
+//             if (currentDoc.solution_index) {
+//                 if (currentDoc.solution_index == currentDoc.user_answer) {
+//                     countWrong = 1;
+//                 }
+//             } else if (currentDoc.solution) {
+//                 if (
+//                     isEqualPureString(
+//                         currentDoc.solution,
+//                         currentDoc.user_answer
+//                     )
+//                 ) {
+//                     countWrong = 1;
+//                 }
+//             }
+
+//             await Sentence.updateOne(
+//                 {
+//                     _id: currentDoc.sentence_id,
+//                 },
+//                 {
+//                     $inc: {
+//                         number_of_wrongs: countWrong,
+//                         number_of_usages: 1,
+//                     },
+//                 }
+//             );
+//         }
+//     }
+// });
+
+export {
+    PracticeTest,
+    PracticeQuestion,
+    MultichoiceQuestion,
+    TranslateQuestion,
+    FillWordQuestion,
+};

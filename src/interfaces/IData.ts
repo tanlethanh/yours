@@ -140,7 +140,7 @@ export enum PracticeQuestionType {
 export enum PickedType {
     DEFAULT = "DEFAULT",
     RANDOM = "RANDOM",
-    UNDEFINED = 'UNDEFINED'
+    UNDEFINED = "UNDEFINED",
 }
 
 export interface IPracticeQuestion extends Document {
