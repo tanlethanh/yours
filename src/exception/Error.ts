@@ -3,46 +3,49 @@ export enum ResourceName {
     RESERVATION = "Reservation",
     ORDERITEM = "OrderItem",
     ORDER = "Order",
-    NEWCUSTOMER = "NewCustomer"
+    NEWCUSTOMER = "NewCustomer",
 }
 
 export class NotFoundError extends Error {
-    statusCode = 404
+    statusCode = 404;
 
     constructor(resourceName: ResourceName, message: string) {
-        super(`[NOT FOUND] ${resourceName}: ${message}`)
+        super(`[NOT FOUND] ${resourceName}: ${message}`);
 
         // 👇️ because we are extending a built-in class
         Object.setPrototypeOf(this, NotFoundError.prototype);
     }
 
     public getErrorMessage() {
-        return this.message
+        return this.message;
     }
 
     public getStatusCode() {
-        return this.statusCode
+        return this.statusCode;
     }
-
 }
 
 export class MissingConditionError extends Error {
-    statusCode = 400
+    statusCode = 400;
 
     constructor(resourceName: ResourceName, message: string) {
-        super(`[MISSING CONDITION] ${resourceName}: ${message}`)
+        super(`[MISSING CONDITION] ${resourceName}: ${message}`);
 
         // 👇️ because we are extending a built-in class
         Object.setPrototypeOf(this, NotFoundError.prototype);
     }
 
     public getErrorMessage() {
-        return this.message
+        return this.message;
     }
 
     public getStatusCode() {
-        return this.statusCode
+        return this.statusCode;
     }
-
 }
 
+export class UserError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}

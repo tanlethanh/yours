@@ -5,6 +5,7 @@ import { User } from "../models/UserModel.js";
 import { IUser, UserRole } from "../interfaces/IData.js";
 import Locals from "../providers/Locals.js";
 import MongoDB from "../providers/MongoDB.js";
+import { UserError } from "../exception/Error.js";
 
 class Auth {
     public static async userFilter(
@@ -26,7 +27,7 @@ class Auth {
                 const authToken = req.headers.authorization || "";
 
                 if (!new RegExp("Bearer .*").test(authToken)) {
-                    throw Error("Invalid auth token");
+                    throw new UserError("Invalid auth token");
                 }
 
                 const idToken = authToken.split(" ")[1];
@@ -53,7 +54,7 @@ class Auth {
 
             return next();
         } catch (error: any) {
-            console.log(error);
+            if (!(error instanceof UserError)) next(error)
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: error.message,
             });
