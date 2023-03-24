@@ -5,6 +5,8 @@ import TestGenerationService from "../services/TestGenerationService.js";
 import { TestGenerationStrategies } from "../interfaces/IData.js";
 import TestService from "../services/TestService.js";
 import { UserError } from "../exception/Error.js";
+import { PracticeQuestion, PracticeTest } from "../models/TestModels.js";
+import { Types } from "mongoose";
 
 enum Action {
     UPDATE_ANSWER = "UPDATE-ANSWER",
@@ -12,6 +14,52 @@ enum Action {
 }
 
 class TestsController {
+    public static async getTestById(
+        req: Request & { user: IUser },
+        res: Response,
+        next: Function
+    ) {
+        const testId = new Types.ObjectId(req.params.testId);
+        const withQuestions = req.query["with-questions"] == "true";
+
+        let test = undefined;
+        if (withQuestions) {
+            test = await PracticeTest.findById(testId).populate("questions");
+        } else {
+            test = await PracticeTest.findById(testId);
+        }
+
+        return res.status(StatusCodes.OK).json({
+            test: test,
+        });
+    }
+
+    public static async deleteTestById(
+        req: Request & { user: IUser },
+        res: Response,
+        next: Function
+    ) {
+        const testId = new Types.ObjectId(req.params.testId);
+
+        const test = await PracticeTest.findOneAndDelete({
+            _id: testId,
+        });
+
+        if (!test) {
+            throw new UserError("Cannot delete, not found this test");
+        }
+
+        await PracticeQuestion.deleteMany({
+            _id: {
+                $in: test.questions,
+            },
+        });
+
+        return res.status(StatusCodes.ACCEPTED).json({
+            test: test,
+        });
+    }
+
     public static async getNewTest(
         req: Request & { user: IUser },
         res: Response,
@@ -48,7 +96,7 @@ class TestsController {
             strategy as any
         );
 
-        console.log(test);
+        // console.log(test);
 
         return res.status(StatusCodes.OK).json({
             test: test,
@@ -60,7 +108,12 @@ class TestsController {
         req: Request & { user: IUser },
         res: Response,
         next: Function
-    ) {}
+    ) {
+        const questionId = new Types.ObjectId(req.params.questionId as string);
+        return res.status(StatusCodes.OK).json({
+            question: await PracticeQuestion.findById(questionId),
+        });
+    }
 
     public static async updateQuestion(
         req: Request & { user: IUser },
