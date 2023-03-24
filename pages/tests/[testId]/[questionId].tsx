@@ -9,10 +9,10 @@ import { DataTestsContext } from '../../../store/DataTestsContext';
 function TestPage() {
     const router = useRouter();
     const { testId, questionId } = router.query;
-    const [dataTest, SetDataTest] = useState([]);
+   
     const context = useContext(DataTestsContext);
 
-    console.log(dataTest);
+    console.log(context.testsDatas);
     return (
         <TestLayout>
             <QuestionCard testId={testId} id={questionId} dataTest={context.testsDatas} />
