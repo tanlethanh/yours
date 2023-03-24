@@ -137,10 +137,18 @@ export enum PracticeQuestionType {
     TRANSLATE = "TRANSLATE",
 }
 
+export enum PickedType {
+    DEFAULT = "DEFAULT",
+    RANDOM = "RANDOM",
+    UNDEFINED = 'UNDEFINED'
+}
+
 export interface IPracticeQuestion extends Document {
     _id: Schema.Types.ObjectId;
     difficulty: Number;
     type: PracticeQuestionType;
+    picked_type: PickedType;
+    sentence_id: Schema.Types.ObjectId;
 }
 
 export interface IMultichoiceQuestion extends IPracticeQuestion {

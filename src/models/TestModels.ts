@@ -8,6 +8,7 @@ import {
     PracticeQuestionType,
     PracticeTestStatus,
     TestGenerationStrategies,
+    PickedType,
 } from "../interfaces/IData.js";
 
 const PracticeTestSchema = new Schema<IPracticeTest>(
@@ -69,6 +70,16 @@ const PraticeQuestionShema = new Schema<IPracticeQuestion>(
             required: true,
             type: String,
             enum: Object.values(PracticeQuestionType),
+        },
+        picked_type: {
+            required: true,
+            type: String,
+            enum: Object.values(PickedType),
+        },
+        sentence_id: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "Sentence",
         },
     },
     {

@@ -7,6 +7,7 @@ import {
     ISentence,
     IUser,
     QuestionType,
+    PickedType,
 } from "../interfaces/IData.js";
 import { Page } from "../models/NotionImageModels.js";
 import {
@@ -21,11 +22,6 @@ import { QuestionCore } from "../models/QuestionCoreModels.js";
 import { formatStringText, isEqualPureString } from "../utils/stringUtils.js";
 import { shuffleArray } from "../utils/arrayUtils.js";
 import { UserError } from "../exception/Error.js";
-
-export enum PickedType {
-    DEFAULT = "DEFAULT",
-    RANDOM = "RANDOM",
-}
 
 class TestGenerationService {
     async generateTest(
@@ -195,6 +191,8 @@ class TestGenerationService {
                         ),
                         solution: formatStringText(currentCore.first.text),
                         difficulty: qtDf,
+                        sentence_id: sentences[i]._id,
+                        picked_type: (sentences[i] as any).pickedType,
                     });
                     questions.push(translateQt);
 
@@ -215,7 +213,7 @@ class TestGenerationService {
                             answers.push(solution);
                             answers = shuffleArray(answers);
 
-                            const indexSol = answers.indexOf(solution)
+                            const indexSol = answers.indexOf(solution);
                             const multQt = await MultichoiceQuestion.create({
                                 question_text: formatStringText(
                                     currentCore.second.text
@@ -223,6 +221,8 @@ class TestGenerationService {
                                 answers: answers,
                                 solution_index: indexSol,
                                 difficulty: Difficulty.EASY,
+                                sentence_id: sentences[i]._id,
+                                picked_type: (sentences[i] as any).pickedType,
                             });
 
                             questions.push(multQt);
@@ -240,6 +240,8 @@ class TestGenerationService {
                             solution_index: (core as IFillWordQuestionCore)
                                 .fill_field_indexes[k],
                             difficulty: Difficulty.MEDIUM,
+                            sentence_id: sentences[i]._id,
+                            picked_type: (sentences[i] as any).pickedType,
                         });
                         questions.push(fillQt);
                     }
