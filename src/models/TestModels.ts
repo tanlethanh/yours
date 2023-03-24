@@ -10,7 +10,7 @@ import {
     TestGenerationStrategies,
 } from "../interfaces/IData.js";
 
-const PraticeTestSchema = new Schema<IPracticeTest>(
+const PracticeTestSchema = new Schema<IPracticeTest>(
     {
         questions: [
             {
@@ -47,6 +47,18 @@ const PraticeTestSchema = new Schema<IPracticeTest>(
     }
 );
 
+PracticeTestSchema.pre("deleteOne", async function (next) {
+    const test = this as any;
+    console.log(test);
+    console.log("Remove questions of test");
+    await PracticeQuestion.deleteMany({
+        _id: {
+            $in: test.questions,
+        },
+    });
+    next();
+});
+
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     {
         difficulty: {
@@ -75,7 +87,7 @@ const MultichoiceQuestionSchema = new Schema<IMultichoiceQuestion>({
     },
     solution_index: {
         required: true,
-        type: Boolean,
+        type: Number,
     },
     user_answer: {
         required: false,
@@ -115,7 +127,7 @@ const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
 
 export const PracticeTest = model<IPracticeTest>(
     "PracticeTest",
-    PraticeTestSchema
+    PracticeTestSchema
 );
 
 export const PracticeQuestion = model<IPracticeQuestion>(

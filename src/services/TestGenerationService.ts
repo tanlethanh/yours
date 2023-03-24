@@ -215,12 +215,13 @@ class TestGenerationService {
                             answers.push(solution);
                             answers = shuffleArray(answers);
 
+                            const indexSol = answers.indexOf(solution)
                             const multQt = await MultichoiceQuestion.create({
                                 question_text: formatStringText(
                                     currentCore.second.text
                                 ),
                                 answers: answers,
-                                solution_index: answers.indexOf(solution),
+                                solution_index: indexSol,
                                 difficulty: Difficulty.EASY,
                             });
 
