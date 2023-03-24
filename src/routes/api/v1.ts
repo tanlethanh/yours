@@ -29,7 +29,11 @@ apiV1
 
 apiV1.route("/tests").get();
 
-apiV1.route("/tests/:id").get().post(Auth.userFilter);
+apiV1
+    .route("/tests/:testId")
+    .get(Auth.userFilter, wrapper(TestsController.getTestById))
+    // .post(Auth.userFilter)
+    .delete(Auth.userFilter, wrapper(TestsController.deleteTestById))
 
 apiV1
     .route("/questions/:questionId")

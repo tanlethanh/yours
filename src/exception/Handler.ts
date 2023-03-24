@@ -6,9 +6,9 @@ import { UserError } from "./Error.js";
 
 class Handler {
     public static errorHandlerWrapper(controllerFunc: Function) {
-        return function (req: Request, res: Response, next: Function) {
+        return async function (req: Request, res: Response, next: Function) {
             try {
-                controllerFunc(req, res, next);
+                await controllerFunc(req, res, next);
             } catch (error: any) {
                 if (!(error instanceof UserError)) return next(error);
 
