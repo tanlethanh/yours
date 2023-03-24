@@ -14,27 +14,17 @@ class NotionController {
         res: Response,
         next: Function
     ) => {
-        try {
-            let userId = req.user._id;
-            let result = null;
-            result = await NotionProcessingService.syncDataByUserId(
-                userId as any
-            );
+        let userId = req.user._id;
+        let result = null;
+        result = await NotionProcessingService.syncDataByUserId(userId as any);
 
-            if (!result) {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "Something wrong",
-                });
-            } else {
-                return res.status(StatusCodes.ACCEPTED).json({
-                    data: result,
-                });
-            }
-        } catch (error: any) {
-            if (!(error instanceof UserError)) next(error);
-
+        if (!result) {
             return res.status(StatusCodes.BAD_REQUEST).json({
-                message: error.message,
+                message: "Something wrong",
+            });
+        } else {
+            return res.status(StatusCodes.ACCEPTED).json({
+                data: result,
             });
         }
     };
@@ -44,36 +34,29 @@ class NotionController {
         res: Response,
         next: Function
     ) => {
-        try {
-            const { code } = req.query;
+        const { code } = req.query;
 
-            if (!code) {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "Require code as a param",
-                });
-            }
-
-            let userId = req.user.id;
-
-            const result =
-                await NotionProcessingService.getAndSaveAccessTokenFromNotion(
-                    userId,
-                    code as string
-                );
-
-            if (!result) {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "Something wrong",
-                });
-            } else {
-                return res.status(StatusCodes.ACCEPTED).json({
-                    data: result,
-                });
-            }
-        } catch (error: any) {
-            if (!(error instanceof UserError)) next(error);
+        if (!code) {
             return res.status(StatusCodes.BAD_REQUEST).json({
-                message: error.message,
+                message: "Require code as a param",
+            });
+        }
+
+        let userId = req.user.id;
+
+        const result =
+            await NotionProcessingService.getAndSaveAccessTokenFromNotion(
+                userId,
+                code as string
+            );
+
+        if (!result) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                message: "Something wrong",
+            });
+        } else {
+            return res.status(StatusCodes.ACCEPTED).json({
+                data: result,
             });
         }
     };
