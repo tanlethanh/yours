@@ -8,5 +8,5 @@ export const formatStringText = (str: String) => {
 };
 
 export const isEqualPureString = (str1: String, str2: String) => {
-    return str1.toLowerCase() == str2.toLowerCase();
+    return str1.trim().toLowerCase() == str2.trim().toLowerCase();
 };
