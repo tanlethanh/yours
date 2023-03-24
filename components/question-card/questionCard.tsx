@@ -1,34 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FullTextQuestion, HalfTextQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
-
+import { DataTestsContext } from '../../store/DataTestsContext';
 function QuestionCard({ testId, id, dataTest }: any) {
     const router = useRouter();
     const type = dataTest[id]?.type;
-    // console.log(type);
+
     switch (type) {
         case 'MULTICHOICE':
+            const answers: { text: string; isSolution: boolean }[] = [];
+            dataTest[id].answers.forEach((answer: string, index: number) =>
+                answers.push({ text: answer, isSolution: dataTest[id].solution_index === index }),
+            );
             return (
                 <MultichoiceQuestion
                     key={dataTest[id]._id}
                     question={dataTest[id].question_text}
                     hint="Hello guy"
-                    answers={[
-                        {
-                            text: 'Hello my name is Tan',
-                            isSolution: true,
-                        },
-                        {
-                            text: 'Hello my name is Nhi',
-                        },
-                        {
-                            text: 'Hello my name is Tan',
-                        },
-                        {
-                            text: 'Xin chao tat ca cac ban',
-                        },
-                    ]}
+                    answers={answers}
                     updateNumberCorrect={undefined}
                     title={'Hello'}
                     next={() => {
