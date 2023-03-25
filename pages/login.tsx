@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';
 import Head from 'next/head';
+import Loading from '../components/loading';
 
 function Login() {
     const googleProvider = new GoogleAuthProvider();
@@ -74,7 +75,7 @@ function Login() {
             </div>
         </div>
     ) : (
-        'loading'
+        <Loading></Loading>
     );
 }
 

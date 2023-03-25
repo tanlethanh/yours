@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import MainLayout from '../layouts/mainLayout';
 import illustration from '../public/illustration.svg';
+import HutBannerElement from '../components/animatedElements/hutBannerElement';
+import StudentsElement from '../components/animatedElements/studentsElement';
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -21,11 +23,11 @@ const Home: NextPage = () => {
             </Head>
             <div className="flex flex-row flex-wrap justify-around items-center mt-24 gap-y-60">
                 <div className="max-w-[550px]">
-                    <h1 className="text-6xl font-semibold">Sipo English</h1>
+                    <h1 className="text-6xl font-semibold text-zinc-800">Sipo English</h1>
                     <p className="italic text-lg mt-6 text-zinc-500">
                         "Ứng dụng học tiếng Anh không dành cho người lười!"
                     </p>
-                    <p className="text-lg mt-10">
+                    <p className="text-lg mt-10 text-zinc-700">
                         <span className="font-bold">Sipo English</span> là một công cụ hỗ trợ luyện tập và ghi nhớ tiếng
                         Anh, tạo ra các bộ câu hỏi như trắc nghiệm, điền khuyết, hay dịch câu từ chính{' '}
                         <span className="font-bold">ghi chú của bạn</span> trên{' '}
@@ -43,14 +45,15 @@ const Home: NextPage = () => {
                         </button>
                     </div>
                 </div>
-                <div className="lg:visible md:invisible">
-                    <Image
+                <div className="lg:visible md:invisible rounded-full">
+                    {/* <Image
                         src={illustration}
                         alt=""
                         // className="w-full h-[1000px] lg:object-cover object-contain "
                         width={500}
                         height={500}
-                    />
+                    /> */}
+                    <StudentsElement width={500} height={500}></StudentsElement>
                 </div>
             </div>
         </MainLayout>

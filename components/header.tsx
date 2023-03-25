@@ -15,9 +15,11 @@ export default function Header() {
 
     return (
         <div className="max-w-[1200px] h-full m-auto flex flex-row items-center justify-between border-b-zinc-300 border-b-2">
-            <h1 className="text-2xl font-medium">Sipo English</h1>
+            <Link className="text-2xl font-medium" href={'/'}>
+                Sipo English
+            </Link>
             {!loading && user ? (
-                <div className="flex flex-row space-x-4 justify-center items-center">
+                <Link className="flex flex-row space-x-4 justify-center items-center" href={'/dashboard'}>
                     <h1 className="text-md font-normal">{user?.displayName}</h1>
                     <Image
                         src={user?.photoURL || ''}
@@ -27,7 +29,7 @@ export default function Header() {
                         priority
                         className="rounded-full"
                     ></Image>
-                </div>
+                </Link>
             ) : (
                 <Link href={'/login'}> Đăng nhập </Link>
             )}

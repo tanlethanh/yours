@@ -12,8 +12,8 @@ function MainLayout({ children, withHeader = true }: { children: React.ReactNode
                     <Header />
                 </div>
             )}
-            <div className="w-full min-h-full">
-                <div className="max-w-[1200px] h-full m-auto">{children}</div>
+            <div className="w-full">
+                <div className="max-w-[1200px] m-auto">{children}</div>
             </div>
         </div>
     );
