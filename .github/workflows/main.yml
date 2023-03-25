@@ -7,6 +7,16 @@ on:
 
 jobs:
   build:
+    env:
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+      USE_DEFAULT_USER: false
+      MAX_UPLOAD_LIMIT: 2000
+      PORT: ${{ secrets.PORT }}
+      MONGOOSE_URI: ${{ secrets.MONGOOSE_URI }}
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_OAUTH_ID: ${{ secrets.NOTION_TOKEN }}
+      NOTION_OAUTH_SECRET: ${{ secrets.NOTION_OAUTH_SECRET }}
+      FIREBASE_ADMIN_PATH: ${{ secrets.FIREBASE_ADMIN_PATH }}
     runs-on: ubuntu-latest
     steps:
       -
