@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
-import TextareaAutosize from 'react-textarea-autosize'
-import { PrimaryButton } from '../../utils/button'
-import { ToastContainerCustom, toast } from '../../utils/ToastCustom'
+import React, { useState } from 'react';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import TextareaAutosize from 'react-textarea-autosize';
+import { PrimaryButton } from '../../utils/button';
+import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
 
 function HalfTextQuestion({
     title = 'Half text question',
@@ -12,45 +12,54 @@ function HalfTextQuestion({
     solution,
     next,
 }: {
-    title: String
-    prefixQuestion: String
-    suffixQuestion: String
-    hint: any
-    solution: String
-    next: Function
+    title: String;
+    prefixQuestion: String;
+    suffixQuestion: String;
+    hint: any;
+    solution: String;
+    next: Function;
 }) {
-    const [checked, setChecked] = useState(false)
-    const [answer, setAnswer] = useState('')
+    const [checked, setChecked] = useState(false);
+    const [answer, setAnswer] = useState('');
+    const [warningLimit, setWarningLimit] = useState(false);
 
     const checkButtonOnclick = () => {
-        if (answer.trim().length > 0) {
-            if (compareSolution()) {
-                toast.success('Yeahhhh! Keep going')
+        if (!checked) {
+            if (answer.trim().length > 0) {
+                // if (compareSolution()) {
+                //     toast.success('Yeahhhh! Keep going');
+                // } else {
+                //     toast.error("Oh no! It's wrong");
+                // }
+                setChecked(true);
             } else {
-                toast.error("Oh no! It's wrong")
+                toast.error('Please type your answer!');
             }
-            setChecked(true)
-        } else {
-            toast.error('Please type your answer!')
         }
-    }
+    };
+
+    const textAreaOnKeyDown = (event: any) => {
+        if (event.key == 'Enter') {
+            checkButtonOnclick();
+        }
+    };
 
     const compareSolution = () => {
-        return answer.toLowerCase().trim() == solution.toLowerCase().trim()
-    }
+        return answer.toLowerCase().trim() == solution.toLowerCase().trim();
+    };
 
     const getLabel = () => {
         if (checked) {
-            if (compareSolution()) return 'correct'
-            else return 'incorrect'
+            if (compareSolution()) return 'correct';
+            else return 'incorrect';
         } else {
-            return ''
+            return '';
         }
-    }
+    };
 
     const getAnswerText = () => {
-        return answer + Array(solution.length - answer.length + 1).join('_')
-    }
+        return answer + Array(solution.length - answer.length + 1).join('_');
+    };
 
     return (
         <div className="questionCard fullTextQuestion">
@@ -71,35 +80,31 @@ function HalfTextQuestion({
             <div className="min-height-200px">
                 <TextareaAutosize
                     rows={1}
-                    className={
-                        'border-l-4 border-opacity-70 border-black w-full p-2 focus:outline-none ' +
-                        getLabel()
-                    }
+                    className={'border-l-4 border-opacity-70 border-black w-full p-2 focus:outline-none ' + getLabel()}
                     placeholder="Write your answer!"
                     onChange={(e) => {
                         if (!checked && e.target.value.length <= solution.length) {
-                            setAnswer(e.target.value)
+                            setAnswer(e.target.value);
                         } else if (e.target.value.length > solution.length) {
-                            toast.info(`Limit ${solution.length} characters`)
+                            if (!warningLimit) {
+                                toast.info(`Limit ${solution.length} characters`);
+                                setWarningLimit(true);
+                            }
                         }
                     }}
+                    onKeyDown={textAreaOnKeyDown}
                     value={answer}
                 />
-                {getLabel() === 'incorrect' && (
-                    <p className="correct">{solution}</p>
-                )}
+                {getLabel() === 'incorrect' && <p className="correct">{solution}</p>}
             </div>
 
-            <PrimaryButton
-                onClick={checked ? next : checkButtonOnclick}
-                animate={{ x: checked ? 155 : 0 }}
-            >
+            <PrimaryButton onClick={checked ? next : checkButtonOnclick} animate={{ x: checked ? 155 : 0 }}>
                 {!checked ? 'Check' : 'Next question'}
             </PrimaryButton>
 
             <ToastContainerCustom />
         </div>
-    )
+    );
 }
 
-export { HalfTextQuestion }
+export { HalfTextQuestion };
