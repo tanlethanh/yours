@@ -82,12 +82,12 @@ function Dashboard() {
                     <div className="w-full mt-8 flex flex-col justify-center items-center space-y-4"></div>
                 </div>
                 <div className="md:w-[700px] h-[400px] sm:w-[430px]">
-                    <h1 className="text-xl font-medium text-zinc-700 mb-4">Tiến trình</h1>
+                    <h1 className="text-xl font-medium text-zinc-700 mb-4">Tiến trình {'(đang code)'}</h1>
                     <LineChart />
                 </div>
 
                 <div className="lg:w-[300px] md:w-[300px] sm:w-[430px]">
-                    <h1 className="text-xl font-medium text-zinc-700 mb-2">Số liệu câu hỏi</h1>
+                    <h1 className="text-xl font-medium text-zinc-700 mb-2">Số liệu câu hỏi {'(đang code)'}</h1>
                     <table className="w-full">
                         <tbody>
                             <tr>
@@ -107,7 +107,7 @@ function Dashboard() {
                 </div>
 
                 <div className="w-[700px]">
-                    <h1 className="text-xl font-medium text-zinc-700 mb-2">Tài nguyên học tập</h1>
+                    <h1 className="text-xl font-medium text-zinc-700 mb-2">Tài nguyên học tập {'(đang code)'}</h1>
                     {/* <LineChart /> */}
                     <div>
                         <table className="table-auto">
