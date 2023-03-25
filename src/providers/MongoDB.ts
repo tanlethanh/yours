@@ -6,17 +6,23 @@ import { IPage, IUser, UserRole } from "../interfaces/IData.js";
 class MongoDB {
     connection: any;
     defaultUser: IUser | any;
+    connected: boolean | undefined;
+
+    constructor() {
+        this.connected = false
+    }
 
     public async connect() {
         try {
             console.log(`MongoDB URI: ${Locals.config().MONGOOSE_URI}`);
             this.connection = mongoose.connect(Locals.config().MONGOOSE_URI);
             await this.connection;
+            this.connected = true;
             console.log("MongoDB connected!");
         } catch (error: any) {
             console.log("MongoDB error");
             console.error(error.message);
-            process.exit(1);
+            // process.exit(1);
         }
     }
 
@@ -30,13 +36,17 @@ class MongoDB {
                 firebase_uid: Locals.config().DEFAULT_USER_FIREBASE_UID,
             });
             await defautUser.save();
-            console.log("Default user is created")
+            console.log("Default user is created");
             this.defaultUser = defautUser;
         } catch (error) {
             // console.log(error);
-            this.defaultUser = await User.findOne({
-                email: Locals.config().DEFAULT_USER_EMAIL,
-            });
+            if (this.connected) {
+                this.defaultUser = await User.findOne({
+                    email: Locals.config().DEFAULT_USER_EMAIL,
+                });
+            } else {
+                console.log("No MongoDB");
+            }
         }
     }
 }

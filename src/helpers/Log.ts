@@ -31,6 +31,11 @@ class Log {
 
         this.baseDir = path.join(__dirname, "../../.logs/");
 
+        // Create .logs folder if it doesnt exist
+        if (!fs.existsSync(this.baseDir)) {
+            fs.mkdirSync(this.baseDir, { recursive: true });
+        }
+
         this.fileName = `${_dateString}.log`;
         this.linePrefix = `[${_dateString} ${_timeString}]`;
     }
