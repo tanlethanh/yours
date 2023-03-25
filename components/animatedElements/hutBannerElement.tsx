@@ -9,9 +9,5 @@ export default function HutBannerElement({ width = 130, height = 130 }) {
         animationData: animationData,
         renderer: 'svg',
     };
-    return (
-        <div className="rounded-full">
-            <Lottie options={defaultOptions} height={height} width={width} />
-        </div>
-    );
+    return <Lottie options={defaultOptions} height={height} width={width} />;
 }

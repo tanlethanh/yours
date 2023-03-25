@@ -23,7 +23,7 @@ function Tests() {
 
     useEffect(() => {
         handleAddTestsData();
-    });
+    }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center space-y-5">
