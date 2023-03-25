@@ -6,20 +6,11 @@ import { apiAxios } from '../../utils/axiosConfig';
 
 function Tests() {
     const context = useContext(DataTestsContext);
-    const handleAddTestsData = () => {
-        // await context.addTestsData();
-        console.log(context?.testsId);
-        router.replace(`/tests/${context?.testsId}/0`);
+    const handleAddTestsData = async () => {
+        const testId = await context.addTestsData();
+        
+        router.replace(`/tests/${testId}/0`);
     };
-    // const getNewTest = async () => {
-    //     try {
-    //         console.log('Get new test');
-
-    //         console.log(context.testsDatas);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
 
     const syncData = async () => {
         try {
