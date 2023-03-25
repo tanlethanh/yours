@@ -20,7 +20,12 @@ export default function Header() {
             </Link>
             {!loading && user ? (
                 <Link className="flex flex-row space-x-4 justify-center items-center" href={'/dashboard'}>
-                    <h1 className="text-md font-normal">{user?.displayName}</h1>
+                    <div>
+                        <h1 className="text-md font-normal">{user?.displayName}</h1>
+                        <p className="text-[11px] underline-offset-1 underline" onClick={logOut}>
+                            Đăng xuất
+                        </p>
+                    </div>
                     <Image
                         src={user?.photoURL || ''}
                         width={38}
