@@ -4,6 +4,7 @@ import { auth } from '../firebaseConfig';
 import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';
+import Head from 'next/head';
 
 function Login() {
     const googleProvider = new GoogleAuthProvider();
@@ -52,6 +53,9 @@ function Login() {
 
     return render ? (
         <div className="flex flex-col min-h-screen justify-center items-center space-y-5">
+            <Head>
+                <title>Sipo English | Sign in</title>
+            </Head>
             <div className="h-[500px] w-[500px] flex flex-col item-centers space-y-10">
                 <h1 className="text-5xl font-semibold">Sign in</h1>
                 <div className="flex flex-col space-y-4 min-h-[40%]">

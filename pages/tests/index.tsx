@@ -8,7 +8,7 @@ function Tests() {
     const context = useContext(DataTestsContext);
     const handleAddTestsData = async () => {
         const testId = await context.addTestsData();
-        
+
         router.replace(`/tests/${testId}/0`);
     };
 
@@ -27,6 +27,24 @@ function Tests() {
             <h1 className="text-4xl font-extrabold">Tests</h1>
             <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={syncData}>
                 Sync data
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
+            </button>
+            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
+                Get New Test
             </button>
             <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
                 Get New Test
