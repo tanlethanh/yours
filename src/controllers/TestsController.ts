@@ -7,6 +7,7 @@ import TestService from "../services/TestService.js";
 import { UserError } from "../exception/Error.js";
 import { PracticeQuestion, PracticeTest } from "../models/TestModels.js";
 import { Types } from "mongoose";
+import NotionProcessingService from "../services/NotionProcessingService.js";
 
 enum Action {
     UPDATE_ANSWER = "UPDATE-ANSWER",
@@ -70,6 +71,10 @@ class TestsController {
                 message: "Need user infor to get test",
             });
         }
+
+        let userId = req.user._id;
+        let result = null;
+        result = await NotionProcessingService.syncDataByUserId(userId as any);
 
         let { strategy } = req.query;
 
