@@ -3,7 +3,7 @@ import { FullTextQuestion, HalfTextQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
 import { DataTestsContext } from '../../store/DataTestsContext';
-function QuestionCard({ testId, id, dataTest }: any) {
+function QuestionCard({ testId, id, dataTest, setFinal }: any) {
     const router = useRouter();
     const type = dataTest[id]?.type;
 
@@ -58,6 +58,7 @@ function QuestionCard({ testId, id, dataTest }: any) {
                 />
             );
         default:
+            setFinal(true);
             return null;
     }
 }

@@ -23,11 +23,11 @@ function TestLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <AnimatePresence>
-            <div className="w-screen min-h-screen flex flex-col justify-center items-center">
+            <div className="w-screen min-h-screen flex flex-col items-center mt-20">
                 <Head>
                     <title>Sipo English | Practice</title>
                 </Head>
-                <h1 className="font-medium text-3xl mb-6">English test</h1>
+                <h1 className="font-medium text-3xl mb-20">Bài kiểm tra</h1>
                 <div>{children}</div>
             </div>
         </AnimatePresence>
