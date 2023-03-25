@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
-import { motion } from 'framer-motion'
-import { ToastContainerCustom, toast } from '../../utils/ToastCustom'
-import { PrimaryButton } from '../../utils/button'
+import React, { useState } from 'react';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
+import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
+import { PrimaryButton } from '../../utils/button';
 
 function MultichoiceQuestion({
     title = 'Full text question',
@@ -13,49 +13,51 @@ function MultichoiceQuestion({
     updateNumberCorrect,
     next,
 }: {
-    title: String
-    question: String
-    hint: any
-    answers: [
-        {
-            text: string
-            isSolution: boolean
-        } 
-    ] | any
-    updateNumberCorrect: Function | undefined
-    next: any
+    title: String;
+    question: String;
+    hint: any;
+    answers:
+        | [
+              {
+                  text: string;
+                  isSolution: boolean;
+              },
+          ]
+        | any;
+    updateNumberCorrect: Function | undefined;
+    next: any;
 }) {
-    const [chosenIndex, setChosenIndex] = useState(-1)
-    const [checked, setChecked] = useState(false)
+    const [chosenIndex, setChosenIndex] = useState(-1);
+    const [checked, setChecked] = useState(false);
 
     const checkButtonOnclick = () => {
         if (chosenIndex == -1) {
-            return toast.error('Please choose the answer!')
+            return toast.error('Please choose the answer!');
         }
 
-        setChecked(true)
+        setChecked(true);
         if (answers[chosenIndex]?.isSolution) {
             if (typeof updateNumberCorrect == 'function') {
-                updateNumberCorrect((prevNum: any) => prevNum + 1)
+                updateNumberCorrect((prevNum: any) => prevNum + 1);
             }
-            toast.success('Yeahhhh! Keep going')
+            // toast.success('Yeahhhh! Keep going')
         } else {
-            toast.error("Oh no! It's wrong")
+            // toast.error("Oh no! It's wrong")
         }
-    }
+    };
 
     const getLabel = (index: number) => {
         if (checked && index == chosenIndex && !answers[index].isSolution) {
-            return 'incorrect'
+            return 'incorrect';
         } else if (checked && answers[index].isSolution) {
-            return 'correct'
+            return 'correct';
         } else if (!checked && index === chosenIndex) {
-            return 'chosen'
+            return 'chosen';
         }
-        return ''
-    }
+        return '';
+    };
 
-    console.log('MultichoiceQuestion rerender')
+    console.log('MultichoiceQuestion rerender');
 
     return (
         <motion.div
@@ -75,49 +77,39 @@ function MultichoiceQuestion({
 
             <div className="flex flex-col w-full space-y-2">
                 {answers?.map((ans: any, index: any) => {
-                    const ansLabel = getLabel(index)
+                    const ansLabel = getLabel(index);
 
                     return (
                         <motion.button
                             key={index}
-                            className={
-                                'border rounded-lg w-full p-3 text-left ' +
-                                ansLabel
-                            }
+                            className={'border rounded-lg w-full p-3 text-left ' + ansLabel}
                             onClick={() => {
                                 if (!checked) {
                                     if (index == chosenIndex) {
-                                        setChosenIndex(-1)
+                                        setChosenIndex(-1);
                                     } else {
-                                        setChosenIndex(index)
+                                        setChosenIndex(index);
                                     }
                                 }
                             }}
                             whileHover={{ scale: checked ? 1 : 1.05 }}
                             whileTap={{ scale: checked ? 1 : 0.9 }}
                         >
-                            {ansLabel == 'correct' && (
-                                <CheckCircleIcon className="w-6 inline-block mb-0.5 mr-2" />
-                            )}
-                            {ansLabel == 'incorrect' && (
-                                <XCircleIcon className="w-6 inline-block mb-0.5 mr-2" />
-                            )}
+                            {ansLabel == 'correct' && <CheckCircleIcon className="w-6 inline-block mb-0.5 mr-2" />}
+                            {ansLabel == 'incorrect' && <XCircleIcon className="w-6 inline-block mb-0.5 mr-2" />}
                             {ans.text}
                         </motion.button>
-                    )
+                    );
                 })}
             </div>
 
-            <PrimaryButton
-                onClick={checked ? next : checkButtonOnclick}
-                animate={{ x: checked ? 155 : 0 }}
-            >
+            <PrimaryButton onClick={checked ? next : checkButtonOnclick} animate={{ x: checked ? 155 : 0 }}>
                 {!checked ? 'Check' : 'Next question'}
             </PrimaryButton>
 
             <ToastContainerCustom />
         </motion.div>
-    )
+    );
 }
 
-export { MultichoiceQuestion }
+export { MultichoiceQuestion };
