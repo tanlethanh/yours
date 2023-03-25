@@ -1,5 +1,5 @@
 
-# Hello world
+# Welcome to Sipo API
 ## Setup
 
 ### Install all needed packages
