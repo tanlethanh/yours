@@ -6,8 +6,6 @@
 ```
 npm install
 ```
-### Logging
-You must create **.logs** folder in root directory to running
 
 ### Database
 You need to setup mongodb in your local machine for development stage
