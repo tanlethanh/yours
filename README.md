@@ -36,7 +36,7 @@ NOTION_OAUTH_ID=''
 NOTION_OAUTH_SECRET=''  
 
 // Change the link to suite with you admin sdk file
-FIREBASE_ADMIN_PATH='../private/sipo-english-8266-firebase-adminsdk.json' 
+FIREBASE_ADMIN_PATH='../../private/sipo-english-8266-firebase-adminsdk.json' 
 ```
 
 ## Booting the project
