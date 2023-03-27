@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
             <h1 className="text-xl mb-10 font-bold">Xin chào các bạn</h1>
 
-            <MultichoiceQuestion
+            {/* <MultichoiceQuestion
                 question="Fence?"
                 hint="Hello guy"
                 answers={[
@@ -38,9 +38,9 @@ const Home: NextPage = () => {
                 updateNumberCorrect={undefined}
                 title={'Hello'}
                 next={() => {}}
-            />
+            /> */}
 
-            <FullTextQuestion
+            {/* <FullTextQuestion
                 title="Full text question"
                 question={'Bạn có thích tôi không?'}
                 solution={'Tất nhiên rồi bạn'}
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
                 hint=""
                 solution="yêu"
                 next={() => {}}
-            ></HalfTextQuestion>
+            ></HalfTextQuestion> */}
 
             {/* <footer className="flex h-24 w-full items-center justify-center border-t">
         <a

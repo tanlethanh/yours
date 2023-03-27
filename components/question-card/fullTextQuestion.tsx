@@ -10,12 +10,14 @@ function FullTextQuestion({
     hint,
     solution,
     next,
+    handleGetUserAnswer,
 }: {
     title: String;
     question: String;
     hint: any;
     solution: String;
     next: Function;
+    handleGetUserAnswer: Function;
 }) {
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
@@ -74,6 +76,7 @@ function FullTextQuestion({
                     onChange={(e) => {
                         if (!checked) {
                             setAnswer(e.target.value);
+                            handleGetUserAnswer(e.target.value);
                         }
                     }}
                     onKeyDown={textAreaOnKeyDown}

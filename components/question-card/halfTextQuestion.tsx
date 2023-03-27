@@ -11,6 +11,7 @@ function HalfTextQuestion({
     hint,
     solution,
     next,
+    handleGetUserAnswer,
 }: {
     title: String;
     prefixQuestion: String;
@@ -18,6 +19,7 @@ function HalfTextQuestion({
     hint: any;
     solution: String;
     next: Function;
+    handleGetUserAnswer: Function;
 }) {
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
@@ -85,6 +87,7 @@ function HalfTextQuestion({
                     onChange={(e) => {
                         if (!checked && e.target.value.length <= solution.length) {
                             setAnswer(e.target.value);
+                            handleGetUserAnswer(e.target.value);
                         } else if (e.target.value.length > solution.length) {
                             if (!warningLimit) {
                                 toast.info(`Limit ${solution.length} characters`);
