@@ -40,6 +40,11 @@ const PracticeTestSchema = new Schema<IPracticeTest>(
             enum: Object.values(TestGenerationStrategies),
             required: true,
         },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     {
         timestamps: {
@@ -85,7 +90,7 @@ const PraticeQuestionShema = new Schema<IPracticeQuestion>(
     },
     {
         discriminatorKey: "type",
-        strict: false
+        strict: false,
     }
 );
 

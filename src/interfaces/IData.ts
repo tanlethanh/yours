@@ -129,6 +129,7 @@ export interface IPracticeTest extends Document {
     submited_time: Date | undefined;
     status: PracticeTestStatus;
     strategy: TestGenerationStrategies;
+    owner: Schema.Types.ObjectId;
 }
 
 export enum PracticeQuestionType {

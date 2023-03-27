@@ -41,6 +41,7 @@ class TestGenerationService {
         const test = new PracticeTest({
             strategy: strategy,
             questions: this.arrangeQuestionsAndGetIds(questions),
+            owner: user._id,
         });
 
         const result = await (
