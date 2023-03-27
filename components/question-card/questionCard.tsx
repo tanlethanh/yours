@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FullTextQuestion, HalfTextQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
-import { AnimatePresence } from 'framer-motion';
-import { DataTestsContext } from '../../store/DataTestsContext';
 function QuestionCard({ testId, id, dataTest, setFinal }: any) {
     const router = useRouter();
     const type = dataTest[id]?.type;
@@ -58,7 +56,8 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                 />
             );
         default:
-            setFinal(true);
+            // data test need to produce to set final
+            if (dataTest.length > 0) setFinal(true);
             return null;
     }
 }

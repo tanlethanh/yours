@@ -10,9 +10,11 @@ function TestLayout({ children }: { children: React.ReactNode }) {
     const context = useContext(DataTestsContext);
 
     useEffect(() => {
+        if (!router.isReady) return;
         const getData = async () => {
-            if ((children as any).props?.dataTest) {
-                const { testId, questionId } = router.query;
+            console.log((children as any).props?.dataTest);
+            if (!(children as any).props?.dataTest) {
+                const { testId } = router.query;
                 if (testId) {
                     await context.addTestsDataById(testId as string);
                 }

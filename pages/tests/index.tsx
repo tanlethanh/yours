@@ -11,29 +11,12 @@ function Tests() {
         router.replace(`/tests/${testId}/0`);
     };
 
-    // const syncData = async () => {
-    //     try {
-    //         console.log('Sync data');
-    //         const res = await apiAxios.post('/notion/data/sync');
-    //         console.log(res);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
     useEffect(() => {
         handleAddTestsData();
     }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center space-y-5">
-            {/* <h1 className="text-4xl font-extrabold">Tests</h1>
-            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={syncData}>
-                Sync data
-            </button>
-            <button className="w-fit px-8 py-3 border border-gray-300 rounded-md" onClick={handleAddTestsData}>
-                Get New Test
-            </button> */}
             <QuizBumpElement width={500} height={500}></QuizBumpElement>
         </div>
     );
