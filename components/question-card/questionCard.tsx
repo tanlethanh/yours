@@ -20,7 +20,7 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                     updateNumberCorrect={undefined}
                     title={'Hello'}
                     next={() => {
-                        router.push(`/tests/${testId}/${Number(id) + 1}`);
+                        router.push(`/tests/${testId}/${Number(id) + 1}`);                     
                     }}
                 />
             );
