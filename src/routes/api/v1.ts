@@ -47,4 +47,9 @@ apiV1
     .route("/users/notion-connect")
     .get(Auth.userFilter, wrapper(UsersController.isUserConnectToNotion));
 
+
+apiV1
+    .route("/users/update")
+    .post(Auth.userFilter, wrapper(UsersController.updateUser));
+
 export default apiV1;
