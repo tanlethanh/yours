@@ -13,7 +13,7 @@ class Handler {
             } catch (error: any) {
                 if (
                     !(error instanceof UserError) ||
-                    !(error instanceof MongooseError)
+                    error.name === "MongoError"
                 )
                     return next(error);
 
