@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { IUser } from "../interfaces/IData.js";
 import { StatusCodes } from "http-status-codes";
 import TestGenerationService from "../services/TestGenerationService.js";
-import { TestGenerationStrategies } from "../interfaces/IData.js";
+import { IUser, TestGenerationStrategies } from "../interfaces/IData.js";
 import { User } from "../models/UserModel.js";
+import UserService from "../services/UserService.js";
 
 class UsersController {
     public static async isUserConnectToNotion(
@@ -23,6 +23,18 @@ class UsersController {
                 is_connected: false,
             });
         }
+    }
+
+    public static async updateUser(
+        req: Request & {user: IUser},
+        res: Response
+    ) {
+        
+        await UserService.updateUser(req.body);
+
+        return res.status(StatusCodes.OK).json({
+            message: "success"
+        });
     }
 }
 

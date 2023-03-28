@@ -38,6 +38,9 @@ class TestGenerationService {
                 strategy
             )) || [];
 
+        // console.log(questions);
+
+
         const test = new PracticeTest({
             strategy: strategy,
             questions: this.arrangeQuestionsAndGetIds(questions),

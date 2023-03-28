@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { IUser } from "../interfaces/IData.js";
 import { User } from "../models/index.js";
 
 class UserRepo {
@@ -30,9 +31,10 @@ class UserRepo {
                 access_token: 1,
             },
         });
-
+        
         return user?.notion_data.access_token;
     }
+
 }
 
 export default new UserRepo();
