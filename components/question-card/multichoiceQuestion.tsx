@@ -10,6 +10,7 @@ function MultichoiceQuestion({
     question,
     hint,
     answers,
+    handleGetUserAnswer,
     updateNumberCorrect,
     next,
 }: {
@@ -26,6 +27,7 @@ function MultichoiceQuestion({
         | any;
     updateNumberCorrect: Function | undefined;
     next: any;
+    handleGetUserAnswer: Function;
 }) {
     const [chosenIndex, setChosenIndex] = useState(-1);
     const [checked, setChecked] = useState(false);
@@ -89,6 +91,7 @@ function MultichoiceQuestion({
                                         setChosenIndex(-1);
                                     } else {
                                         setChosenIndex(index);
+                                        handleGetUserAnswer(index);
                                     }
                                 }
                             }}

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { FullTextQuestion, HalfTextQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
+import { DataTestsContext } from '../../store/DataTestsContext';
+
 function QuestionCard({ testId, id, dataTest, setFinal }: any) {
     const router = useRouter();
     const type = dataTest[id]?.type;
-
+    const context = useContext(DataTestsContext);
+    const [userAnswer, setUserAnswer] = useState('-1');
+    const handleGetUserAnswer = (userAnswer: string) => {
+        setUserAnswer(userAnswer);
+    };
     switch (type) {
         case 'MULTICHOICE':
             const answers: { text: string; isSolution: boolean }[] = [];
@@ -18,9 +24,12 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                     hint="Hello guy"
                     answers={answers}
                     updateNumberCorrect={undefined}
+                    handleGetUserAnswer={handleGetUserAnswer}
                     title={'Hello'}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
+                        context.updateQuestionById(id, userAnswer);
+                        console.log(context.testsDatas);
                     }}
                 />
             );
@@ -37,8 +46,11 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                     suffixQuestion={suffixQuestion}
                     hint=""
                     solution={dataTest[id].list_words[indexSolution]}
+                    handleGetUserAnswer={handleGetUserAnswer}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
+                        context.updateQuestionById(id, userAnswer);
+                        console.log(context.testsDatas);
                     }}
                 ></HalfTextQuestion>
             );
@@ -49,9 +61,12 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                     title="Full text question"
                     question={dataTest[id].question_text}
                     solution={dataTest[id].solution}
+                    handleGetUserAnswer={handleGetUserAnswer}
                     hint={''}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
+                        context.updateQuestionById(id, userAnswer);
+                        console.log(context.testsDatas);
                     }}
                 />
             );
