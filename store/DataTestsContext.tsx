@@ -4,7 +4,7 @@ type DataTestsContextType = {
     testsDatas: [];
     testsId: String;
     addTestsData: () => Promise<void>;
-    addTestsDataById: (testId: string) => Promise<void>;
+    addTestsDataById: (testId: string) => any;
     updateQuestionById: (index: number, userAnwser: string) => {};
 };
 
@@ -61,7 +61,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
             setTestsDatas(result.data.test.questions);
             setTestsId(result.data.test._id);
         }
-        return result?.data.questions;
+        return result?.data.test.questions;
     }
     async function addTestsData() {
         const result = await getNewTestService();
