@@ -3,6 +3,7 @@ import Log from "../helpers/Log.js";
 import Locals from "../providers/Locals.js";
 import { Request, Response } from "express";
 import { UserError } from "./Error.js";
+import { MongooseError } from "mongoose";
 
 class Handler {
     public static errorHandlerWrapper(controllerFunc: Function) {
@@ -10,7 +11,11 @@ class Handler {
             try {
                 await controllerFunc(req, res, next);
             } catch (error: any) {
-                if (!(error instanceof UserError)) return next(error);
+                if (
+                    !(error instanceof UserError) ||
+                    !(error instanceof MongooseError)
+                )
+                    return next(error);
 
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     message: error.message,

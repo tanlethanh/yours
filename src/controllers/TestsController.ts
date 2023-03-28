@@ -20,7 +20,13 @@ class TestsController {
         res: Response,
         next: Function
     ) {
-        const testId = new Types.ObjectId(req.params.testId);
+        let testId
+        try {
+            testId = new Types.ObjectId(req.params.testId)
+        }
+        catch (error) {
+            throw new UserError("Invalid testId")
+        }
         const withQuestions = req.query["with-questions"] == "true";
 
         let test = undefined;
@@ -40,7 +46,13 @@ class TestsController {
         res: Response,
         next: Function
     ) {
-        const testId = new Types.ObjectId(req.params.testId);
+        let testId
+        try {
+            testId = new Types.ObjectId(req.params.testId)
+        }
+        catch (error) {
+            throw new UserError("Invalid testId")
+        }
 
         const test = await PracticeTest.findOneAndDelete({
             _id: testId,
@@ -114,10 +126,16 @@ class TestsController {
         res: Response,
         next: Function
     ) {
-        const questionId = new Types.ObjectId(req.params.questionId as string);
-        return res.status(StatusCodes.OK).json({
-            question: await PracticeQuestion.findById(questionId),
-        });
+        try {
+            const questionId = new Types.ObjectId(
+                req.params.questionId as string
+            );
+            return res.status(StatusCodes.OK).json({
+                question: await PracticeQuestion.findById(questionId),
+            });
+        } catch (error) {
+            throw new UserError("Invalid questionID");
+        }
     }
 
     public static async updateQuestion(
