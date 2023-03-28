@@ -23,9 +23,7 @@ type DataTestsProviderProps = {
 function DataTestsProvider({ children }: DataTestsProviderProps) {
     const [testsDatas, setTestsDatas] = useState<any>([]);
     const [testsId, setTestsId] = useState<any>('aa');
-    // useEffect(() => {
-    //     addTestsData();
-    // }, []);
+    
     const updateQuestionByIdService = async (questionId: string, userAnswer: string) => {
         try {
             const res = await apiAxios.post(`/questions/${questionId}?action=update-answer`, {
@@ -35,6 +33,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
             console.log(err);
         }
     };
+    
     const getNewTestService = async () => {
         try {
             const res = await apiAxios.get('/tests/new-test');
@@ -44,6 +43,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
             console.log(err);
         }
     };
+    
     const getTestByIdService = async (testId: string) => {
         try {
             const res = await apiAxios.get(`tests/${testId}?with-questions=true`);
@@ -53,6 +53,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
             console.log(err);
         }
     };
+    
     async function addTestsDataById(testId: string) {
         const result = await getTestByIdService(testId);
 
@@ -63,6 +64,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
         }
         return result?.data.test.questions;
     }
+    
     async function addTestsData() {
         const result = await getNewTestService();
 
