@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
 import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
+import { DataTestsContext } from '../../store/DataTestsContext';
 
 function HalfTextQuestion({
+    id,
     title = 'Half text question',
     prefixQuestion,
     suffixQuestion,
     hint,
     solution,
     next,
-    handleGetUserAnswer,
 }: {
+    id: String;
     title: String;
     prefixQuestion: String;
     suffixQuestion: String;
     hint: any;
     solution: String;
     next: Function;
-    handleGetUserAnswer: Function;
 }) {
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
     const [warningLimit, setWarningLimit] = useState(false);
+    const context = useContext(DataTestsContext);
 
     const checkButtonOnclick = () => {
         if (!checked) {
@@ -33,6 +35,7 @@ function HalfTextQuestion({
                 // } else {
                 //     toast.error("Oh no! It's wrong");
                 // }
+                context.updateQuestionById(+id, answer);
                 setChecked(true);
             } else {
                 toast.error('Please type your answer!');
@@ -87,7 +90,6 @@ function HalfTextQuestion({
                     onChange={(e) => {
                         if (!checked && e.target.value.length <= solution.length) {
                             setAnswer(e.target.value);
-                            handleGetUserAnswer(e.target.value);
                         } else if (e.target.value.length > solution.length) {
                             if (!warningLimit) {
                                 toast.info(`Limit ${solution.length} characters`);

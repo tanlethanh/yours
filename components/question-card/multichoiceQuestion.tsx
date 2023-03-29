@@ -99,7 +99,7 @@ function MultichoiceQuestion({
                                         setChosenIndex(-1);
                                     } else {
                                         setChosenIndex(index);
-                                        context.updateQuestionById(+id, index);
+                                        context.updateQuestionById(+id, index + '');
                                     }
                                 }
                             }}
