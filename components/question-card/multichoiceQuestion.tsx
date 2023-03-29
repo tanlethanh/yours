@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
@@ -13,10 +13,12 @@ function MultichoiceQuestion({
     handleGetUserAnswer,
     updateNumberCorrect,
     next,
+    userAnswer,
 }: {
     title: String;
     question: String;
     hint: any;
+    userAnswer: String;
     answers:
         | [
               {
@@ -47,7 +49,12 @@ function MultichoiceQuestion({
             // toast.error("Oh no! It's wrong")
         }
     };
-
+    useEffect(() => {
+        if (userAnswer) {
+            setChosenIndex(+userAnswer);
+            setChecked(true);
+        }
+    }, []);
     const getLabel = (index: number) => {
         if (checked && index == chosenIndex && !answers[index].isSolution) {
             return 'incorrect';

@@ -22,6 +22,7 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
                     key={dataTest[id]._id}
                     question={dataTest[id].question_text}
                     hint="Hello guy"
+                    userAnswer={dataTest[id].user_answer}
                     answers={answers}
                     updateNumberCorrect={undefined}
                     handleGetUserAnswer={handleGetUserAnswer}
