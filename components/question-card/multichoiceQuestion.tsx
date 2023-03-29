@@ -68,8 +68,6 @@ function MultichoiceQuestion({
         return '';
     };
 
-    console.log('MultichoiceQuestion rerender');
-
     return (
         <motion.div
             initial={{ x: 300, opacity: 0 }}

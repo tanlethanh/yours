@@ -12,16 +12,17 @@ function TestPage() {
     const router = useRouter();
     const { testId, questionId } = router.query;
     const [isFinal, setIsFinal] = useState(false);
-    useEffect(()=>{
-
-    })
-
     const context = useContext(DataTestsContext);
 
-    console.log(context.testsDatas);
     return (
         <TestLayout>
-            <QuestionCard testId={testId} id={questionId} dataTest={context.testsDatas} setFinal={setIsFinal} />
+            <QuestionCard
+                key={questionId}
+                testId={testId}
+                id={questionId}
+                dataTest={context.testsDatas}
+                setFinal={setIsFinal}
+            />
             {isFinal && (
                 <div className="flex flex-row space-x-4">
                     <div className="flex flex-col space-y-16 pt-10">

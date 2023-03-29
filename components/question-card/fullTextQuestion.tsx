@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
@@ -11,11 +11,13 @@ function FullTextQuestion({
     hint,
     id,
     solution,
+    userAnswer,
     next,
 }: {
     title: String;
     id: String;
     question: String;
+    userAnswer: string;
     hint: any;
     solution: String;
     next: Function;
@@ -23,7 +25,12 @@ function FullTextQuestion({
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
     const context = useContext(DataTestsContext);
-
+    useEffect(() => {
+        if (userAnswer) {
+            setAnswer(userAnswer);
+            setChecked(true);
+        }
+    }, []);
     const checkButtonOnclick = () => {
         if (!checked) {
             if (answer.trim().length > 0) {

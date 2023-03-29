@@ -13,12 +13,12 @@ function TestLayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!router.isReady) return;
         const getData = async () => {
-            console.log((children as any).props?.dataTest);
+           
             if (!(children as any).props?.dataTest) {
                 const { testId } = router.query;
                 if (testId) {
                     const testDatas = await context.addTestsDataById(testId as string);
-                    console.log(testDatas);
+                    
                     if (testDatas === undefined) {
                         setStatusLoading(false);
                         handleLoading();

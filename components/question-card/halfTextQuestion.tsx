@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
@@ -12,6 +12,7 @@ function HalfTextQuestion({
     suffixQuestion,
     hint,
     solution,
+    userAnswer,
     next,
 }: {
     id: String;
@@ -19,6 +20,7 @@ function HalfTextQuestion({
     prefixQuestion: String;
     suffixQuestion: String;
     hint: any;
+    userAnswer: string;
     solution: String;
     next: Function;
 }) {
@@ -26,7 +28,12 @@ function HalfTextQuestion({
     const [answer, setAnswer] = useState('');
     const [warningLimit, setWarningLimit] = useState(false);
     const context = useContext(DataTestsContext);
-
+    useEffect(() => {
+        if (userAnswer) {
+            setAnswer(userAnswer);
+            setChecked(true);
+        }
+    }, []);
     const checkButtonOnclick = () => {
         if (!checked) {
             if (answer.trim().length > 0) {

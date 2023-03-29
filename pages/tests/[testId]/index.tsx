@@ -7,7 +7,7 @@ function TestById() {
 
     const context = useContext(DataTestsContext);
     const findIndexUserRecently = (question: any) => {
-        console.log(question.user_answer);
+       
         return question.user_answer === undefined;
     };
     useEffect(() => {
@@ -18,8 +18,8 @@ function TestById() {
             if (testId) {
                 const testsData = await context.addTestsDataById(testId as any);
                 indexQuestion = testsData?.findIndex(findIndexUserRecently);
-                console.log(indexQuestion);
-                if (indexQuestion === undefined) indexQuestion = 0;
+                
+                if (indexQuestion === -1) indexQuestion = 0;
             }
 
             router.replace(`/tests/${testId}/${indexQuestion}`);
