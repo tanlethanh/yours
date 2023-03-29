@@ -28,7 +28,9 @@ function TestPage() {
                     <div className="flex flex-col space-y-16 pt-10">
                         <div>
                             <h1 className="text-3xl font-medium mb-4">Kết quả</h1>
-                            <p className="text-8xl"> 27/30</p>
+                            <p className="text-8xl">
+                                {`${context.countCorrect} / ${context.testsDatas.length}`}
+                            </p>
                         </div>
                         <Link href={'/dashboard'} className="w-fit px-8 py-3 border border-gray-300 rounded-md">
                             {' '}

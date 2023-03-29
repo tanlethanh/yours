@@ -41,7 +41,7 @@ function QuestionCard({ testId, id, setFinal }: any) {
                     userAnswer={context.testsDatas[id].user_answer}
                     answers={answers}
                     updateNumberCorrect={undefined}
-                    title={''}
+                    title={`Câu ${+id + 1}`}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
                     }}
@@ -56,7 +56,7 @@ function QuestionCard({ testId, id, setFinal }: any) {
                 <HalfTextQuestion
                     id={id}
                     key={context.testsDatas[id]._id}
-                    title="Half text question"
+                    title={`Câu ${+id + 1}`}
                     prefixQuestion={prefixQuestion}
                     suffixQuestion={suffixQuestion}
                     userAnswer={context.testsDatas[id].user_answer}
@@ -72,7 +72,7 @@ function QuestionCard({ testId, id, setFinal }: any) {
                 <FullTextQuestion
                     id={id}
                     key={context.testsDatas[id]._id}
-                    title="Full text question"
+                    title={`Câu ${+id + 1}`}
                     question={context.testsDatas[id].question_text}
                     userAnswer={context.testsDatas[id].user_answer}
                     solution={context.testsDatas[id].solution}
