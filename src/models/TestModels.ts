@@ -137,6 +137,10 @@ const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
         type: Number,
         required: true,
     },
+    hint: {
+        type: String,
+        required: false
+    },
     user_answer: {
         type: String,
         required: false,

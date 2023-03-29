@@ -364,7 +364,7 @@ class NotionProcessingService {
         await this.createDuplexQuestionCore(sentenceImage, left, right);
 
         // Create fill word question
-        await this.createFillWordQuestionCore(sentenceImage, left);
+        await this.createFillWordQuestionCore(sentenceImage, left, right);
     }
 
     /**
@@ -451,7 +451,8 @@ class NotionProcessingService {
      */
     async createFillWordQuestionCore(
         sentenceImage: ISentence,
-        modifiedText: string
+        modifiedText: string,
+        modifiedHint: string
     ) {
         const listWords = modifiedText.split("|");
 
@@ -477,6 +478,7 @@ class NotionProcessingService {
             list_words: newListWords,
             fill_field_indexes: fillFieldIndexes,
             dificulty: Difficulty.MEDIUM,
+            hint: modifiedHint.replaceAll("|", "").replaceAll("\\b", ""),
         });
 
         // Push child to sentence image

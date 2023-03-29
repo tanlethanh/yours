@@ -63,6 +63,10 @@ const duplexQuestionCoreSchema = new Schema<IDuplexQuestionCore>({
 const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({
     list_words: [String],
     fill_field_indexes: [Number],
+    hint: {
+        type: String, 
+        required: false
+    },
     language: {
         type: String,
         enum: Object.values(Language),

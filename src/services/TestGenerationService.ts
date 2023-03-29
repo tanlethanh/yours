@@ -40,7 +40,6 @@ class TestGenerationService {
 
         // console.log(questions);
 
-
         const test = new PracticeTest({
             strategy: strategy,
             questions: this.arrangeQuestionsAndGetIds(questions),
@@ -244,6 +243,7 @@ class TestGenerationService {
                             solution_index: (core as IFillWordQuestionCore)
                                 .fill_field_indexes[k],
                             difficulty: Difficulty.MEDIUM,
+                            hint: (core as IFillWordQuestionCore).hint,
                             sentence_id: sentences[i]._id,
                             picked_type: (sentences[i] as any).pickedType,
                         });

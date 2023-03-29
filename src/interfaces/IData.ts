@@ -106,6 +106,7 @@ export interface IDuplexQuestionCore extends IQuestionCore {
 export interface IFillWordQuestionCore extends IQuestionCore {
     list_words: Array<IWords>;
     fill_field_indexes: Array<Number>;
+    hint: string;
     language: Language;
     type: QuestionType.CORE_FILL;
 }
@@ -169,4 +170,5 @@ export interface IFillWordQuestion extends IPracticeQuestion {
     list_words: Array<String>;
     solution_index: Number;
     user_answer: String;
+    hint: string;
 }
