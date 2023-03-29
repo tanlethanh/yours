@@ -41,6 +41,7 @@ function MultichoiceQuestion({
         }
 
         setChecked(true);
+        context.updateQuestionById(+id, chosenIndex);
         if (answers[chosenIndex]?.isSolution) {
             if (typeof updateNumberCorrect == 'function') {
                 updateNumberCorrect((prevNum: any) => prevNum + 1);
@@ -99,7 +100,6 @@ function MultichoiceQuestion({
                                         setChosenIndex(-1);
                                     } else {
                                         setChosenIndex(index);
-                                        context.updateQuestionById(+id, index + '');
                                     }
                                 }
                             }}

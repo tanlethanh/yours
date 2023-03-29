@@ -5,7 +5,7 @@ type DataTestsContextType = {
     testsId: String;
     addTestsData: () => Promise<void>;
     addTestsDataById: (testId: string) => any;
-    updateQuestionById: (index: number, userAnwser: string) => {};
+    updateQuestionById: (index: number, userAnwser: any) => {};
 };
 
 const DataTestsContext = createContext<DataTestsContextType>({
@@ -13,7 +13,7 @@ const DataTestsContext = createContext<DataTestsContextType>({
     testsId: '',
     addTestsData: async () => {},
     addTestsDataById: async (testId: string) => {},
-    updateQuestionById: async (index: number, userAnwser: string) => {},
+    updateQuestionById: async (index: number, userAnwser: any) => {},
 });
 
 type DataTestsProviderProps = {
@@ -24,7 +24,7 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
     const [testsDatas, setTestsDatas] = useState<any>([]);
     const [testsId, setTestsId] = useState<any>('aa');
 
-    const updateQuestionByIdService = async (questionId: string, userAnswer: string) => {
+    const updateQuestionByIdService = async (questionId: string, userAnswer: any) => {
         try {
             const res = await apiAxios.post(`/questions/${questionId}?action=update-answer`, {
                 userAnswer,
@@ -76,8 +76,9 @@ function DataTestsProvider({ children }: DataTestsProviderProps) {
         return result?.data.test._id;
     }
 
-    async function updateQuestionById(index: number, userAnwser: string) {
+    async function updateQuestionById(index: number, userAnwser: any) {
         let questionId = testsDatas[index]._id as string;
+
         await updateQuestionByIdService(questionId, userAnwser);
         testsDatas[index].userAnwser = userAnwser;
     }
