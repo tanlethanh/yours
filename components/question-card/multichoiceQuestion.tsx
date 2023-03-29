@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
 import { PrimaryButton } from '../../utils/button';
+import { DataTestsContext } from '../../store/DataTestsContext';
 
 function MultichoiceQuestion({
     title = 'Full text question',
     question,
     hint,
     answers,
-    handleGetUserAnswer,
+    id,
     updateNumberCorrect,
     next,
+    userAnswer,
 }: {
     title: String;
     question: String;
     hint: any;
+    id: String;
+    userAnswer: String;
     answers:
         | [
               {
@@ -27,17 +31,17 @@ function MultichoiceQuestion({
         | any;
     updateNumberCorrect: Function | undefined;
     next: any;
-    handleGetUserAnswer: Function;
 }) {
     const [chosenIndex, setChosenIndex] = useState(-1);
     const [checked, setChecked] = useState(false);
-
+    const context = useContext(DataTestsContext);
     const checkButtonOnclick = () => {
         if (chosenIndex == -1) {
             return toast.error('Please choose the answer!');
         }
 
         setChecked(true);
+        context.updateQuestionById(+id, chosenIndex);
         if (answers[chosenIndex]?.isSolution) {
             if (typeof updateNumberCorrect == 'function') {
                 updateNumberCorrect((prevNum: any) => prevNum + 1);
@@ -47,7 +51,12 @@ function MultichoiceQuestion({
             // toast.error("Oh no! It's wrong")
         }
     };
-
+    useEffect(() => {
+        if (userAnswer) {
+            setChosenIndex(+userAnswer);
+            setChecked(true);
+        }
+    }, []);
     const getLabel = (index: number) => {
         if (checked && index == chosenIndex && !answers[index].isSolution) {
             return 'incorrect';
@@ -91,7 +100,6 @@ function MultichoiceQuestion({
                                         setChosenIndex(-1);
                                     } else {
                                         setChosenIndex(index);
-                                        handleGetUserAnswer(index);
                                     }
                                 }
                             }}

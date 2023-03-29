@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
 import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
+import { DataTestsContext } from '../../store/DataTestsContext';
 
 function FullTextQuestion({
     title = 'Full text question',
     question,
     hint,
+    id,
     solution,
     next,
-    handleGetUserAnswer,
 }: {
     title: String;
+    id: String;
     question: String;
     hint: any;
     solution: String;
     next: Function;
-    handleGetUserAnswer: Function;
 }) {
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
+    const context = useContext(DataTestsContext);
 
     const checkButtonOnclick = () => {
         if (!checked) {
@@ -30,6 +32,7 @@ function FullTextQuestion({
                 // } else {
                 //     toast.error("Oh no! It's wrong");
                 // }
+                context.updateQuestionById(+id, answer);
                 setChecked(true);
             } else {
                 toast.error('Please type your answer!');
@@ -76,7 +79,6 @@ function FullTextQuestion({
                     onChange={(e) => {
                         if (!checked) {
                             setAnswer(e.target.value);
-                            handleGetUserAnswer(e.target.value);
                         }
                     }}
                     onKeyDown={textAreaOnKeyDown}

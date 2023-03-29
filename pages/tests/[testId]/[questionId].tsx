@@ -12,6 +12,9 @@ function TestPage() {
     const router = useRouter();
     const { testId, questionId } = router.query;
     const [isFinal, setIsFinal] = useState(false);
+    useEffect(()=>{
+
+    })
 
     const context = useContext(DataTestsContext);
 

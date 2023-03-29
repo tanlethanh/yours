@@ -7,10 +7,7 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
     const router = useRouter();
     const type = dataTest[id]?.type;
     const context = useContext(DataTestsContext);
-    const [userAnswer, setUserAnswer] = useState('-1');
-    const handleGetUserAnswer = (userAnswer: string) => {
-        setUserAnswer(userAnswer);
-    };
+
     switch (type) {
         case 'MULTICHOICE':
             const answers: { text: string; isSolution: boolean }[] = [];
@@ -19,16 +16,16 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
             );
             return (
                 <MultichoiceQuestion
+                    id={id}
                     key={dataTest[id]._id}
                     question={dataTest[id].question_text}
                     hint="Hello guy"
+                    userAnswer={dataTest[id].user_answer}
                     answers={answers}
                     updateNumberCorrect={undefined}
-                    handleGetUserAnswer={handleGetUserAnswer}
                     title={'Hello'}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
-                        context.updateQuestionById(id, userAnswer);
                         console.log(context.testsDatas);
                     }}
                 />
@@ -40,16 +37,16 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
             let suffixQuestion = dataTest[id].list_words.slice(indexSolution + 1).join(' ');
             return (
                 <HalfTextQuestion
+                    id={id}
                     key={dataTest[id]._id}
                     title="Half text question"
                     prefixQuestion={prefixQuestion}
                     suffixQuestion={suffixQuestion}
                     hint=""
                     solution={dataTest[id].list_words[indexSolution]}
-                    handleGetUserAnswer={handleGetUserAnswer}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
-                        context.updateQuestionById(id, userAnswer);
+
                         console.log(context.testsDatas);
                     }}
                 ></HalfTextQuestion>
@@ -57,15 +54,14 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
         case 'TRANSLATE':
             return (
                 <FullTextQuestion
+                    id={id}
                     key={dataTest[id]._id}
                     title="Full text question"
                     question={dataTest[id].question_text}
                     solution={dataTest[id].solution}
-                    handleGetUserAnswer={handleGetUserAnswer}
                     hint={''}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
-                        context.updateQuestionById(id, userAnswer);
                         console.log(context.testsDatas);
                     }}
                 />
