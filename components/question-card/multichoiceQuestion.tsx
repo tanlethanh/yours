@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
 import { PrimaryButton } from '../../utils/button';
+import { DataTestsContext } from '../../store/DataTestsContext';
 
 function MultichoiceQuestion({
     title = 'Full text question',
     question,
     hint,
     answers,
-    handleGetUserAnswer,
+    id,
     updateNumberCorrect,
     next,
     userAnswer,
@@ -18,6 +19,7 @@ function MultichoiceQuestion({
     title: String;
     question: String;
     hint: any;
+    id: String;
     userAnswer: String;
     answers:
         | [
@@ -29,11 +31,10 @@ function MultichoiceQuestion({
         | any;
     updateNumberCorrect: Function | undefined;
     next: any;
-    handleGetUserAnswer: Function;
 }) {
     const [chosenIndex, setChosenIndex] = useState(-1);
     const [checked, setChecked] = useState(false);
-
+    const context = useContext(DataTestsContext);
     const checkButtonOnclick = () => {
         if (chosenIndex == -1) {
             return toast.error('Please choose the answer!');
@@ -98,7 +99,7 @@ function MultichoiceQuestion({
                                         setChosenIndex(-1);
                                     } else {
                                         setChosenIndex(index);
-                                        handleGetUserAnswer(index);
+                                        context.updateQuestionById(+id, index);
                                     }
                                 }
                             }}

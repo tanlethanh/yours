@@ -19,13 +19,13 @@ function QuestionCard({ testId, id, dataTest, setFinal }: any) {
             );
             return (
                 <MultichoiceQuestion
+                    id={id}
                     key={dataTest[id]._id}
                     question={dataTest[id].question_text}
                     hint="Hello guy"
                     userAnswer={dataTest[id].user_answer}
                     answers={answers}
                     updateNumberCorrect={undefined}
-                    handleGetUserAnswer={handleGetUserAnswer}
                     title={'Hello'}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
