@@ -160,7 +160,7 @@ class TestsController {
         switch (action) {
             case Action.UPDATE_ANSWER: {
                 const userAnswer = req.body.userAnswer;
-                if (!userAnswer) {
+                if (userAnswer == 'undefined') {
                     throw new UserError(
                         `Require userAnswer in body with ${action}`
                     );
