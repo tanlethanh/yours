@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
@@ -25,6 +25,7 @@ function FullTextQuestion({
     const [checked, setChecked] = useState(false);
     const [answer, setAnswer] = useState('');
     const context = useContext(DataTestsContext);
+
     useEffect(() => {
         if (userAnswer) {
             setAnswer(userAnswer);
@@ -49,7 +50,11 @@ function FullTextQuestion({
 
     const textAreaOnKeyDown = (event: any) => {
         if (event.key == 'Enter') {
-            checkButtonOnclick();
+            if (!checked) {
+                checkButtonOnclick();
+            } else {
+                next();
+            }
         }
     };
 
@@ -90,6 +95,7 @@ function FullTextQuestion({
                     }}
                     onKeyDown={textAreaOnKeyDown}
                     value={answer}
+                    autoFocus={true}
                 />
                 {getLabel() === 'incorrect' && <p className="correct">{solution}</p>}
             </div>

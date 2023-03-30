@@ -52,7 +52,11 @@ function HalfTextQuestion({
 
     const textAreaOnKeyDown = (event: any) => {
         if (event.key == 'Enter') {
-            checkButtonOnclick();
+            if (!checked) {
+                checkButtonOnclick();
+            } else {
+                next();
+            }
         }
     };
 
@@ -98,6 +102,7 @@ function HalfTextQuestion({
                         if (!checked && e.target.value.length <= solution.length) {
                             setAnswer(e.target.value);
                         } else if (e.target.value.length > solution.length) {
+                            if (e.target.value[e.target.value.length - 1] == '\n') return;
                             if (!warningLimit) {
                                 toast.info(`Limit ${solution.length} characters`);
                                 setWarningLimit(true);
@@ -106,6 +111,7 @@ function HalfTextQuestion({
                     }}
                     onKeyDown={textAreaOnKeyDown}
                     value={answer}
+                    autoFocus={true}
                 />
                 {getLabel() === 'incorrect' && <p className="correct">{solution}</p>}
             </div>
