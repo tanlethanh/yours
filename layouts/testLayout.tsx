@@ -5,7 +5,7 @@ import { apiAxios } from '../utils/axiosConfig';
 import { DataTestsContext } from '../store/DataTestsContext';
 import Head from 'next/head';
 import GetTestErrorElement from '../components/animatedElements/getTestErrorElement';
-function TestLayout({ children }: { children: React.ReactNode }) {
+function TestLayout({ children, title }: { children: React.ReactNode; title: string }) {
     const router = useRouter();
     const [statusLoading, setStatusLoading] = useState(true);
     const context = useContext(DataTestsContext);
@@ -40,7 +40,7 @@ function TestLayout({ children }: { children: React.ReactNode }) {
                         <Head>
                             <title>Sipo English | Practice</title>
                         </Head>
-                        <h1 className="font-medium text-3xl mb-10">Bài kiểm tra</h1>
+                        <h1 className="font-medium text-3xl mb-10">{title ? title : 'Bài kiểm tra'}</h1>
                         <div>{children}</div>
                     </div>
                 </AnimatePresence>
