@@ -80,7 +80,7 @@ function FullTextQuestion({
 
             <div className="flex flex-col pb-5 space-y-1">
                 <p className="text-lg font-bold">{question}</p>
-                {hint && <p className="italic">Hint: {hint}</p>}
+                {/* {hint && <p className="italic">Hint: {hint}</p>} */}
             </div>
 
             <div className="min-height-200px">

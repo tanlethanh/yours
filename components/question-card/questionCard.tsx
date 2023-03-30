@@ -60,7 +60,7 @@ function QuestionCard({ testId, id, setFinal }: any) {
                     prefixQuestion={prefixQuestion}
                     suffixQuestion={suffixQuestion}
                     userAnswer={context.testsDatas[id].user_answer}
-                    hint=""
+                    hint={context.testsDatas[id].hint}
                     solution={context.testsDatas[id].list_words[indexSolution]}
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);

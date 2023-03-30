@@ -81,7 +81,7 @@ function MultichoiceQuestion({
                     <p>{title}</p>
                 </div>
                 <p className="text-lg font-bold">{question}</p>
-                {hint && <p className="italic">Hint: {hint}</p>}
+                {/* {hint && <p className="italic text-zinc-600">Hint: {hint}</p>} */}
             </div>
 
             <div className="flex flex-col w-full space-y-2">
