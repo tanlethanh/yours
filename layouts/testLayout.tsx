@@ -13,12 +13,11 @@ function TestLayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!router.isReady) return;
         const getData = async () => {
-           
             if (!(children as any).props?.dataTest) {
                 const { testId } = router.query;
                 if (testId) {
                     const testDatas = await context.addTestsDataById(testId as string);
-                    
+
                     if (testDatas === undefined) {
                         setStatusLoading(false);
                         handleLoading();
@@ -41,7 +40,7 @@ function TestLayout({ children }: { children: React.ReactNode }) {
                         <Head>
                             <title>Sipo English | Practice</title>
                         </Head>
-                        <h1 className="font-medium text-3xl mb-20">Bài kiểm tra</h1>
+                        <h1 className="font-medium text-3xl mb-10">Bài kiểm tra</h1>
                         <div>{children}</div>
                     </div>
                 </AnimatePresence>
