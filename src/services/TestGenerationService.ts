@@ -93,7 +93,7 @@ class TestGenerationService {
         }
 
         if (strategy === TestGenerationStrategies.DEFAULT) {
-            const numberNew = numberOfQuestion * 0.8;
+            const numberNew = numberOfQuestion * 0.7;
             const numberOld = numberOfQuestion - numberNew;
 
             // Sort by usage and time
