@@ -37,7 +37,7 @@ function MultichoiceQuestion({
     const context = useContext(DataTestsContext);
     const checkButtonOnclick = () => {
         if (chosenIndex == -1) {
-            return toast.error('Please choose the answer!');
+            return toast.error('Hãy chọn đáp án!');
         }
 
         setChecked(true);

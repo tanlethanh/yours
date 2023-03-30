@@ -47,7 +47,7 @@ function HalfTextQuestion({
         }
     }, []);
 
-    const checkButtonOnclick = () => {
+    const checkButtonOnclick = async () => {
         if (!checked) {
             if (answer.trim().length > 0) {
                 // if (compareSolution()) {
@@ -58,7 +58,9 @@ function HalfTextQuestion({
                 context.updateQuestionById(+id, answer);
                 setChecked(true);
             } else {
-                toast.error('Please type your answer!');
+                try {
+                    toast.error('Hãy nhập câu trả lời!');
+                } catch {}
             }
         }
     };
@@ -158,7 +160,7 @@ function HalfTextQuestion({
                         } else if (e.target.value.length > solution.length) {
                             if (e.target.value[e.target.value.length - 1] == '\n') return;
                             if (!warningLimit) {
-                                toast.info(`Limit ${solution.length} characters`);
+                                toast.info(`Giới hạn ${solution.length} ký tự`);
                                 setWarningLimit(true);
                             }
                         }

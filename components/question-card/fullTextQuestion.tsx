@@ -43,7 +43,7 @@ function FullTextQuestion({
                 context.updateQuestionById(+id, answer);
                 setChecked(true);
             } else {
-                toast.error('Please type your answer!');
+                toast.error('Hãy nhập câu trả lời!');
             }
         }
     };
