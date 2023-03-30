@@ -4,6 +4,8 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { PrimaryButton } from '../../utils/button';
 import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
 import { DataTestsContext } from '../../store/DataTestsContext';
+import { motion } from 'framer-motion';
+import { EyeIcon } from '@heroicons/react/24/solid';
 
 function HalfTextQuestion({
     id,
@@ -28,12 +30,23 @@ function HalfTextQuestion({
     const [answer, setAnswer] = useState('');
     const [warningLimit, setWarningLimit] = useState(false);
     const context = useContext(DataTestsContext);
+    const [renderHint, setRenderHint] = useState(0);
+
+    useEffect(() => {
+        if (renderHint == 1) {
+            setTimeout(() => {
+                setRenderHint((hint) => hint + 1);
+            }, 1500);
+        }
+    }, [renderHint]);
+
     useEffect(() => {
         if (userAnswer) {
             setAnswer(userAnswer);
             setChecked(true);
         }
     }, []);
+
     const checkButtonOnclick = () => {
         if (!checked) {
             if (answer.trim().length > 0) {
@@ -77,8 +90,27 @@ function HalfTextQuestion({
         return answer + Array(solution.length - answer.length + 1).join('_');
     };
 
+    const showHint = {
+        x: 0,
+        opacity: 1,
+        display: 'block',
+    };
+
+    const hideHint = {
+        x: 50,
+        opacity: 0,
+        transitionEnd: {
+            display: 'none',
+        },
+    };
+
     return (
-        <div className="questionCard fullTextQuestion">
+        <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            className="questionCard fullTextQuestion"
+        >
             <div className="flex flex-row space-x-2">
                 <QuestionMarkCircleIcon className="w-5"></QuestionMarkCircleIcon>
                 <p>{title}</p>
@@ -90,7 +122,29 @@ function HalfTextQuestion({
                     <span> {getAnswerText()} </span>
                     <span> {suffixQuestion.trim()} </span>
                 </p>
-                {hint && <p className="italic">Hint: {hint}</p>}
+                {hint &&
+                    (renderHint > 0 ? (
+                        <motion.p
+                            initial={{ x: -50, opacity: 0 }}
+                            animate={renderHint == 1 ? showHint : hideHint}
+                            transition={{ type: 'spring' }}
+                            className="italic text-zinc-500"
+                        >
+                            Hint: {hint}
+                        </motion.p>
+                    ) : (
+                        <p className="italic text-zinc-500">
+                            Hint:{' '}
+                            <EyeIcon
+                                width={18}
+                                height={18}
+                                className="cursor-pointer inline-block"
+                                onClick={() => {
+                                    setRenderHint((renderHint) => renderHint + 1);
+                                }}
+                            ></EyeIcon>
+                        </p>
+                    ))}
             </div>
 
             <div className="min-height-200px">
@@ -121,7 +175,7 @@ function HalfTextQuestion({
             </PrimaryButton>
 
             <ToastContainerCustom />
-        </div>
+        </motion.div>
     );
 }
 
