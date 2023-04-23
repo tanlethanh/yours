@@ -41,10 +41,11 @@ class NotionProcessingService {
         if (!notionData) {
             return null;
         }
-        const updateResult = await UserRepo.saveNotionDataForUser(
-            userId,
-            notionData
-        );
+        const updateResult = await User.findByIdAndUpdate(userId, {
+            $set: {
+                notion_data: notionData,
+            },
+        });
         return updateResult;
     }
 
@@ -55,7 +56,13 @@ class NotionProcessingService {
      * @userId Id of user from request body or anywhere
      * */
     async syncDataByUserId(userId: Types.ObjectId) {
-        const accessToken = await UserRepo.getAccessTokenOfUser(userId);
+        const user = await User.findById(userId, {
+            notion_data: {
+                access_token: 1,
+            },
+        });
+
+        const accessToken = user?.notion_data.access_token;
 
         if (!accessToken) {
             throw new Error("Can not find access token of this user");
@@ -63,7 +70,10 @@ class NotionProcessingService {
 
         // Use custom method of this service to filter page data
         const pages = await this.getNotionPages(accessToken);
-        const pageImages = await UserRepo.getAllPageImagesOfUser(userId);
+        const pageImages =
+            (await User.findById(userId, {
+                pages: 1,
+            }).populate("pages")?.pages) || [];
 
         this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
 
