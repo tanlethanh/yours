@@ -10,3 +10,5 @@ temp.js
 /.logs
 private/
 .env
+
+.yarn/
