@@ -1,3 +1,8 @@
 {
-    "name": "@sipo/configs"
+    "name": "@sipo/configs",
+    "main": "index.ts",
+    "types": "index.ts",
+    "dependencies": {
+        "typescript": "5.0.4"
+    }
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { auth } from "./firebase";
+import { firebaseAuth } from "./firebase";
 
 const apiAxios = axios.create({
     headers: {
@@ -11,9 +11,9 @@ const apiAxios = axios.create({
 apiAxios.interceptors.request.use(async (config) => {
     // console.log('Current user ' + auth.currentUser)
     // console.log('Auth ' + JSON.stringify(auth))
-    if (auth.currentUser) {
+    if (firebaseAuth.currentUser) {
         config.headers.Authorization = `Bearer ${
-            (await auth.currentUser.getIdTokenResult()).token
+            (await firebaseAuth.currentUser.getIdTokenResult()).token
         }`;
     }
 
