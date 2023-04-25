@@ -1,3 +1,5 @@
 {
-    "name": "@sipo/utils"
+    "name": "@sipo/utils",
+    "main": "index.ts",
+    "types": "index.ts"
 }
