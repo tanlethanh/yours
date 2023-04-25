@@ -2,23 +2,24 @@ import {
     Difficulty,
     IDuplexQuestionCore,
     IFillWordQuestionCore,
-    IMultichoiceQuestion,
     IPracticeQuestion,
     ISentence,
     IUser,
     QuestionType,
     PickedType,
-} from "../interfaces/IData";
-import { Page } from "../models/NotionImageModels";
+    TestGenerationStrategies,
+} from "@sipo/interfaces";
+
 import {
+    Page,
+    User,
+    QuestionCore,
     FillWordQuestion,
     MultichoiceQuestion,
     PracticeTest,
     TranslateQuestion,
-} from "../models/TestModels";
-import { TestGenerationStrategies } from "../interfaces/IData";
-import { User } from "../models/UserModel";
-import { QuestionCore } from "../models/QuestionCoreModels";
+} from "@sipo/backend/models";
+
 import { formatStringText, isEqualPureString, shuffleArray } from "@sipo/utils";
 import { UserError } from "@sipo/backend";
 

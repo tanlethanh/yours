@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import TestGenerationService from "../services/TestGenerationService";
-import { IUser, TestGenerationStrategies } from "../interfaces/IData";
-import { User } from "../models/UserModel";
+import { IUser } from "@sipo/interfaces";
+import { User } from "@sipo/backend/models";
 import UserService from "../services/UserService";
 
 class UsersController {

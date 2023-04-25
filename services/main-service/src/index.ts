@@ -1,12 +1,28 @@
-import ExpressApp from "./providers/Express";
+import express from "express";
 import http from "http";
-import { Locals } from "@sipo/backend";
+import { config } from "@sipo/backend";
+import { firebaseProvider, mongoDB, Middlewares, Handler } from "@sipo/backend";
+import { ApiRoute } from "./routes";
 
-const expressApp = new ExpressApp();
-const server = http.createServer(expressApp.app);
+const app = express();
+
+mongoDB.connect();
+mongoDB.initData();
+
+firebaseProvider.initFirebaseApp();
+
+Middlewares.mountCommonMiddleWares(app);
+
+ApiRoute.mountRoute(app);
+
+app.use("*", Handler.useNotFoundHandler);
+app.use(Handler.errorHandler);
+
+// const expressApp = new ExpressApp();
+const server = http.createServer(app);
 
 // Start the server on the specified port
-const PORT = Locals.config().PORT;
+const PORT = config().PORT;
 server
     .listen(PORT, () => {
         return console.log(

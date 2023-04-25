@@ -1,6 +1,5 @@
 import { Types } from "mongoose";
-import { log, UserError } from "@sipo/backend";
-import NotionProvider from "../providers/Notion";
+import { log, UserError, notionProvider } from "@sipo/backend";
 import {
     DuplexQuestionCore,
     FillWordQuestionCore,
@@ -8,9 +7,9 @@ import {
     QuestionCore,
     Sentence,
     User,
-} from "../models";
-import { Difficulty, IPage, ISentence } from "../interfaces";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+} from "@sipo/backend/models";
+
+import { Difficulty, IPage, ISentence } from "@sipo/interfaces";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -26,7 +25,7 @@ class NotionProcessingService {
     ) {
         let notionData: any = null;
         try {
-            notionData = await NotionProvider.getAccessTokenFromCode(code);
+            notionData = await notionProvider.getAccessTokenFromCode(code);
             log.consoleLog(
                 this.constructor.name,
                 "Get Auth Token",
@@ -106,7 +105,7 @@ class NotionProcessingService {
         userId: Types.ObjectId,
         accessToken: string,
         pageImages: IPage[],
-        pages: PageObjectResponse[]
+        pages: any[]
     ): SyncResult {
         pages.forEach((page) => {
             const pageImage = pageImages.find((pageImage) => {
@@ -504,7 +503,7 @@ class NotionProcessingService {
         pageId: string
     ): Promise<Array<Object>> {
         return (
-            await NotionProvider.getPageChildren(accessToken, pageId)
+            await notionProvider.getPageChildren(accessToken, pageId)
         ).filter((block) => {
             return (block as any).type === "bulleted_list_item";
         });
@@ -512,7 +511,7 @@ class NotionProcessingService {
 
     private async getNotionPages(accessToken: string): Promise<Array<Object>> {
         return (
-            await NotionProvider.getAllSharedPagesOfUser(accessToken)
+            await notionProvider.getAllSharedPagesOfUser(accessToken)
         ).filter((page) => {
             return (page as any).object === "page";
         });

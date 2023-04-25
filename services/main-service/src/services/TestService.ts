@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-import { PracticeQuestion } from "../models/TestModels";
-import { PracticeQuestionType, PickedType } from "../interfaces/IData";
-import { Sentence } from "../models/NotionImageModels";
+import { PickedType, PracticeQuestionType } from "@sipo/interfaces";
+
+import { PracticeQuestion, Sentence } from "@sipo/backend/models";
+
 import { isEqualPureString } from "@sipo/utils";
 import { UserError } from "@sipo/backend";
 
