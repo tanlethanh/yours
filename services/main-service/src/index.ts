@@ -1,6 +1,6 @@
 import ExpressApp from "./providers/Express.js";
 import http from "http";
-import { Locals } from "@sipo/configs/locals.js";
+import { Locals } from "@sipo/backend";
 
 const expressApp = new ExpressApp();
 const server = http.createServer(expressApp.app);

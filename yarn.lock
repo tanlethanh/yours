@@ -998,13 +998,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sipo/backend@workspace:packages/backend":
+"@sipo/backend@*, @sipo/backend@workspace:packages/backend":
   version: 0.0.0-use.local
   resolution: "@sipo/backend@workspace:packages/backend"
   languageName: unknown
   linkType: soft
 
-"@sipo/configs@workspace:packages/configs":
+"@sipo/configs@*, @sipo/configs@workspace:packages/configs":
   version: 0.0.0-use.local
   resolution: "@sipo/configs@workspace:packages/configs"
   dependencies:
@@ -1017,6 +1017,8 @@ __metadata:
   resolution: "@sipo/main-service@workspace:services/main-service"
   dependencies:
     "@notionhq/client": ^2.2.3
+    "@sipo/backend": "*"
+    "@sipo/utils": "*"
     "@types/cookie-parser": ^1.4.3
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
@@ -1045,11 +1047,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sipo/utils@workspace:packages/utils":
+"@sipo/utils@*, @sipo/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@sipo/utils@workspace:packages/utils"
-  dependencies:
-    ts-node: ^10.9.1
   languageName: unknown
   linkType: soft
 
@@ -1058,6 +1058,8 @@ __metadata:
   resolution: "@sipo/web@workspace:apps/web"
   dependencies:
     "@heroicons/react": ^2.0.16
+    "@sipo/configs": "*"
+    "@sipo/utils": "*"
     "@types/firebase": ^3.2.1
     "@types/node": 18.11.3
     "@types/react": 18.0.21

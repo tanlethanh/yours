@@ -7,6 +7,8 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.0.16",
+        "@sipo/configs": "*",
+        "@sipo/utils": "*",
         "@types/firebase": "^3.2.1",
         "@types/react-lottie": "^1.2.6",
         "axios": "^1.3.4",

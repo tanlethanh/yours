@@ -7,7 +7,7 @@
     "scripts": {
         "build": "npx tsc",
         "start": "node build/index.js",
-        "dev": "concurrently \"npx tsc --watch\" \"nodemon --inspect -q build/index.js\"",
+        "dev": "",
         "docker-dev": "docker compose -f docker-compose.dev.yml up"
     },
     "author": "Tan Le",
@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "@notionhq/client": "^2.2.3",
+        "@sipo/backend": "*",
+        "@sipo/utils": "*",
         "@types/franc": "^5.0.1",
         "@types/mongoose": "^5.11.97",
         "@types/uuid": "^9.0.1",
