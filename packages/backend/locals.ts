@@ -1,15 +1,10 @@
 import { Application } from "express";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import * as url from "url";
-
-const __filename = url.fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
-class Locals {
+export class Locals {
     /**
      * Makes env configs available for your app
      * throughout the app's runtime
@@ -41,5 +36,3 @@ class Locals {
         return _express;
     }
 }
-
-export { Locals };

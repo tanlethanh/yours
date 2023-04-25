@@ -1,7 +1,7 @@
 import cors from "cors";
 import { Application } from "express";
 
-import { log } from "@sipo/backend/helpers";
+import { log } from "@sipo/backend";
 
 class CORS {
     public static mount(_express: Application) {

@@ -1,19 +1,12 @@
-import * as cors from "cors";
-import express, { Application } from "express";
+import { Application } from "express";
 import bodyParser from "body-parser";
 // import cookieParser from('cookie-parser');
 // import * as flash from 'express-flash';
 // import * as compress from 'compression';
 // import * as expressValidator from 'express-validator';
 
-import { log } from "@sipo/backend/helpers";
-import { Locals } from "@sipo/configs/locals.js";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
+import { log } from "@sipo/backend";
+import { Locals } from "@sipo/backend";
 
 class Http {
     public static mount(_express: Application) {
@@ -27,19 +20,13 @@ class Http {
                 limit: Locals.config().MAX_UPLOAD_LIMIT,
             })
         );
+
         _express.use(
             bodyParser.urlencoded({
                 limit: Locals.config().maxUploadLimit,
                 parameterLimit: Locals.config().maxParameterLimit,
                 extended: false,
             })
-        );
-
-        _express.use(
-            "/modules/simple-notify",
-            express.static(
-                path.join(__dirname, "../../node_modules/simple-notify")
-            )
         );
 
         // Disable the x-powered-by header in response

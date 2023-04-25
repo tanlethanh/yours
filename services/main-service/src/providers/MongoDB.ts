@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { Locals } from "@sipo/configs/locals.js";
-import { Page, User } from "../models/index.js";
-import { IPage, IUser, UserRole } from "../interfaces/IData.js";
+import { Locals } from "@sipo/backend";
+import { Page, User } from "../models";
+import { IPage, IUser, UserRole } from "../interfaces";
 
 class MongoDB {
     connection: any;

@@ -1,10 +1,10 @@
 import { Application } from "express";
 
-import CORS from "./CORS.js";
-import Http from "./Http.js";
-import Statics from "./Statics.js";
-import { StatusMonitor } from "@sipo/backend/helpers";
-import { Locals } from "@sipo/configs/locals.js";
+import CORS from "./CORS";
+import Http from "./Http";
+import Statics from "./Statics";
+import { StatusMonitor } from "@sipo/backend";
+import { Locals } from "@sipo/backend";
 
 class MoutMiddlewares {
     public static mountMidlewares(_express: Application) {

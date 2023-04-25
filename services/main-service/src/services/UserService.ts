@@ -1,5 +1,5 @@
-import { IUser } from "../interfaces/IData.js";
-import { User } from "../models/UserModel.js";
+import { IUser } from "../interfaces/IData";
+import { User } from "../models/UserModel";
 
 class UserService {
     async updateUser(userUpdate: IUser) {

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import TestGenerationService from "../services/TestGenerationService.js";
-import { IUser, TestGenerationStrategies } from "../interfaces/IData.js";
-import { User } from "../models/UserModel.js";
-import UserService from "../services/UserService.js";
+import TestGenerationService from "../services/TestGenerationService";
+import { IUser, TestGenerationStrategies } from "../interfaces/IData";
+import { User } from "../models/UserModel";
+import UserService from "../services/UserService";
 
 class UsersController {
     public static async isUserConnectToNotion(

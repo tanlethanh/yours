@@ -1,19 +1,13 @@
 import { initializeApp, cert } from "firebase-admin/app";
-import { Locals } from "@sipo/configs/locals.js";
+import { Locals } from "@sipo/backend";
 
 class FirebaseProvider {
     app: any;
 
     async initFirebaseApp() {
         try {
-            const { default: info } = await import(
-                Locals.config().FIREBASE_ADMIN_PATH,
-                {
-                    assert: {
-                        type: "json",
-                    },
-                }
-            );
+            const { default: info } = require(Locals.config()
+                .FIREBASE_ADMIN_PATH);
 
             this.app = initializeApp({
                 credential: cert(info),

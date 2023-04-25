@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
-import { log, UserError } from "@sipo/backend/helpers";
-import NotionProvider from "../providers/Notion.js";
+import { log, UserError } from "@sipo/backend";
+import NotionProvider from "../providers/Notion";
 import {
     DuplexQuestionCore,
     FillWordQuestionCore,
@@ -8,9 +8,9 @@ import {
     QuestionCore,
     Sentence,
     User,
-} from "../models/index.js";
-import { Difficulty, IPage, ISentence } from "../interfaces/index.js";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
+} from "../models";
+import { Difficulty, IPage, ISentence } from "../interfaces";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",

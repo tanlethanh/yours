@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { IUser } from "../interfaces/IData.js";
+import { IUser } from "../interfaces/IData";
 import { StatusCodes } from "http-status-codes";
-import TestGenerationService from "../services/TestGenerationService.js";
-import { TestGenerationStrategies } from "../interfaces/IData.js";
-import TestService from "../services/TestService.js";
-import { UserError } from "@sipo/backend/helpers";
-import { PracticeQuestion, PracticeTest } from "../models/TestModels.js";
+import TestGenerationService from "../services/TestGenerationService";
+import { TestGenerationStrategies } from "../interfaces/IData";
+import TestService from "../services/TestService";
+import { UserError } from "@sipo/backend";
+import { PracticeQuestion, PracticeTest } from "../models/TestModels";
 import { Types } from "mongoose";
-import NotionProcessingService from "../services/NotionProcessingService.js";
+import NotionProcessingService from "../services/NotionProcessingService";
 
 enum Action {
     UPDATE_ANSWER = "UPDATE-ANSWER",

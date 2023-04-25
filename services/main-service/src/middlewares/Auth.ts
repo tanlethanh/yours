@@ -1,11 +1,11 @@
 import { getAuth } from "firebase-admin/auth";
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { User } from "../models/UserModel.js";
-import { IUser, UserRole } from "../interfaces/IData.js";
-import { Locals } from "@sipo/configs/locals.js";
-import MongoDB from "../providers/MongoDB.js";
-import { UserError } from "@sipo/backend/helpers";
+import { User } from "../models/UserModel";
+import { IUser, UserRole } from "../interfaces/IData";
+import { Locals } from "@sipo/backend";
+import MongoDB from "../providers/MongoDB";
+import { UserError } from "@sipo/backend";
 
 class Auth {
     public static async userFilter(

@@ -1,1 +1,1 @@
-export * from "./IData.js";
+export * from "./IData";

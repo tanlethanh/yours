@@ -1,4 +1,4 @@
-import ExpressApp from "./providers/Express.js";
+import ExpressApp from "./providers/Express";
 import http from "http";
 import { Locals } from "@sipo/backend";
 

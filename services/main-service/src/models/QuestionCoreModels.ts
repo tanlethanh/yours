@@ -6,7 +6,7 @@ import {
     IWords,
     Language,
     Difficulty,
-} from "../interfaces/index.js";
+} from "../interfaces";
 import { model, Schema } from "mongoose";
 import { ZeroDefault } from "@sipo/utils";
 

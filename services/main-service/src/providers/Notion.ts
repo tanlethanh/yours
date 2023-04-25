@@ -1,6 +1,5 @@
 import request from "request";
-import { log, LogTitle } from "@sipo/backend/helpers";
-import { Locals } from "@sipo/configs/locals.js";
+import { log, LogTitle, Locals } from "@sipo/backend";
 import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {

@@ -9,9 +9,8 @@ import {
     PracticeTestStatus,
     TestGenerationStrategies,
     PickedType,
-} from "../interfaces/IData.js";
-import { Sentence } from "./NotionImageModels.js";
-import { isEqualPureString } from "@sipo/utils";
+} from "../interfaces/IData";
+
 const PracticeTestSchema = new Schema<IPracticeTest>(
     {
         questions: [

@@ -8,19 +8,19 @@ import {
     IUser,
     QuestionType,
     PickedType,
-} from "../interfaces/IData.js";
-import { Page } from "../models/NotionImageModels.js";
+} from "../interfaces/IData";
+import { Page } from "../models/NotionImageModels";
 import {
     FillWordQuestion,
     MultichoiceQuestion,
     PracticeTest,
     TranslateQuestion,
-} from "../models/TestModels.js";
-import { TestGenerationStrategies } from "../interfaces/IData.js";
-import { User } from "../models/UserModel.js";
-import { QuestionCore } from "../models/QuestionCoreModels.js";
+} from "../models/TestModels";
+import { TestGenerationStrategies } from "../interfaces/IData";
+import { User } from "../models/UserModel";
+import { QuestionCore } from "../models/QuestionCoreModels";
 import { formatStringText, isEqualPureString, shuffleArray } from "@sipo/utils";
-import { UserError } from "@sipo/backend/helpers";
+import { UserError } from "@sipo/backend";
 
 class TestGenerationService {
     async generateTest(

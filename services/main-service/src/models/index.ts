@@ -1,3 +1,3 @@
-export * from "./NotionImageModels.js";
-export * from "./QuestionCoreModels.js";
-export * from "./UserModel.js";
+export * from "./NotionImageModels";
+export * from "./QuestionCoreModels";
+export * from "./UserModel";

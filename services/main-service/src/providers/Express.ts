@@ -1,10 +1,10 @@
 import express, { Application } from "express";
-import { Locals } from "@sipo/configs/locals.js";
-import { ApiRoute } from "../routes/index.js";
-import MoutMiddlewares from "../middlewares/index.js";
-import { Handler } from "@sipo/backend/helpers";
-import MongoDB from "./MongoDB.js";
-import Firebase from "./Firebase.js";
+import { Locals } from "@sipo/backend";
+import { ApiRoute } from "../routes";
+import MoutMiddlewares from "../middlewares";
+import { Handler } from "@sipo/backend";
+import MongoDB from "./MongoDB";
+import Firebase from "./Firebase";
 
 class ExpressApp {
     public app: Application;

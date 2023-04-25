@@ -1,8 +1,8 @@
 import { Application } from "express";
 import expressStatusMonitor from "express-status-monitor";
 
-import { log } from "./Log.js";
-import { Locals } from "@sipo/configs/locals.js";
+import { log } from "./Log";
+import { Locals } from "@sipo/backend";
 
 class StatusMonitor {
     public static mount(_express: Application) {
