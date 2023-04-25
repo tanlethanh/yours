@@ -1,15 +1,15 @@
 {
-  "name": "english-app",
-  "version": "1.0.0",
-  "description": "Hello world from Tan Le",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+    "name": "yourenglish",
+    "version": "1.0.0",
+    "description": "Hello world from Tan Le",
+    "workspaces": [
+        "packages/*",
+        "apps/*"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Tan Le",
+    "license": "ISC"
 }
