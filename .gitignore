@@ -8,3 +8,7 @@ dist/**
 .next/**
 
 **/.logs
+
+.env
+
+private/
