@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/online-test.json';
+import animationData from './lottiejson/online-test.json';
 
 export default function OnlineTestElement({ width = 130, height = 130 }) {
     const defaultOptions = {

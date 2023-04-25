@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/quiz-bump.json';
+import animationData from './lottiejson/quiz-bump.json';
 
 export default function QuizBumpElement({ width = 130, height = 130 }) {
     const defaultOptions = {

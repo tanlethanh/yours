@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/fail.json';
+import animationData from './lottiejson/fail.json';
 
 export default function FailElement({ width = 130, height = 130 }) {
     const defaultOptions = {

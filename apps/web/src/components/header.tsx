@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Link from 'next/link';
 import Image from 'next/image';
-import { auth } from '../firebaseConfig';
+import { firebaseAuth } from '@sipo/configs';
 
 export default function Header() {
     const { user, loading } = useAuth();
@@ -10,7 +10,7 @@ export default function Header() {
     useEffect(() => {}, [user, loading]);
 
     const logOut = async () => {
-        await auth.signOut();
+        await firebaseAuth.signOut();
     };
 
     return (

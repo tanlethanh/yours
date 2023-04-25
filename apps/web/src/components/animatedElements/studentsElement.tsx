@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/finishig-studies.json';
+import animationData from './lottiejson/finishig-studies.json';
 
 export default function StudentsElement({ width = 130, height = 130 }) {
     const defaultOptions = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/champion.json';
+import animationData from './lottiejson/champion.json';
 
 export default function CongratsElement({ width = 130, height = 130 }) {
     const defaultOptions = {

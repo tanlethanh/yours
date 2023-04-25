@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/loading.json';
+import animationData from './lottiejson/loading.json';
 
 export default function LoadingElement({ width = 130, height = 130 }) {
     const defaultOptions = {
