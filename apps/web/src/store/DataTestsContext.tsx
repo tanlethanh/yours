@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { apiAxios } from '../utils/axiosConfig';
+import { apiAxios } from '@sipo/configs';
 type DataTestsContextType = {
     testsDatas: any;
     testsId: String;

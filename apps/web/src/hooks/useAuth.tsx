@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import { auth } from '../firebaseConfig'
+import { firebaseAuth } from '@sipo/configs'
 import { User } from 'firebase/auth'
 
 export function useAuth() {
@@ -7,7 +7,7 @@ export function useAuth() {
     const [loading, setLoading] = useState<Boolean>(true)
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+        const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
             setUser(user)
             setLoading(false)
         })

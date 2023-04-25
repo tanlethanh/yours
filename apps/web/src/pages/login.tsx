@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
+import { firebaseAuth } from '@sipo/configs';
 import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';
@@ -32,7 +32,7 @@ function Login() {
     }, [user, loading]);
 
     const sighInGoogleOnclick = () => {
-        signInWithPopup(auth, googleProvider)
+        signInWithPopup(firebaseAuth, googleProvider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);

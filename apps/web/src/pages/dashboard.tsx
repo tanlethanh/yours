@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { withAuth } from '../components/withAuth';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';
-import { apiAxios } from '../utils/axiosConfig';
+import { apiAxios, firebaseAuth } from '@sipo/configs';
 import { useRouter } from 'next/router';
-import { auth } from '../firebaseConfig';
 import Head from 'next/head';
 import MainLayout from '../layouts/mainLayout';
 import { LineChart } from '../components/lineChart';
@@ -34,7 +33,7 @@ function Dashboard() {
     };
 
     const logOut = async () => {
-        await auth.signOut();
+        await firebaseAuth.signOut();
     };
 
     useEffect(() => {
