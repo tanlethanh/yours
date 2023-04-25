@@ -1,14 +1,8 @@
 node_modules
-# Keep environment variables out of version control.env
-src/prisma/migrations/
-build/
-dist/
-temp.ts
 .history/
-src/test.ts
-temp.js
-/.logs
-private/
-.env
-
 .yarn/
+
+.turbo
+build/**
+dist/**
+.next/**

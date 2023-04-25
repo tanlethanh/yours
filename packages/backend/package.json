@@ -1,0 +1,6 @@
+{
+    "name": "@yourenglish/backend",
+    "dependencies": {
+        "@yourenglish/configs": "*"
+    }
+}

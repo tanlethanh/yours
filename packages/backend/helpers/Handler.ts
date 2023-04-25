@@ -1,11 +1,9 @@
 import { StatusCodes } from "http-status-codes";
-import Log from "../helpers/Log.js";
-import Locals from "../providers/Locals.js";
+import { log } from "./Log.js";
 import { Request, Response } from "express";
 import { UserError } from "./Error.js";
-import { MongooseError } from "mongoose";
 
-class Handler {
+export class Handler {
     public static errorHandlerWrapper(controllerFunc: Function) {
         return async function (req: Request, res: Response, next: Function) {
             try {
@@ -42,12 +40,10 @@ class Handler {
         res: Response,
         next: Function
     ): any {
-        Log.error(`Server error - ${err.message}`);
+        log.error(`Server error - ${err.message}`);
         console.log("Server error");
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: "Something went wrong with our server",
         });
     }
 }
-
-export default Handler;

@@ -13,7 +13,6 @@ export enum LogTitle {
 }
 
 const __filename = url.fileURLToPath(import.meta.url);
-
 const __dirname = path.dirname(__filename);
 
 class Log {
@@ -100,4 +99,6 @@ class Log {
     }
 }
 
-export default new Log();
+const log = new Log();
+
+export { log };

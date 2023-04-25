@@ -1,15 +1,24 @@
 {
     "name": "yourenglish",
-    "version": "1.0.0",
+    "version": "0.0.1",
+    "private": true,
     "description": "Hello world from Tan Le",
     "workspaces": [
         "packages/*",
-        "apps/*"
+        "apps/*",
+        "services/*"
     ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "Tan Le",
-    "license": "ISC"
+    "license": "ISC",
+    "engines": {
+        "node": ">=18.5.0"
+    },
+    "packageManager": "yarn@3.5.0",
+    "devDependencies": {
+        "turbo": "latest"
+    }
 }

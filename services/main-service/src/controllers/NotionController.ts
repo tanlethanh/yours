@@ -1,10 +1,7 @@
-import { Request, Response, query } from "express";
+import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import NotionProcessingService from "../services/NotionProcessingService.js";
-import Locals from "../providers/Locals.js";
 import { IUser } from "../interfaces/IData.js";
-import { Types } from "mongoose";
-import { UserError } from "../exception/Error.js";
 
 class NotionController {
     // Hello world
