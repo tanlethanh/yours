@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
-import Log from "../helpers/Log.js";
+import { log, UserError } from "@yourenglish/backend/helpers";
 import NotionProvider from "../providers/Notion.js";
-import UserRepo from "../repositories/UserRepo.js";
 import {
     DuplexQuestionCore,
     FillWordQuestionCore,
@@ -12,7 +11,6 @@ import {
 } from "../models/index.js";
 import { Difficulty, IPage, ISentence } from "../interfaces/index.js";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-import { UserError } from "../exception/Error.js";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",
@@ -29,13 +27,13 @@ class NotionProcessingService {
         let notionData: any = null;
         try {
             notionData = await NotionProvider.getAccessTokenFromCode(code);
-            Log.consoleLog(
+            log.consoleLog(
                 this.constructor.name,
                 "Get Auth Token",
                 JSON.stringify(notionData)
             );
         } catch (error) {
-            Log.consoleLog(this.constructor.name, "Error", error as any);
+            log.consoleLog(this.constructor.name, "Error", error as any);
         }
 
         if (!notionData) {
@@ -71,18 +69,20 @@ class NotionProcessingService {
         // Use custom method of this service to filter page data
         const pages = await this.getNotionPages(accessToken);
         const pageImages =
-            (await User.findById(userId, {
-                pages: 1,
-            }).populate("pages")?.pages) || [];
+            (
+                await User.findById(userId, {
+                    pages: 1,
+                }).populate("pages")
+            )?.pages || [];
 
         this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
 
         // Mark deleted Page
-        const deletedPageImages = pageImages.filter((pageImg) => {
+        const deletedPageImages = pageImages.filter((pageImg: any) => {
             return !(pageImg as any).isSynced;
         });
 
-        deletedPageImages.forEach((page) => {
+        deletedPageImages.forEach((page: any) => {
             page.updateOne({
                 is_deleted: true,
             });

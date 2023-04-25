@@ -1,8 +1,8 @@
 import express, { Application } from "express";
-import Locals from "./Locals.js";
+import { Locals } from "@yourenglish/configs/locals.js";
 import { ApiRoute } from "../routes/index.js";
 import MoutMiddlewares from "../middlewares/index.js";
-import Handler from "../exception/Handler.js";
+import { Handler } from "@yourenglish/backend/helpers";
 import MongoDB from "./MongoDB.js";
 import Firebase from "./Firebase.js";
 

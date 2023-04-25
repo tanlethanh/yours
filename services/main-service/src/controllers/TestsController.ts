@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import TestGenerationService from "../services/TestGenerationService.js";
 import { TestGenerationStrategies } from "../interfaces/IData.js";
 import TestService from "../services/TestService.js";
-import { UserError } from "../exception/Error.js";
+import { UserError } from "@yourenglish/backend/helpers";
 import { PracticeQuestion, PracticeTest } from "../models/TestModels.js";
 import { Types } from "mongoose";
 import NotionProcessingService from "../services/NotionProcessingService.js";
@@ -20,12 +20,11 @@ class TestsController {
         res: Response,
         next: Function
     ) {
-        let testId
+        let testId;
         try {
-            testId = new Types.ObjectId(req.params.testId)
-        }
-        catch (error) {
-            throw new UserError("Invalid testId")
+            testId = new Types.ObjectId(req.params.testId);
+        } catch (error) {
+            throw new UserError("Invalid testId");
         }
         const withQuestions = req.query["with-questions"] == "true";
 
@@ -46,12 +45,11 @@ class TestsController {
         res: Response,
         next: Function
     ) {
-        let testId
+        let testId;
         try {
-            testId = new Types.ObjectId(req.params.testId)
-        }
-        catch (error) {
-            throw new UserError("Invalid testId")
+            testId = new Types.ObjectId(req.params.testId);
+        } catch (error) {
+            throw new UserError("Invalid testId");
         }
 
         const test = await PracticeTest.findOneAndDelete({
@@ -160,7 +158,7 @@ class TestsController {
         switch (action) {
             case Action.UPDATE_ANSWER: {
                 const userAnswer = req.body.userAnswer;
-                if (userAnswer == 'undefined') {
+                if (userAnswer == "undefined") {
                     throw new UserError(
                         `Require userAnswer in body with ${action}`
                     );

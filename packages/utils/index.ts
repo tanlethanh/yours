@@ -1,6 +1,3 @@
-export * from "./ToastCustom";
-export * from "./PrimaryButton";
-
 export const ZeroDefault = () => {
     return 0;
 };

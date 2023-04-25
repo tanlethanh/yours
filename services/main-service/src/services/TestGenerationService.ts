@@ -19,9 +19,12 @@ import {
 import { TestGenerationStrategies } from "../interfaces/IData.js";
 import { User } from "../models/UserModel.js";
 import { QuestionCore } from "../models/QuestionCoreModels.js";
-import { formatStringText, isEqualPureString } from "../utils/stringUtils.js";
-import { shuffleArray } from "../utils/arrayUtils.js";
-import { UserError } from "../exception/Error.js";
+import {
+    formatStringText,
+    isEqualPureString,
+    shuffleArray,
+} from "@yourenglish/utils";
+import { UserError } from "@yourenglish/backend/helpers";
 
 class TestGenerationService {
     async generateTest(

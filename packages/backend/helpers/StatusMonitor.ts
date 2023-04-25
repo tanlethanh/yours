@@ -2,7 +2,7 @@ import { Application } from "express";
 import expressStatusMonitor from "express-status-monitor";
 
 import { log } from "./Log.js";
-import Locals from "@yourenglish/configs/locals.js";
+import { Locals } from "@yourenglish/configs/locals.js";
 
 class StatusMonitor {
     public static mount(_express: Application) {
@@ -57,4 +57,4 @@ class StatusMonitor {
     }
 }
 
-export default StatusMonitor;
+export { StatusMonitor };

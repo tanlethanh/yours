@@ -3,7 +3,7 @@ import NotionController from "../../controllers/NotionController.js";
 import Auth from "../../middlewares/Auth.js";
 import TestsController from "../../controllers/TestsController.js";
 import UsersController from "../../controllers/UsersController.js";
-import Handler from "../../exception/Handler.js";
+import { Handler } from "@yourenglish/backend/helpers";
 
 const apiV1: Router = express.Router();
 
@@ -33,7 +33,7 @@ apiV1
     .route("/tests/:testId")
     .get(Auth.userFilter, wrapper(TestsController.getTestById))
     // .post(Auth.userFilter)
-    .delete(Auth.userFilter, wrapper(TestsController.deleteTestById))
+    .delete(Auth.userFilter, wrapper(TestsController.deleteTestById));
 
 apiV1
     .route("/questions/:questionId")
@@ -46,7 +46,6 @@ apiV1
 apiV1
     .route("/users/notion-connect")
     .get(Auth.userFilter, wrapper(UsersController.isUserConnectToNotion));
-
 
 apiV1
     .route("/users/update")

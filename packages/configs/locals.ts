@@ -8,6 +8,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
+
 class Locals {
     /**
      * Makes env configs available for your app
@@ -41,4 +42,4 @@ class Locals {
     }
 }
 
-export default Locals;
+export { Locals };

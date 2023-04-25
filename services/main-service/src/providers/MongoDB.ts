@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Locals from "./Locals.js";
+import { Locals } from "@yourenglish/configs/locals.js";
 import { Page, User } from "../models/index.js";
 import { IPage, IUser, UserRole } from "../interfaces/IData.js";
 
@@ -9,7 +9,7 @@ class MongoDB {
     connected: boolean | undefined;
 
     constructor() {
-        this.connected = false
+        this.connected = false;
     }
 
     public async connect() {

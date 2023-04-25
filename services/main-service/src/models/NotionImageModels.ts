@@ -1,6 +1,6 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IPage, ISentence } from "../interfaces/index.js";
-import { ZeroDefault } from "../utils/index.js";
+import { ZeroDefault } from "@yourenglish/utils";
 
 const sentenceSchema = new Schema<ISentence>(
     {

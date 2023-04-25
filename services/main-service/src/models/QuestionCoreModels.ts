@@ -8,7 +8,7 @@ import {
     Difficulty,
 } from "../interfaces/index.js";
 import { model, Schema } from "mongoose";
-import { ZeroDefault } from "../utils/index.js";
+import { ZeroDefault } from "@yourenglish/utils";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
     {
@@ -64,8 +64,8 @@ const fillWordQuestionCoreSchema = new Schema<IFillWordQuestionCore>({
     list_words: [String],
     fill_field_indexes: [Number],
     hint: {
-        type: String, 
-        required: false
+        type: String,
+        required: false,
     },
     language: {
         type: String,

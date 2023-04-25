@@ -1,7 +1,4 @@
-import {
-    createProxyMiddleware,
-    responseInterceptor,
-} from "http-proxy-middleware";
+import { createProxyMiddleware } from "http-proxy-middleware";
 import { Application } from "express";
 
 class Proxy {

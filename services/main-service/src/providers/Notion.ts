@@ -1,6 +1,6 @@
 import request from "request";
-import Log, { LogTitle } from "../helpers/Log.js";
-import Locals from "./Locals.js";
+import { log, LogTitle } from "@yourenglish/backend/helpers";
+import { Locals } from "@yourenglish/configs/locals.js";
 import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {
@@ -35,7 +35,7 @@ class NotionProvider {
         return new Promise((resolve, reject) => {
             request.post(options, (error: any, res: any, body: any) => {
                 if (body.error) {
-                    Log.consoleLog(this.LOG_PREFIX, LogTitle.ERROR, body.error);
+                    log.consoleLog(this.LOG_PREFIX, LogTitle.ERROR, body.error);
                     reject(body.error);
                 } else resolve(body);
             });

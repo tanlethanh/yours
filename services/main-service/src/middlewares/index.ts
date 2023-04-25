@@ -3,9 +3,8 @@ import { Application } from "express";
 import CORS from "./CORS.js";
 import Http from "./Http.js";
 import Statics from "./Statics.js";
-import StatusMonitor from "../helpers/StatusMonitor.js";
-import Locals from "../providers/Locals.js";
-import Proxy from "./Proxy.js";
+import { StatusMonitor } from "@yourenglish/backend/helpers";
+import { Locals } from "@yourenglish/configs/locals.js";
 
 class MoutMiddlewares {
     public static mountMidlewares(_express: Application) {

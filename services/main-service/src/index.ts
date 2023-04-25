@@ -1,6 +1,6 @@
 import ExpressApp from "./providers/Express.js";
 import http from "http";
-import Locals from "./providers/Locals.js";
+import { Locals } from "@yourenglish/configs/locals.js";
 
 const expressApp = new ExpressApp();
 const server = http.createServer(expressApp.app);

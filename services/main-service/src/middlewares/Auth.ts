@@ -3,9 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
 import { User } from "../models/UserModel.js";
 import { IUser, UserRole } from "../interfaces/IData.js";
-import Locals from "../providers/Locals.js";
+import { Locals } from "@yourenglish/configs/locals.js";
 import MongoDB from "../providers/MongoDB.js";
-import { UserError } from "../exception/Error.js";
+import { UserError } from "@yourenglish/backend/helpers";
 
 class Auth {
     public static async userFilter(
@@ -54,7 +54,7 @@ class Auth {
 
             return next();
         } catch (error: any) {
-            if (!(error instanceof UserError)) next(error)
+            if (!(error instanceof UserError)) next(error);
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: error.message,
             });

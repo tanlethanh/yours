@@ -26,14 +26,13 @@ class UsersController {
     }
 
     public static async updateUser(
-        req: Request & {user: IUser},
+        req: Request & { user: IUser },
         res: Response
     ) {
-        
         await UserService.updateUser(req.body);
 
         return res.status(StatusCodes.OK).json({
-            message: "success"
+            message: "success",
         });
     }
 }
