@@ -8,11 +8,11 @@ class StatusMonitor {
     public static mount(_express: Application) {
         log.info("Booting the 'StatusMonitor' middleware...");
 
-        const api: string = Locals.config().apiPrefix;
+        const api: string = config().apiPrefix;
 
         // Define your status monitor config
         const monitorOptions: object = {
-            title: Locals.config().name,
+            title: config().name,
             path: "/status-monitor",
             spans: [
                 {
