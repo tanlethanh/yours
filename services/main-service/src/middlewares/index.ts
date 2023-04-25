@@ -3,8 +3,8 @@ import { Application } from "express";
 import CORS from "./CORS.js";
 import Http from "./Http.js";
 import Statics from "./Statics.js";
-import { StatusMonitor } from "@yourenglish/backend/helpers";
-import { Locals } from "@yourenglish/configs/locals.js";
+import { StatusMonitor } from "@sipo/backend/helpers";
+import { Locals } from "@sipo/configs/locals.js";
 
 class MoutMiddlewares {
     public static mountMidlewares(_express: Application) {

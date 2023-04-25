@@ -3,7 +3,7 @@ import NotionController from "../../controllers/NotionController.js";
 import Auth from "../../middlewares/Auth.js";
 import TestsController from "../../controllers/TestsController.js";
 import UsersController from "../../controllers/UsersController.js";
-import { Handler } from "@yourenglish/backend/helpers";
+import { Handler } from "@sipo/backend/helpers";
 
 const apiV1: Router = express.Router();
 

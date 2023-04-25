@@ -19,12 +19,8 @@ import {
 import { TestGenerationStrategies } from "../interfaces/IData.js";
 import { User } from "../models/UserModel.js";
 import { QuestionCore } from "../models/QuestionCoreModels.js";
-import {
-    formatStringText,
-    isEqualPureString,
-    shuffleArray,
-} from "@yourenglish/utils";
-import { UserError } from "@yourenglish/backend/helpers";
+import { formatStringText, isEqualPureString, shuffleArray } from "@sipo/utils";
+import { UserError } from "@sipo/backend/helpers";
 
 class TestGenerationService {
     async generateTest(

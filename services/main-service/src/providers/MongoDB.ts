@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Locals } from "@yourenglish/configs/locals.js";
+import { Locals } from "@sipo/configs/locals.js";
 import { Page, User } from "../models/index.js";
 import { IPage, IUser, UserRole } from "../interfaces/IData.js";
 

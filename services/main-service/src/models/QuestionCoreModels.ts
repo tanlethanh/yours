@@ -8,7 +8,7 @@ import {
     Difficulty,
 } from "../interfaces/index.js";
 import { model, Schema } from "mongoose";
-import { ZeroDefault } from "@yourenglish/utils";
+import { ZeroDefault } from "@sipo/utils";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
     {

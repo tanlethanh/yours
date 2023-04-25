@@ -1,5 +1,5 @@
 import { initializeApp, cert } from "firebase-admin/app";
-import { Locals } from "@yourenglish/configs/locals.js";
+import { Locals } from "@sipo/configs/locals.js";
 
 class FirebaseProvider {
     app: any;

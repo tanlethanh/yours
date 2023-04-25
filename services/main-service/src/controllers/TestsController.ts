@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import TestGenerationService from "../services/TestGenerationService.js";
 import { TestGenerationStrategies } from "../interfaces/IData.js";
 import TestService from "../services/TestService.js";
-import { UserError } from "@yourenglish/backend/helpers";
+import { UserError } from "@sipo/backend/helpers";
 import { PracticeQuestion, PracticeTest } from "../models/TestModels.js";
 import { Types } from "mongoose";
 import NotionProcessingService from "../services/NotionProcessingService.js";

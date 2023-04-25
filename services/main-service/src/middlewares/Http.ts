@@ -6,8 +6,8 @@ import bodyParser from "body-parser";
 // import * as compress from 'compression';
 // import * as expressValidator from 'express-validator';
 
-import { log } from "@yourenglish/backend/helpers";
-import { Locals } from "@yourenglish/configs/locals.js";
+import { log } from "@sipo/backend/helpers";
+import { Locals } from "@sipo/configs/locals.js";
 import path from "path";
 import { fileURLToPath } from "url";
 

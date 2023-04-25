@@ -1,7 +1,7 @@
 import * as path from "path";
 import express, { Application } from "express";
 
-import { log } from "@yourenglish/backend/helpers";
+import { log } from "@sipo/backend/helpers";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

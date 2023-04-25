@@ -1,4 +1,5 @@
 {
+    "name": "@sipo/web",
     "scripts": {
         "dev": "next dev",
         "build": "next build",

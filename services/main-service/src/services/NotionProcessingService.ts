@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { log, UserError } from "@yourenglish/backend/helpers";
+import { log, UserError } from "@sipo/backend/helpers";
 import NotionProvider from "../providers/Notion.js";
 import {
     DuplexQuestionCore,
