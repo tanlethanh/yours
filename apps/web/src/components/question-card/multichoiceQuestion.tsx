@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
-import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
-import { PrimaryButton } from '../../utils/button';
+import { ToastContainerCustom, toast } from '../utils/ToastCustom';
+import { PrimaryButton } from '../utils/button';
 import { DataTestsContext } from '../../store/DataTestsContext';
 
 function MultichoiceQuestion({

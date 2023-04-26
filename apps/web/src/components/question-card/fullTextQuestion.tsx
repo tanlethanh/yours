@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
-import { PrimaryButton } from '../../utils/button';
-import { ToastContainerCustom, toast } from '../../utils/ToastCustom';
+import { PrimaryButton } from '../utils/button';
+import { ToastContainerCustom, toast } from '../utils/ToastCustom';
 import { DataTestsContext } from '../../store/DataTestsContext';
 
 function FullTextQuestion({
