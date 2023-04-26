@@ -7,7 +7,7 @@
     "scripts": {
         "build": "npx tsc",
         "start": "node build/index.js",
-        "dev": "ts-node src/index.ts",
+        "dev": "nodemon --watch src --watch ../../packages/backend --watch ../../packages/intefaces --watch ../../packages/utils src/index.ts",
         "docker-dev": "docker compose -f docker-compose.dev.yml up"
     },
     "author": "Tan Le",
