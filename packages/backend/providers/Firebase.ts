@@ -6,10 +6,10 @@ class FirebaseProvider {
 
     async initFirebaseApp() {
         try {
-            const { default: info } = require(config().FIREBASE_ADMIN_PATH);
+            const serviceAccount = require(config().FIREBASE_ADMIN_PATH);
 
             this.app = initializeApp({
-                credential: cert(info),
+                credential: cert(serviceAccount),
             });
         } catch (error: any) {
             console.log(error.message);
