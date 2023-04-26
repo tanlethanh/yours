@@ -6,3 +6,9 @@ node_modules
 build/**
 dist/**
 .next/**
+
+**/.logs
+
+.env
+
+private/

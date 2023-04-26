@@ -3,11 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "main": "src/index.ts",
-    "type": "module",
+    "type": "commonjs",
     "scripts": {
         "build": "npx tsc",
         "start": "node build/index.js",
-        "dev": "",
+        "dev": "ts-node src/index.ts",
         "docker-dev": "docker compose -f docker-compose.dev.yml up"
     },
     "author": "Tan Le",

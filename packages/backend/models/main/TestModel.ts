@@ -1,4 +1,4 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import {
     IFillWordQuestion,
     IMultichoiceQuestion,
@@ -9,7 +9,7 @@ import {
     PracticeTestStatus,
     TestGenerationStrategies,
     PickedType,
-} from "../interfaces/IData.js";
+} from "@sipo/interfaces";
 import { Sentence } from "./NotionImageModels.js";
 import { isEqualPureString } from "@sipo/utils";
 const PracticeTestSchema = new Schema<IPracticeTest>(

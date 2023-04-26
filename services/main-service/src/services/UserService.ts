@@ -1,11 +1,9 @@
-import { IUser } from "../interfaces/IData.js";
-import { User } from "../models/UserModel.js";
+import { IUser } from "@sipo/interfaces";
+import { User } from "@sipo/backend";
 
 class UserService {
     async updateUser(userUpdate: IUser) {
         const user = await User.findById(userUpdate._id);
-        console.log(user);
-        console.log("AAA");
         await User.findByIdAndUpdate(
             { _id: userUpdate._id },
             { $set: userUpdate }

@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
-import { log } from "./Log.js";
+import { log } from "./Log";
 import { Request, Response } from "express";
-import { UserError } from "./Error.js";
+import { UserError } from "./Error";
 
 export class Handler {
     public static errorHandlerWrapper(controllerFunc: Function) {

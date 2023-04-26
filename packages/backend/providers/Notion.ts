@@ -1,6 +1,6 @@
 import request from "request";
 import { log, LogTitle } from "@sipo/backend/helpers";
-import { Locals } from "@sipo/configs/locals.js";
+import { config } from "@sipo/backend";
 import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {
@@ -13,9 +13,7 @@ class NotionProvider {
 
     async getAccessTokenFromCode(code: string) {
         const authToken = Buffer.from(
-            `${Locals.config().NOTION_OAUTH_ID}:${
-                Locals.config().NOTION_OAUTH_SECRET
-            }`
+            `${config().NOTION_OAUTH_ID}:${config().NOTION_OAUTH_SECRET}`
         ).toString("base64");
 
         const options = {
@@ -68,4 +66,6 @@ class NotionProvider {
     }
 }
 
-export default new NotionProvider();
+const notionProvider = new NotionProvider();
+
+export { notionProvider };

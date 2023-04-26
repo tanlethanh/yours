@@ -1,5 +1,5 @@
 import { Application, Request, Response } from "express";
-import apiV1 from "./api/v1.js";
+import apiV1 from "./api/v1";
 import { StatusCodes } from "http-status-codes";
 
 class ApiRoute {

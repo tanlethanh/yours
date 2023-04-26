@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-import { PracticeQuestion } from "../models/TestModels.js";
-import { PracticeQuestionType, PickedType } from "../interfaces/IData.js";
-import { Sentence } from "../models/NotionImageModels.js";
+import { PickedType, PracticeQuestionType } from "@sipo/interfaces";
+
+import { PracticeQuestion, Sentence } from "@sipo/backend/models";
+
 import { isEqualPureString } from "@sipo/utils";
-import { UserError } from "@sipo/backend/helpers";
+import { UserError } from "@sipo/backend";
 
 class TestService {
     async updateUserAnswer(questionId: any, userAnswer: any) {

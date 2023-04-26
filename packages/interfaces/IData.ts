@@ -1,4 +1,4 @@
-import { Document, Schema, Types } from "mongoose";
+import { Document, Schema } from "mongoose";
 
 export interface INotionData {
     access_token: string;
