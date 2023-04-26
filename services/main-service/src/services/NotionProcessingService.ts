@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { log, UserError, notionProvider } from "@sipo/backend";
+import { log, UserError, notionProvider } from "@yours/backend";
 import {
     DuplexQuestionCore,
     FillWordQuestionCore,
@@ -7,9 +7,9 @@ import {
     QuestionCore,
     Sentence,
     User,
-} from "@sipo/backend/models";
+} from "@yours/backend/models";
 
-import { Difficulty, IPage, ISentence } from "@sipo/interfaces";
+import { Difficulty, IPage, ISentence } from "@yours/interfaces";
 
 export enum SyncResult {
     SYNC_SUCCESS = "SYNC_SUCCESS",

@@ -1,6 +1,6 @@
 import request from "request";
-import { log, LogTitle } from "@sipo/backend/helpers";
-import { config } from "@sipo/backend";
+import { log, LogTitle } from "@yours/backend/helpers";
+import { config } from "@yours/backend";
 import { Client } from "@notionhq/client";
 
 export enum NotionProviderReturnCode {

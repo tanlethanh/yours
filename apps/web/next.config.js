@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: false,
-    transpilePackages: ['@sipo/configs', '@sipo/utils'],
+    transpilePackages: ['@yours/configs', '@yours/utils'],
     async rewrites() {
         return [
             {

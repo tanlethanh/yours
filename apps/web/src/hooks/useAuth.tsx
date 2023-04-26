@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import { firebaseAuth } from '@sipo/configs'
+import { firebaseAuth } from '@yours/configs'
 import { User } from 'firebase/auth'
 
 export function useAuth() {

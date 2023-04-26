@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import NotionController from "../../controllers/NotionController";
-import { Middlewares } from "@sipo/backend";
+import { Middlewares } from "@yours/backend";
 import TestsController from "../../controllers/TestsController";
 import UsersController from "../../controllers/UsersController";
-import { Handler } from "@sipo/backend";
+import { Handler } from "@yours/backend";
 
 const apiV1: Router = express.Router();
 

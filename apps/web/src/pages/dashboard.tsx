@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withAuth } from '../components/withAuth';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';
-import { apiAxios, firebaseAuth } from '@sipo/configs';
+import { apiAxios, firebaseAuth } from '@yours/configs';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import MainLayout from '../layouts/mainLayout';

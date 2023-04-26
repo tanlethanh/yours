@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser, INotionData, UserRole } from "@sipo/interfaces";
+import { IUser, INotionData, UserRole } from "@yours/interfaces";
 
 const notionDataSchema = new Schema<INotionData>({
     access_token: {

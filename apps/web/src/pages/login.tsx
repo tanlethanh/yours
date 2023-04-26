@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { firebaseAuth } from '@sipo/configs';
+import { firebaseAuth } from '@yours/configs';
 import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/useAuth';
 import Image from 'next/image';

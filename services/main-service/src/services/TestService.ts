@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { PickedType, PracticeQuestionType } from "@sipo/interfaces";
+import { PickedType, PracticeQuestionType } from "@yours/interfaces";
 
-import { PracticeQuestion, Sentence } from "@sipo/backend/models";
+import { PracticeQuestion, Sentence } from "@yours/backend/models";
 
-import { isEqualPureString } from "@sipo/utils";
-import { UserError } from "@sipo/backend";
+import { isEqualPureString } from "@yours/utils";
+import { UserError } from "@yours/backend";
 
 class TestService {
     async updateUserAnswer(questionId: any, userAnswer: any) {

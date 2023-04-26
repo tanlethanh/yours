@@ -1,7 +1,12 @@
 import express from "express";
 import http from "http";
-import { config } from "@sipo/backend";
-import { firebaseProvider, mongoDB, Middlewares, Handler } from "@sipo/backend";
+import { config } from "@yours/backend";
+import {
+    firebaseProvider,
+    mongoDB,
+    Middlewares,
+    Handler,
+} from "@yours/backend";
 import { ApiRoute } from "./routes";
 
 const app = express();

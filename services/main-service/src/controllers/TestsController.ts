@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import { UserError } from "@sipo/backend";
-import { IUser, TestGenerationStrategies } from "@sipo/interfaces";
-import { PracticeTest, PracticeQuestion } from "@sipo/backend/models";
+import { UserError } from "@yours/backend";
+import { IUser, TestGenerationStrategies } from "@yours/interfaces";
+import { PracticeTest, PracticeQuestion } from "@yours/backend/models";
 
 import { StatusCodes } from "http-status-codes";
 

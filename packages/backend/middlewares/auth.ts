@@ -1,10 +1,10 @@
 import { getAuth } from "firebase-admin/auth";
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { User } from "@sipo/backend/models";
-import { IUser, UserRole } from "@sipo/interfaces/IData";
-import { mongoDB } from "@sipo/backend/providers";
-import { UserError, config } from "@sipo/backend";
+import { User } from "@yours/backend/models";
+import { IUser, UserRole } from "@yours/interfaces/IData";
+import { mongoDB } from "@yours/backend/providers";
+import { UserError, config } from "@yours/backend";
 
 export async function userFilter(req: Request, res: Response, next: Function) {
     try {

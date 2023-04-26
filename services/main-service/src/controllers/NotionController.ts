@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import NotionProcessingService from "../services/NotionProcessingService";
-import { IUser } from "@sipo/interfaces";
+import { IUser } from "@yours/interfaces";
 
 class NotionController {
     // Hello world

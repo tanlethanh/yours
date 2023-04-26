@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { IUser } from "@sipo/interfaces";
-import { User } from "@sipo/backend/models";
+import { IUser } from "@yours/interfaces";
+import { User } from "@yours/backend/models";
 import UserService from "../services/UserService";
 
 class UsersController {

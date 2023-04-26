@@ -1,5 +1,5 @@
 import { initializeApp, cert } from "firebase-admin/app";
-import { config } from "@sipo/backend";
+import { config } from "@yours/backend";
 
 class FirebaseProvider {
     app: any;

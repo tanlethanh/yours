@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Link from 'next/link';
 import Image from 'next/image';
-import { firebaseAuth } from '@sipo/configs';
+import { firebaseAuth } from '@yours/configs';
 
 export default function Header() {
     const { user, loading } = useAuth();

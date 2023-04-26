@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { IPage, ISentence } from "@sipo/interfaces";
-import { ZeroDefault } from "@sipo/utils";
+import { IPage, ISentence } from "@yours/interfaces";
+import { ZeroDefault } from "@yours/utils";
 
 const sentenceSchema = new Schema<ISentence>(
     {

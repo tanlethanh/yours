@@ -1,7 +1,7 @@
 import { Express } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { config } from "@sipo/backend";
+import { config } from "@yours/backend";
 
 export const mountCommonMiddleWares = (app: Express) => {
     const options: cors.CorsOptions = {

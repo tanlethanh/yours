@@ -6,9 +6,9 @@ import {
     IWords,
     Language,
     Difficulty,
-} from "@sipo/interfaces";
+} from "@yours/interfaces";
 import { model, Schema } from "mongoose";
-import { ZeroDefault } from "@sipo/utils";
+import { ZeroDefault } from "@yours/utils";
 
 const questionCoreSchema = new Schema<IQuestionCore>(
     {

@@ -1,5 +1,5 @@
-import { IUser } from "@sipo/interfaces";
-import { User } from "@sipo/backend";
+import { IUser } from "@yours/interfaces";
+import { User } from "@yours/backend";
 
 class UserService {
     async updateUser(userUpdate: IUser) {

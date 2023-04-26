@@ -8,7 +8,7 @@ import {
     QuestionType,
     PickedType,
     TestGenerationStrategies,
-} from "@sipo/interfaces";
+} from "@yours/interfaces";
 
 import {
     Page,
@@ -18,10 +18,14 @@ import {
     MultichoiceQuestion,
     PracticeTest,
     TranslateQuestion,
-} from "@sipo/backend/models";
+} from "@yours/backend/models";
 
-import { formatStringText, isEqualPureString, shuffleArray } from "@sipo/utils";
-import { UserError } from "@sipo/backend";
+import {
+    formatStringText,
+    isEqualPureString,
+    shuffleArray,
+} from "@yours/utils";
+import { UserError } from "@yours/backend";
 
 class TestGenerationService {
     async generateTest(

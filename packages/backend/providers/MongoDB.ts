@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { config } from "@sipo/backend";
-import { User } from "@sipo/backend/models";
-import { IUser, UserRole } from "@sipo/interfaces";
+import { config } from "@yours/backend";
+import { User } from "@yours/backend/models";
+import { IUser, UserRole } from "@yours/interfaces";
 
 class MongoDB {
     connection: any;
