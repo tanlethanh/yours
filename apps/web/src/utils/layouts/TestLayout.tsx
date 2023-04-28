@@ -1,10 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { apiAxios } from '../utils/axiosConfig';
-import { DataTestsContext } from '../store/DataTestsContext';
+import { DataTestsContext } from 'state/DataTestsContext';
 import Head from 'next/head';
-import GetTestErrorElement from '../components/animatedElements/getTestErrorElement';
+import { LottieTestError } from 'components';
 function TestLayout({ children, title }: { children: React.ReactNode; title: string }) {
     const router = useRouter();
     const [statusLoading, setStatusLoading] = useState(true);
@@ -45,7 +44,7 @@ function TestLayout({ children, title }: { children: React.ReactNode; title: str
                     </div>
                 </AnimatePresence>
             ) : (
-                <GetTestErrorElement width={500} height={500}></GetTestErrorElement>
+                <LottieTestError width={500} height={500}></LottieTestError>
             )}
         </>
     );

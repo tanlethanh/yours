@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import Header from '../components/header';
+import {Header} from 'components';
 
-function MainLayout({ children, withHeader = true }: { children: React.ReactNode; withHeader: boolean }) {
+export function MainLayout({ children, withHeader = true }: { children: React.ReactNode; withHeader: boolean }) {
     const router = useRouter();
 
     return (
@@ -19,4 +19,3 @@ function MainLayout({ children, withHeader = true }: { children: React.ReactNode
     );
 }
 
-export default MainLayout;
