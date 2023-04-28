@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './lottiejson/loading.json';
 
-export default function Loading({ width = 130, height = 130 }) {
+export function LottieLoading({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

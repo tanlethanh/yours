@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './lottiejson/quiz-bump.json';
 
-export default function QuizBump({ width = 130, height = 130 }) {
+export  function LottieQuizBump({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

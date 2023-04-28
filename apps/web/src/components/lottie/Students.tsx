@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './lottiejson/finishig-studies.json';
 
-export default function Students({ width = 130, height = 130 }) {
+export function LottieStudents({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

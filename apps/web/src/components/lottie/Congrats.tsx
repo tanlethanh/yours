@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './lottiejson/champion.json';
 
-export default function Congrats({ width = 130, height = 130 }) {
+export  function LottieCongrats({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,
