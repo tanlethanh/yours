@@ -3,7 +3,7 @@ import { IUser } from '@yours/interfaces';
 
 class UserService {
 	async updateUser(userUpdate: IUser) {
-		const user = await User.findById(userUpdate._id);
+		await User.findById(userUpdate._id);
 		await User.findByIdAndUpdate(
 			{ _id: userUpdate._id },
 			{ $set: userUpdate },

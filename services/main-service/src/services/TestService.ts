@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserError } from '@yours/backend';
 import { PracticeQuestion, Sentence } from '@yours/backend/models';
 import { PickedType, PracticeQuestionType } from '@yours/interfaces';

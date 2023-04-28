@@ -18,7 +18,6 @@ class TestsController {
 	public static async getTestById(
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) {
 		let testId;
 		try {
@@ -43,7 +42,6 @@ class TestsController {
 	public static async deleteTestById(
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) {
 		let testId;
 		try {
@@ -74,7 +72,6 @@ class TestsController {
 	public static async getNewTest(
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) {
 		if (!req.user) {
 			return res.status(StatusCodes.BAD_REQUEST).json({
@@ -83,8 +80,7 @@ class TestsController {
 		}
 
 		const userId = req.user._id;
-		let result = null;
-		result = await NotionProcessingService.syncDataByUserId(userId as any);
+		await NotionProcessingService.syncDataByUserId(userId as never);
 
 		let { strategy } = req.query;
 
@@ -108,7 +104,7 @@ class TestsController {
 		// Get test from service
 		const test = await TestGenerationService.generateTest(
 			req.user,
-			strategy as any,
+			strategy as TestGenerationStrategies,
 		);
 
 		// console.log(test);
@@ -122,7 +118,6 @@ class TestsController {
 	public static async getQuestionById(
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) {
 		try {
 			const questionId = new Types.ObjectId(
@@ -139,7 +134,6 @@ class TestsController {
 	public static async updateQuestion(
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) {
 		const { questionId } = req.params;
 

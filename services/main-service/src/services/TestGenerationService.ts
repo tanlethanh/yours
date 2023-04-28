@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserError } from '@yours/backend';
 import {
 	FillWordQuestion,
@@ -29,7 +30,6 @@ class TestGenerationService {
 	async generateTest(
 		user: IUser,
 		strategy: TestGenerationStrategies = TestGenerationStrategies.DEFAULT,
-		numberOfQuestion = 10,
 	) {
 		const sentences = await this.filterSentences(user, strategy);
 		// console.log(sentences);
@@ -231,7 +231,9 @@ class TestGenerationService {
 							});
 
 							questions.push(multQt);
-						} catch (error) {}
+						} catch (error) {
+							/* empty */
+						}
 					}
 				} else if (core.type == QuestionType.CORE_FILL) {
 					// Create fill word questions for any fill fields

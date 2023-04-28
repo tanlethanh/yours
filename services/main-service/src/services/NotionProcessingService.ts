@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { log, notionProvider, UserError } from '@yours/backend';
 import {
 	DuplexQuestionCore,
@@ -17,12 +18,16 @@ export enum SyncResult {
 
 const SEPERATE_CHARS = [':', '→'];
 
+interface Synced {
+	isSynced: boolean;
+}
+
 class NotionProcessingService {
 	async getAndSaveAccessTokenFromNotion(
 		userId: Types.ObjectId,
 		code: string,
 	) {
-		let notionData: any = null;
+		let notionData = null;
 		try {
 			notionData = await notionProvider.getAccessTokenFromCode(code);
 			log.consoleLog(
@@ -31,7 +36,7 @@ class NotionProcessingService {
 				JSON.stringify(notionData),
 			);
 		} catch (error) {
-			log.consoleLog(this.constructor.name, 'Error', error as any);
+			log.consoleLog(this.constructor.name, 'Error', error);
 		}
 
 		if (!notionData) {
@@ -73,14 +78,14 @@ class NotionProcessingService {
 				}).populate('pages')
 			)?.pages || [];
 
-		this.syncAllPagesOfUser(userId, accessToken, pageImages, pages as any);
+		this.syncAllPagesOfUser(userId, accessToken, pageImages, pages);
 
 		// Mark deleted Page
-		const deletedPageImages = pageImages.filter((pageImg: any) => {
-			return !(pageImg as any).isSynced;
+		const deletedPageImages = pageImages.filter((pageImg) => {
+			return !(pageImg as unknown as Synced).isSynced;
 		});
 
-		deletedPageImages.forEach((page: any) => {
+		deletedPageImages.forEach((page) => {
 			page.updateOne({
 				is_deleted: true,
 			});
@@ -165,7 +170,9 @@ class NotionProcessingService {
 				page.properties.Name?.title[0].plain_text ||
 				page.properties.title?.title[0].plain_text ||
 				title;
-		} catch (error) {}
+		} catch (error) {
+			/* empty */
+		}
 
 		const newPageImage = new Page({
 			root_id: page.id,
@@ -361,8 +368,7 @@ class NotionProcessingService {
 		}, '');
 
 		// We will use modifiedText to generate question
-		let left, right;
-		[left, right] = modifiedText.split(seperated_chars[0]);
+		const [left, right] = modifiedText.split(seperated_chars[0]);
 
 		if (left.trim().length === 0 || right.trim().length === 0) {
 			throw new UserError('Both two sides must have data');

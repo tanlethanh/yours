@@ -26,8 +26,6 @@ class ApiRoute {
 	private static mountRouteV1(_express: Application) {
 		_express.use('/api/v1', apiV1);
 	}
-
-	mountSingleRoute() {}
 }
 
 export { ApiRoute };

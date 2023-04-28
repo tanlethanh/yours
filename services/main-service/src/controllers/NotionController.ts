@@ -10,11 +10,12 @@ class NotionController {
 	public static syncDataByUserId = async (
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) => {
 		const userId = req.user._id;
 		let result = null;
-		result = await NotionProcessingService.syncDataByUserId(userId as any);
+		result = await NotionProcessingService.syncDataByUserId(
+			userId as never,
+		);
 
 		if (!result) {
 			return res.status(StatusCodes.BAD_REQUEST).json({
@@ -30,7 +31,6 @@ class NotionController {
 	public static postAuthCode = async (
 		req: Request & { user: IUser },
 		res: Response,
-		next: Function,
 	) => {
 		const { code } = req.query;
 
