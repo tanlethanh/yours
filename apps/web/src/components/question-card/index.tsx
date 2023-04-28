@@ -1,3 +1,3 @@
-export * from './multichoiceQuestion'
-export * from './fullTextQuestion'
-export * from './halfTextQuestion'
+export * from './MultichoiceQuestion'
+export * from './FillQuestion'
+export * from './TranslateQuestion'

@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
-import { PrimaryButton } from '../utils/button';
-import { ToastContainerCustom, toast } from '../utils/ToastCustom';
-import { DataTestsContext } from '../../store/DataTestsContext';
+import { PrimaryButton } from 'components/button';
+import { ToastContainerCustom, toast } from 'utils/ToastCustom';
+import { DataTestsContext } from 'state/DataTestsContext';
 
-function FullTextQuestion({
+export function TranslateQuestion({
     title = 'Full text question',
     question,
     hint,
@@ -109,4 +109,3 @@ function FullTextQuestion({
     );
 }
 
-export { FullTextQuestion };

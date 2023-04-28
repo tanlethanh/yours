@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from 'utils/hooks/useAuth';
 import Link from 'next/link';
 import Image from 'next/image';
 import { firebaseAuth } from '@yours/configs';

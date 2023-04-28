@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { FullTextQuestion, HalfTextQuestion, MultichoiceQuestion } from '.';
+import { TranslateQuestion, FillQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
-import { DataTestsContext } from '../../store/DataTestsContext';
+import { DataTestsContext } from 'state/DataTestsContext';
 
 function QuestionCard({ testId, id, setFinal }: any) {
     const router = useRouter();
@@ -53,7 +53,7 @@ function QuestionCard({ testId, id, setFinal }: any) {
             let prefixQuestion = context.testsDatas[id].list_words.slice(0, indexSolution).join(' ');
             let suffixQuestion = context.testsDatas[id].list_words.slice(indexSolution + 1).join(' ');
             return (
-                <HalfTextQuestion
+                <FillQuestion
                     id={id}
                     key={context.testsDatas[id]._id}
                     title={`Câu ${+id + 1}`}
@@ -65,11 +65,11 @@ function QuestionCard({ testId, id, setFinal }: any) {
                     next={() => {
                         router.push(`/tests/${testId}/${Number(id) + 1}`);
                     }}
-                ></HalfTextQuestion>
+                ></FillQuestion>
             );
         case 'TRANSLATE':
             return (
-                <FullTextQuestion
+                <TranslateQuestion
                     id={id}
                     key={context.testsDatas[id]._id}
                     title={`Câu ${+id + 1}`}

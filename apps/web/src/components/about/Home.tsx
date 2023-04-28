@@ -1,5 +1,5 @@
 import React from 'react';
-import illustration from '../../public/illustration.svg';
+import illustration from 'assets/illustration.svg';
 import Image from 'next/image';
 
 export const Home = () => {

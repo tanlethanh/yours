@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import TextareaAutosize from 'react-textarea-autosize';
-import { PrimaryButton } from '../utils/button';
-import { ToastContainerCustom, toast } from '../utils/ToastCustom';
-import { DataTestsContext } from '../../store/DataTestsContext';
+import { PrimaryButton } from 'components/button';
+import { ToastContainerCustom, toast } from 'utils/ToastCustom';
+import { DataTestsContext } from 'state/DataTestsContext';
 import { motion } from 'framer-motion';
 import { EyeIcon } from '@heroicons/react/24/solid';
 
-function HalfTextQuestion({
+export function FillQuestion({
     id,
     title = 'Half text question',
     prefixQuestion,
@@ -180,5 +180,3 @@ function HalfTextQuestion({
         </motion.div>
     );
 }
-
-export { HalfTextQuestion };
