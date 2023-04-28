@@ -3,7 +3,7 @@ import { TranslateQuestion, FillQuestion, MultichoiceQuestion } from '.';
 import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 
-function QuestionCard({ testId, id, setFinal }: any) {
+export function QuestionCard({ testId, id, setFinal }: any) {
     const router = useRouter();
     const context = useContext(DataTestsContext);
 
@@ -88,5 +88,3 @@ function QuestionCard({ testId, id, setFinal }: any) {
             return null;
     }
 }
-
-export default QuestionCard;

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { firebaseAuth } from '@yours/configs';
 import { useRouter } from 'next/router';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from 'utils';
 import Image from 'next/image';
 import Head from 'next/head';
-import Loading from '../components/loading';
+import {Loading} from 'components';
 
 function Login() {
     const googleProvider = new GoogleAuthProvider();

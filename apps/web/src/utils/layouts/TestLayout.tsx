@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 import Head from 'next/head';
 import { LottieTestError } from 'components';
-function TestLayout({ children, title }: { children: React.ReactNode; title: string }) {
+
+export function TestLayout({ children, title }: { children: React.ReactNode; title: string }) {
     const router = useRouter();
     const [statusLoading, setStatusLoading] = useState(true);
     const context = useContext(DataTestsContext);
@@ -50,4 +51,3 @@ function TestLayout({ children, title }: { children: React.ReactNode; title: str
     );
 }
 
-export default TestLayout;

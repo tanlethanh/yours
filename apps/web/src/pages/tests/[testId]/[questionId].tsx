@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import TestLayout from '../../../layouts/testLayout';
-import QuestionCard from '../../../components/question-card/questionCard';
+import React, { useContext, useState } from 'react';
+import { QuestionCard, LottieFail, LottieCongrats } from 'components';
 import { useRouter } from 'next/router';
-import { withAuth } from '../../../components/withAuth';
-import { DataTestsContext } from '../../../store/DataTestsContext';
-import CongratsElement from '../../../components/animatedElements/congratsElement';
+import { withAuth, TestLayout } from 'utils';
+import { DataTestsContext } from 'state/DataTestsContext';
 import Link from 'next/link';
-import FailElement from '../../../components/animatedElements/failElement';
 
 function TestPage() {
     const router = useRouter();
@@ -45,9 +42,9 @@ function TestPage() {
                     </div>
                     <div>
                         {isFail ? (
-                            <FailElement width={400} height={400}></FailElement>
+                            <LottieFail width={400} height={400}></LottieFail>
                         ) : (
-                            <CongratsElement width={400} height={400}></CongratsElement>
+                            <LottieCongrats width={400} height={400}></LottieCongrats>
                         )}
                     </div>
                 </div>

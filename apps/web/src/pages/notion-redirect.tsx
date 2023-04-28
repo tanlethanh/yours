@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-// import axios from 'axios'
-import { apiAxios } from '../utils/axiosConfig';
-import { withAuth } from '../components/withAuth';
-import Layout from '../app/layout';
+import { apiAxios } from '@yours/configs';
+import { MainLayout, withAuth } from 'utils';
 
 function RedirectPage() {
     const router = useRouter();
@@ -29,12 +27,12 @@ function RedirectPage() {
     }, [router.isReady]);
 
     return (
-        <Layout>
+        <MainLayout withHeader={false}>
             <div className="flex flex-col items-center justify-center h-screen">
                 <h1 className="text-2xl">RedirectPage</h1>
                 <p>{query.code}</p>
             </div>
-        </Layout>
+        </MainLayout>
     );
 }
 

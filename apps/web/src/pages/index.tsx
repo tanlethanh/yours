@@ -1,13 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { MultichoiceQuestion, FullTextQuestion, HalfTextQuestion } from '../components/question-card';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import MainLayout from '../layouts/mainLayout';
-import illustration from '../public/illustration.svg';
-import HutBannerElement from '../components/animatedElements/hutBannerElement';
-import StudentsElement from '../components/animatedElements/studentsElement';
+import { LottieStudents } from 'components/lottie';
+import { MainLayout } from 'utils';
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -53,7 +48,7 @@ const Home: NextPage = () => {
                         width={500}
                         height={500}
                     /> */}
-                    <StudentsElement width={500} height={500}></StudentsElement>
+                    <LottieStudents width={500} height={500}></LottieStudents>
                 </div>
             </div>
         </MainLayout>

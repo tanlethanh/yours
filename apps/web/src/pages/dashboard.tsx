@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { withAuth } from '../components/withAuth';
-import { useAuth } from '../hooks/useAuth';
-import Image from 'next/image';
+import { useAuth, withAuth, MainLayout } from 'utils';
 import { apiAxios, firebaseAuth } from '@yours/configs';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import MainLayout from '../layouts/mainLayout';
-import { LineChart } from '../components/lineChart';
-import CongratsElement from '../components/animatedElements/congratsElement';
-import LoadingElement from '../components/animatedElements/loadingElement';
-import OnlineTestElement from '../components/animatedElements/onlineTestElement';
+import { LottieLoading, LottieOnlineTest, LineChart } from 'components'
 
 function Dashboard() {
     const { user } = useAuth();
@@ -59,7 +53,7 @@ function Dashboard() {
                                         Kiểm tra từ vựng
                                     </button>
                                     <div>
-                                        <OnlineTestElement width={280} height={280}></OnlineTestElement>
+                                        <LottieOnlineTest width={280} height={280}></LottieOnlineTest>
                                     </div>
                                 </div>
                             ) : (
@@ -74,7 +68,7 @@ function Dashboard() {
                                 </div>
                             )
                         ) : (
-                            <LoadingElement width={80} height={80}></LoadingElement>
+                            <LottieLoading width={80} height={80}></LottieLoading>
                         )}
                     </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { DataTestsContext } from '../../../store/DataTestsContext';
-import QuizBumpElement from '../../../components/animatedElements/quizBumpElement';
+import { DataTestsContext } from 'state/DataTestsContext';
+import {LottieQuizBump} from 'components';
 function TestById() {
     const router = useRouter();
 
@@ -27,7 +27,7 @@ function TestById() {
         getData();
     }, [router.isReady]);
 
-    return <QuizBumpElement width={500} height={500}></QuizBumpElement>;
+    return <LottieQuizBump width={500} height={500}></LottieQuizBump>;
 }
 
 export default TestById;

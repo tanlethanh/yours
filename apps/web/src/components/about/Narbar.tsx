@@ -4,7 +4,7 @@ import Link from 'next/link';
 import logo from '../../public/logo.png';
 
 
-const Narbar = () => {
+export const Narbar = () => {
     return (
         <header className="h-28 w-full fixed top-0">
             <div className=" w-full h-full flex flex-row text-center ">
@@ -40,4 +40,3 @@ const Narbar = () => {
     );
 };
 
-export default Narbar;
