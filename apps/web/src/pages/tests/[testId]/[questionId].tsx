@@ -3,7 +3,6 @@ import TestLayout from '../../../layouts/testLayout';
 import QuestionCard from '../../../components/question-card/questionCard';
 import { useRouter } from 'next/router';
 import { withAuth } from '../../../components/withAuth';
-import { apiAxios } from '../../../utils/axiosConfig';
 import { DataTestsContext } from '../../../store/DataTestsContext';
 import CongratsElement from '../../../components/animatedElements/congratsElement';
 import Link from 'next/link';

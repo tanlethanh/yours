@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from './lottiejson/404-page-animation.json';
+import animationData from './lottiejson/champion.json';
 
-export default function NotFoundElements({ width = 130, height = 130 }) {
+export default function Congrats({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

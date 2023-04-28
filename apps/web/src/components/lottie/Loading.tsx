@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from './lottiejson/academic-hut-banner.json';
+import animationData from './lottiejson/loading.json';
 
-export default function HutBannerElement({ width = 130, height = 130 }) {
+export default function Loading({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

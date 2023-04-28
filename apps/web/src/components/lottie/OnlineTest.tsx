@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from './lottiejson/loading.json';
+import animationData from './lottiejson/online-test.json';
 
-export default function LoadingElement({ width = 130, height = 130 }) {
+export default function OnlineTest({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

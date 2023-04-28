@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from './lottiejson/fail.json';
+import animationData from './lottiejson/404-page-animation.json';
 
-export default function FailElement({ width = 130, height = 130 }) {
+export default function NotFound({ width = 130, height = 130 }) {
     const defaultOptions = {
         loop: true,
         autoplay: true,

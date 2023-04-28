@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { ImFacebook, ImTwitter, ImYoutube } from 'react-icons/im';
 import Link from 'next/link';
 import logo from '../../public/logo.png';
 
