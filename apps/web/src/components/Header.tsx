@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { firebaseAuth } from '@yours/configs';
 
-export default function Header() {
+export function Header() {
     const { user, loading } = useAuth();
 
     useEffect(() => {}, [user, loading]);

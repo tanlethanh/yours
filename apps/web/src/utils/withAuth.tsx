@@ -1,7 +1,7 @@
-import { ReactNode, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useEffect } from 'react';
+import { useAuth } from 'utils/hooks/useAuth';
 import { useRouter } from 'next/router';
-import Loading from './loading';
+import {Loading} from 'components';
 
 export function withAuth(Component: any) {
     return function WithAuth(props: any) {
