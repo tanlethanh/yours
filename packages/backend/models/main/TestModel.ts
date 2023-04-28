@@ -1,57 +1,56 @@
-import { Schema, model } from "mongoose";
 import {
-    IFillWordQuestion,
-    IMultichoiceQuestion,
-    IPracticeQuestion,
-    IPracticeTest,
-    ITranslateQuestion,
-    PracticeQuestionType,
-    PracticeTestStatus,
-    TestGenerationStrategies,
-    PickedType,
-} from "@yours/interfaces";
-import { Sentence } from "./NotionImageModels.js";
-import { isEqualPureString } from "@yours/utils";
+	IFillWordQuestion,
+	IMultichoiceQuestion,
+	IPracticeQuestion,
+	IPracticeTest,
+	ITranslateQuestion,
+	PickedType,
+	PracticeQuestionType,
+	PracticeTestStatus,
+	TestGenerationStrategies,
+} from '@yours/interfaces';
+import { model, Schema } from 'mongoose';
+
 const PracticeTestSchema = new Schema<IPracticeTest>(
-    {
-        questions: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "PracticeQuestion",
-            },
-        ],
-        count_wrongs: {
-            required: false,
-            type: Number,
-            default: 0,
-        },
-        submited_time: {
-            required: false,
-            type: Date,
-        },
-        status: {
-            required: true,
-            type: String,
-            enum: Object.values(PracticeTestStatus),
-            default: PracticeTestStatus.INIT,
-        },
-        strategy: {
-            type: String,
-            enum: Object.values(TestGenerationStrategies),
-            required: true,
-        },
-        owner: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-        },
-    },
-    {
-        timestamps: {
-            createdAt: "created_time",
-            updatedAt: "last_edited_time",
-        },
-    }
+	{
+		questions: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'PracticeQuestion',
+			},
+		],
+		count_wrongs: {
+			required: false,
+			type: Number,
+			default: 0,
+		},
+		submited_time: {
+			required: false,
+			type: Date,
+		},
+		status: {
+			required: true,
+			type: String,
+			enum: Object.values(PracticeTestStatus),
+			default: PracticeTestStatus.INIT,
+		},
+		strategy: {
+			type: String,
+			enum: Object.values(TestGenerationStrategies),
+			required: true,
+		},
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
+		},
+	},
+	{
+		timestamps: {
+			createdAt: 'created_time',
+			updatedAt: 'last_edited_time',
+		},
+	},
 );
 
 // PracticeTestSchema.pre("deleteOne", async function (next) {
@@ -67,106 +66,106 @@ const PracticeTestSchema = new Schema<IPracticeTest>(
 // });
 
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
-    {
-        difficulty: {
-            required: true,
-            type: Number,
-        },
-        type: {
-            required: true,
-            type: String,
-            enum: Object.values(PracticeQuestionType),
-        },
-        picked_type: {
-            required: true,
-            type: String,
-            enum: Object.values(PickedType),
-        },
-        sentence_id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: "Sentence",
-        },
-    },
-    {
-        discriminatorKey: "type",
-        strict: false,
-    }
+	{
+		difficulty: {
+			required: true,
+			type: Number,
+		},
+		type: {
+			required: true,
+			type: String,
+			enum: Object.values(PracticeQuestionType),
+		},
+		picked_type: {
+			required: true,
+			type: String,
+			enum: Object.values(PickedType),
+		},
+		sentence_id: {
+			type: Schema.Types.ObjectId,
+			required: true,
+			ref: 'Sentence',
+		},
+	},
+	{
+		discriminatorKey: 'type',
+		strict: false,
+	},
 );
 
 const MultichoiceQuestionSchema = new Schema<IMultichoiceQuestion>({
-    question_text: {
-        required: true,
-        type: String,
-    },
-    answers: {
-        required: true,
-        type: Array<String>,
-    },
-    solution_index: {
-        required: true,
-        type: Number,
-    },
-    user_answer: {
-        required: false,
-        type: Number,
-    },
+	question_text: {
+		required: true,
+		type: String,
+	},
+	answers: {
+		required: true,
+		type: Array<String>,
+	},
+	solution_index: {
+		required: true,
+		type: Number,
+	},
+	user_answer: {
+		required: false,
+		type: Number,
+	},
 });
 
 const TranslateQuestionSchema = new Schema<ITranslateQuestion>({
-    question_text: {
-        type: String,
-        required: true,
-    },
-    solution: {
-        type: String,
-        required: true,
-    },
-    user_answer: {
-        type: String,
-        required: false,
-    },
+	question_text: {
+		type: String,
+		required: true,
+	},
+	solution: {
+		type: String,
+		required: true,
+	},
+	user_answer: {
+		type: String,
+		required: false,
+	},
 });
 
 const FillWordQuestionSchema = new Schema<IFillWordQuestion>({
-    list_words: {
-        type: [String],
-        required: true,
-    },
-    solution_index: {
-        type: Number,
-        required: true,
-    },
-    hint: {
-        type: String,
-        required: false,
-    },
-    user_answer: {
-        type: String,
-        required: false,
-    },
+	list_words: {
+		type: [String],
+		required: true,
+	},
+	solution_index: {
+		type: Number,
+		required: true,
+	},
+	hint: {
+		type: String,
+		required: false,
+	},
+	user_answer: {
+		type: String,
+		required: false,
+	},
 });
 
-const PracticeTest = model<IPracticeTest>("PracticeTest", PracticeTestSchema);
+const PracticeTest = model<IPracticeTest>('PracticeTest', PracticeTestSchema);
 
 const PracticeQuestion = model<IPracticeQuestion>(
-    "PracticeQuestion",
-    PraticeQuestionShema
+	'PracticeQuestion',
+	PraticeQuestionShema,
 );
 
 const MultichoiceQuestion = PracticeQuestion.discriminator(
-    PracticeQuestionType.MULTICHOICE,
-    MultichoiceQuestionSchema
+	PracticeQuestionType.MULTICHOICE,
+	MultichoiceQuestionSchema,
 );
 
 const TranslateQuestion = PracticeQuestion.discriminator(
-    PracticeQuestionType.TRANSLATE,
-    TranslateQuestionSchema
+	PracticeQuestionType.TRANSLATE,
+	TranslateQuestionSchema,
 );
 
 const FillWordQuestion = PracticeQuestion.discriminator(
-    PracticeQuestionType.FILLWORD,
-    FillWordQuestionSchema
+	PracticeQuestionType.FILLWORD,
+	FillWordQuestionSchema,
 );
 
 // const questionChangeStream = PracticeQuestion.watch();
@@ -208,9 +207,9 @@ const FillWordQuestion = PracticeQuestion.discriminator(
 // });
 
 export {
-    PracticeTest,
-    PracticeQuestion,
-    MultichoiceQuestion,
-    TranslateQuestion,
-    FillWordQuestion,
+	FillWordQuestion,
+	MultichoiceQuestion,
+	PracticeQuestion,
+	PracticeTest,
+	TranslateQuestion,
 };

@@ -1,1 +1,1 @@
-export * from "./IData";
+export * from './IData';

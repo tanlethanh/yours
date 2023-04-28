@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "main": "index.ts",
     "types": "index.ts",
+    "scripts": {
+        "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
+    },
     "dependencies": {
         "typescript": "5.0.4"
     }

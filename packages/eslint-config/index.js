@@ -10,6 +10,7 @@ module.exports = {
 		'react/prop-types': 'off',
 		'@typescript-eslint/ban-types': 'off',
 		'no-case-declarations': 'off',
+		'@next/next/no-html-link-for-pages': 'off',
 	},
 	settings: {
 		react: { version: 'detect' },

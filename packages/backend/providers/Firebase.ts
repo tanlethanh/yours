@@ -1,20 +1,20 @@
-import { initializeApp, cert } from "firebase-admin/app";
-import { config } from "@yours/backend";
+import { config } from '@yours/backend';
+import { App, cert, initializeApp } from 'firebase-admin/app';
 
 class FirebaseProvider {
-    app: any;
+	app?: App;
 
-    async initFirebaseApp() {
-        try {
-            const serviceAccount = require(config().FIREBASE_ADMIN_PATH);
+	async initFirebaseApp() {
+		try {
+			const serviceAccount = require(config().FIREBASE_ADMIN_PATH);
 
-            this.app = initializeApp({
-                credential: cert(serviceAccount),
-            });
-        } catch (error: any) {
-            console.log(error.message);
-        }
-    }
+			this.app = initializeApp({
+				credential: cert(serviceAccount),
+			});
+		} catch (error) {
+			console.log((error as Error).message);
+		}
+	}
 }
 
 const firebaseProvider = new FirebaseProvider();
