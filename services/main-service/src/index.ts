@@ -1,13 +1,15 @@
-import express from "express";
-import http from "http";
-import { config } from "@yours/backend";
+import http from 'http';
+
+import { config } from '@yours/backend';
 import {
-    firebaseProvider,
-    mongoDB,
-    Middlewares,
-    Handler,
-} from "@yours/backend";
-import { ApiRoute } from "./routes";
+	firebaseProvider,
+	Handler,
+	Middlewares,
+	mongoDB,
+} from '@yours/backend';
+import express from 'express';
+
+import { ApiRoute } from './routes';
 
 const app = express();
 
@@ -20,7 +22,7 @@ Middlewares.mountCommonMiddleWares(app);
 
 ApiRoute.mountRoute(app);
 
-app.use("*", Handler.useNotFoundHandler);
+app.use('*', Handler.useNotFoundHandler);
 app.use(Handler.errorHandler);
 
 // const expressApp = new ExpressApp();
@@ -29,11 +31,11 @@ const server = http.createServer(app);
 // Start the server on the specified port
 const PORT = config().PORT;
 server
-    .listen(PORT, () => {
-        return console.log(
-            `⚡️[server]: Server is running at https://localhost:${PORT}`
-        );
-    })
-    .on("error", (_error: Error) => {
-        return console.log("Error: ", _error.message);
-    });
+	.listen(PORT, () => {
+		return console.log(
+			`⚡️[server]: Server is running at https://localhost:${PORT}`,
+		);
+	})
+	.on('error', (_error: Error) => {
+		return console.log('Error: ', _error.message);
+	});

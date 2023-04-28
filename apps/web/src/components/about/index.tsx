@@ -1,2 +1,2 @@
-export * from './Home'
-export * from './Narbar'
+export * from './Home';
+export * from './Narbar';

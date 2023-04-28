@@ -1,32 +1,33 @@
-import { Application, Request, Response } from "express";
-import apiV1 from "./api/v1";
-import { StatusCodes } from "http-status-codes";
+import { Application, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+
+import apiV1 from './api/v1';
 
 class ApiRoute {
-    app: Application;
+	app: Application;
 
-    constructor(_express: Application) {
-        this.app = _express;
-    }
+	constructor(_express: Application) {
+		this.app = _express;
+	}
 
-    public static mountRoute(_express: Application) {
-        console.log("Mount API route");
+	public static mountRoute(_express: Application) {
+		console.log('Mount API route');
 
-        // Basic api
-        _express.get("/", (req: Request, res: Response) => {
-            return res.status(StatusCodes.OK).json({
-                message: "Hello world",
-            });
-        });
+		// Basic api
+		_express.get('/', (req: Request, res: Response) => {
+			return res.status(StatusCodes.OK).json({
+				message: 'Hello world',
+			});
+		});
 
-        ApiRoute.mountRouteV1(_express);
-    }
+		ApiRoute.mountRouteV1(_express);
+	}
 
-    private static mountRouteV1(_express: Application) {
-        _express.use("/api/v1", apiV1);
-    }
+	private static mountRouteV1(_express: Application) {
+		_express.use('/api/v1', apiV1);
+	}
 
-    mountSingleRoute() {}
+	mountSingleRoute() {}
 }
 
 export { ApiRoute };

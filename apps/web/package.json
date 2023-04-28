@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
     },
     "dependencies": {
         "@heroicons/react": "^2.0.16",

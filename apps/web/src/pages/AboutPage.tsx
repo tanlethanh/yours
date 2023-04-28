@@ -1,15 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Home, Narbar } from 'components';
 import type { NextPage } from 'next';
-import {Narbar, Home} from 'components';
 
 const AboutPage: NextPage = () => {
-    return (
-        <div className="">
-            <Narbar />
-            <Home />
-        </div>
-    );
+	return (
+		<div className="">
+			<Narbar />
+			<Home />
+		</div>
+	);
 };
 
 AboutPage.propTypes = {};
