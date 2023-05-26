@@ -1,5 +1,5 @@
 import resources from 'assets/resources.json';
-import { LottieStudents } from 'components/lottie';
+import { Lottie } from 'components/lottie';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -35,7 +35,11 @@ const Home: NextPage = () => {
 					</div>
 				</div>
 				<div className="lg:visible md:invisible rounded-full">
-					<LottieStudents width={500} height={500}></LottieStudents>
+					<Lottie
+						animationData={require('assets/lottiejson/finishig-studies.json')}
+						width={500}
+						height={500}
+					/>
 				</div>
 			</div>
 		</MainLayout>
