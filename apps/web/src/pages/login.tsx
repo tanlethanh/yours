@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { firebaseAuth } from '@yours/configs';
+import resources from 'assets/resources.json';
 import { Loading } from 'components';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import Head from 'next/head';
@@ -32,26 +33,7 @@ function Login() {
 	}, [user, loading]);
 
 	const sighInGoogleOnclick = () => {
-		signInWithPopup(firebaseAuth, googleProvider)
-			.then((result) => {
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				// const credential =
-				// 	GoogleAuthProvider.credentialFromResult(result);
-				// const token = credential?.accessToken;
-				// The signed-in user info.
-				// const user = result.user;
-				console.log(result);
-			})
-			.catch(() => {
-				// Handle Errors here.
-				// const errorCode = error.code;
-				// const errorMessage = error.message;
-				// The email of the user's account used.
-				// const email = error.customData.email;
-				// The AuthCredential type that was used.
-				// const credential =
-				// 	GoogleAuthProvider.credentialFromError(error);
-			});
+		signInWithPopup(firebaseAuth, googleProvider);
 	};
 
 	return render ? (
@@ -77,9 +59,7 @@ function Login() {
 					</button>
 				</div>
 				<p className="text-zinc-500 text-center">
-					{
-						'By clicking “Continue with Google" above, you acknowledge that you have read and understood, and agree to Sipo English\'s Terms & Conditions and Privacy Policy'
-					}
+					{resources.loginPage.terms}
 				</p>
 			</div>
 		</div>

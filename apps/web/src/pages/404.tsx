@@ -8,10 +8,8 @@ export default function NotFoundPage() {
 			<Link
 				href={'/'}
 				className="w-fit px-8 py-3 border border-gray-300 rounded-md"
-			>
-				{' '}
-				Về trang chủ
-			</Link>
+				title="Go back"
+			/>
 		</div>
 	);
 }

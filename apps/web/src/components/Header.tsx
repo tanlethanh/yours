@@ -41,7 +41,7 @@ export function Header() {
 					></Image>
 				</Link>
 			) : (
-				<Link href={'/login'}> Đăng nhập </Link>
+				<Link href={'/login'}> Log in </Link>
 			)}
 		</div>
 	);

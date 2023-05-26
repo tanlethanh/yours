@@ -107,8 +107,6 @@ export function QuestionCard({ testId, id, setFinal }: Props) {
 				/>
 			);
 		default:
-			// // data test need to produce to set final
-			// if (dataTest.length > 0) setFinal(true);
 			return null;
 	}
 }

@@ -3,11 +3,9 @@ import { apiAxios } from '@yours/configs';
 import { LineChart, LottieLoading, LottieOnlineTest } from 'components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { MainLayout, useAuth, withAuth } from 'utils';
+import { MainLayout, withAuth } from 'utils';
 
 function Dashboard() {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { user } = useAuth();
 	const router = useRouter();
 	const [connLoading, setConnLoading] = useState(true);
 	const [isNotionConnected, setIsNotionConnected] = useState(false);
