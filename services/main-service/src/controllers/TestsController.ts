@@ -107,8 +107,6 @@ class TestsController {
 			strategy as TestGenerationStrategies,
 		);
 
-		// console.log(test);
-
 		return res.status(StatusCodes.OK).json({
 			test: test,
 			strategy: strategy,

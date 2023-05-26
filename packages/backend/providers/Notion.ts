@@ -52,7 +52,7 @@ class NotionProvider {
 				timestamp: 'last_edited_time',
 			},
 		});
-		return data?.results;
+		return data?.results || [];
 	}
 
 	async getPageChildren(accessToken: string, pageId: string) {
@@ -63,7 +63,7 @@ class NotionProvider {
 			block_id: pageId,
 		});
 
-		return data?.results;
+		return data?.results || [];
 	}
 }
 

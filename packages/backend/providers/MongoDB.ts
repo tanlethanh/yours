@@ -22,7 +22,6 @@ class MongoDB {
 		} catch (error) {
 			console.log('MongoDB error');
 			console.error((error as Error).message);
-			// process.exit(1);
 		}
 	}
 
@@ -39,7 +38,6 @@ class MongoDB {
 			console.log('Default user is created');
 			this.defaultUser = defautUser;
 		} catch (error) {
-			// console.log(error);
 			if (this.connected) {
 				this.defaultUser = await User.findOne({
 					email: config().DEFAULT_USER_EMAIL,

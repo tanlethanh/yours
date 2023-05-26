@@ -32,15 +32,12 @@ class TestGenerationService {
 		strategy: TestGenerationStrategies = TestGenerationStrategies.DEFAULT,
 	) {
 		const sentences = await this.filterSentences(user, strategy);
-		// console.log(sentences);
 
 		const questions =
 			(await this.generateQuestions(
 				sentences as Array<ISentence>,
 				strategy,
 			)) || [];
-
-		// console.log(questions);
 
 		const test = new PracticeTest({
 			strategy: strategy,
@@ -256,8 +253,6 @@ class TestGenerationService {
 				}
 			}
 		}
-
-		// console.log(questions.length);
 
 		return questions;
 	}

@@ -10,8 +10,6 @@ const apiAxios = axios.create({
 });
 
 apiAxios.interceptors.request.use(async (config) => {
-	// console.log('Current user ' + auth.currentUser)
-	// console.log('Auth ' + JSON.stringify(auth))
 	if (firebaseAuth.currentUser) {
 		config.headers.Authorization = `Bearer ${
 			(await firebaseAuth.currentUser.getIdTokenResult()).token

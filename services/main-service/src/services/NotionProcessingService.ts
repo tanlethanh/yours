@@ -273,8 +273,6 @@ class NotionProcessingService {
 			}
 		});
 
-		console.log(detailPageImages);
-
 		return SyncResult.SYNC_SUCCESS;
 	}
 

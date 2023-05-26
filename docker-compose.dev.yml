@@ -1,12 +1,12 @@
 version: "3.1"
 
 services:
-  notion-api-service:
+  main-service:
     env_file: .env
     environment:
       - MONGOOSE_URI=mongodb://mongo:27018/sipoenglish
     build:
-      context: .
+      context: ./services/main-service
     ports:
       - ${PORT}:${PORT}
       - 9229:9229

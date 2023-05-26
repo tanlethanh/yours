@@ -53,18 +53,6 @@ const PracticeTestSchema = new Schema<IPracticeTest>(
 	},
 );
 
-// PracticeTestSchema.pre("deleteOne", async function (next) {
-//     const test = this as any;
-//     console.log(test);
-//     console.log("Remove questions of test");
-//     await PracticeQuestion.deleteMany({
-//         _id: {
-//             $in: test.questions,
-//         },
-//     });
-//     next();
-// });
-
 const PraticeQuestionShema = new Schema<IPracticeQuestion>(
 	{
 		difficulty: {

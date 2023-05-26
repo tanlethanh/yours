@@ -27,14 +27,12 @@ class TestService {
 
 			case PracticeQuestionType.TRANSLATE:
 				if (typeof userAnswer != 'string') {
-					console.log('Here');
 					throw new UserError('Invalid userAnswer');
 				}
 				break;
 
 			case PracticeQuestionType.FILLWORD:
 				if (typeof userAnswer != 'string') {
-					console.log('hehehe');
 					throw new UserError('Invalid userAnswer');
 				}
 				break;
