@@ -1,5 +1,6 @@
 import resources from 'assets/resources.json';
 import Button from 'components/Button';
+import { Lottie } from 'components/lottie';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -9,15 +10,26 @@ const Home: NextPage = () => {
 	const router = useRouter();
 
 	return (
-		<MainLayout withHeader={true}>
+		<MainLayout withHeader={true} className="overflow-y-hidden">
 			<Head>
 				<title>{"Yours - It's mine"}</title>
 			</Head>
-			<div className="flex flex-col items-center gap-16 mt-20">
-				<h1 className="text-[100px] text-mainText font-extrabold text-center leading-tight">
+
+			<div className="relative bg-red-500">
+				<div className="absolute left-10">
+					<Lottie
+						height={1000}
+						width={1000}
+						animationData={require('assets/lottiejson/solar-system.json')}
+					/>
+				</div>
+			</div>
+
+			<div className="flex flex-col items-center mt-20 relative z-10">
+				<h1 className="text-[80px] text-mainText font-extrabold text-center leading-tight">
 					Take your things
 				</h1>
-				<p className="italic text-lg text-auxText">
+				<p className="italic text-lg text-auxText mt-10 mb-24">
 					{resources.homePage.description}
 				</p>
 				<Button
