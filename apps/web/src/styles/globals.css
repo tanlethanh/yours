@@ -26,6 +26,15 @@
     .multichoiceQuestion .incorrect {
         @apply border-red-500 text-red-500 font-medium border-2;
     }
+
+    .gradientPrimary {
+        background: linear-gradient(
+            90deg,
+            rgba(239, 1, 7, 1) 0%,
+            rgba(6, 54, 114, 1) 50%,
+            rgba(255, 255, 255, 1) 100%
+        );
+    }
 }
 
 .questionCard {
