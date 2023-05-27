@@ -11,9 +11,9 @@ export function Header() {
 	};
 
 	return (
-		<div className="max-w-[1200px] h-full m-auto flex flex-row items-center justify-between border-b-zinc-300 border-b-2">
-			<Link className="text-2xl font-medium" href={'/'}>
-				Sipo English
+		<div className="max-w-[1200px] m-auto flex flex-row items-center justify-between text-mainText mt-4">
+			<Link className="text-2xl font-semibold" href={'/'}>
+				Yours
 			</Link>
 			{!loading && user ? (
 				<Link
@@ -28,7 +28,7 @@ export function Header() {
 							className="text-[11px] underline-offset-1 underline"
 							onClick={logOut}
 						>
-							Đăng xuất
+							Log out
 						</p>
 					</div>
 					<Image
@@ -41,7 +41,7 @@ export function Header() {
 					></Image>
 				</Link>
 			) : (
-				<Link href={'/login'}> Log in </Link>
+				<Link href={'/login'}> Sign in </Link>
 			)}
 		</div>
 	);
