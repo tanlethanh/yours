@@ -27,7 +27,7 @@ function RedirectPage() {
 	return (
 		<MainLayout withHeader={false}>
 			<div className="flex flex-col items-center justify-center h-screen">
-				<h1 className="text-2xl">RedirectPage</h1>
+				<h1 className="text-2xl">Please wait</h1>
 				<p>{query.code}</p>
 			</div>
 		</MainLayout>
