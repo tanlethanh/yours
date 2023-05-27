@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { PrimaryButton } from 'components/button';
+import { PrimaryButton } from 'components/Button';
 import { motion } from 'framer-motion';
 import { DataTestsContext } from 'state/DataTestsContext';
 import { toast, ToastContainerCustom } from 'utils/ToastCustom';

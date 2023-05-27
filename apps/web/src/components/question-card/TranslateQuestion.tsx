@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
-import { PrimaryButton } from 'components/button';
+import { PrimaryButton } from 'components/Button';
 import { DataTestsContext } from 'state/DataTestsContext';
 import { toast, ToastContainerCustom } from 'utils/ToastCustom';
 
