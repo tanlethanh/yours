@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
 	content: [
 		'./src/pages/**/*.{js,ts,jsx,tsx}',
@@ -24,7 +26,16 @@ module.exports = {
 			'2xl': '1536px',
 			// => @media (min-width: 1536px) { ... }
 		},
-		extend: {},
+		extend: {
+			fontFamily: {
+				sans: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
+			},
+			colors: {
+				primary: '#000000',
+				mainText: '#ffffff',
+				auxText: '#9ea7b0',
+			},
+		},
 	},
 	plugins: [],
 };
