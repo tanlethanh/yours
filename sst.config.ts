@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SSTConfig } from 'sst';
-import { Bucket, NextjsSite } from 'sst/constructs';
+import { NextjsSite } from 'sst/constructs';
 
 export default {
 	config(_input) {
 		return {
-			name: 'web',
-			region: 'us-east-1',
+			name: 'yours-web',
+			region: 'ap-northeast-1',
 		};
 	},
 	stacks(app) {
 		app.stack(function Site({ stack }) {
-			const site = new NextjsSite(stack as never, 'site');
+			const site = new NextjsSite(stack as never, 'site', {
+				path: 'apps/web',
+			});
 
 			stack.addOutputs({
 				SiteUrl: site.url,
