@@ -32,6 +32,10 @@ module.exports = {
 			},
 			colors: {
 				primary: '#000000',
+				primaryRed: '#ef0107',
+				primaryBlue: '#063672',
+				primaryYellow: '#9C824A',
+				primaryWhite: '#ffffff',
 				mainText: '#ffffff',
 				auxText: '#9ea7b0',
 			},
