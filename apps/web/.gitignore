@@ -36,4 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 .history/
+<<<<<<< HEAD
 .sst/
+=======
+
+.sst/
+>>>>>>> 04b6b78 (temp)
