@@ -1,9 +1,9 @@
-import { Lottie } from 'components/lottie';
+import { Lottie } from 'components';
 
 export function Loading() {
 	return (
 		<div className="h-screen w-screen flex justify-center items-center">
-			<Lottie animationData={require('assets/lottiejson/loading.json')} />
+			<Lottie animationData={'/lottiejson/loading.json'} />
 		</div>
 	);
 }
