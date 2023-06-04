@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { LottieQuizBump } from 'components';
+import { Lottie } from 'components';
 import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 function TestById() {
@@ -28,7 +28,13 @@ function TestById() {
 		getData();
 	}, [router.isReady]);
 
-	return <LottieQuizBump width={500} height={500}></LottieQuizBump>;
+	return (
+		<Lottie
+			width={500}
+			height={500}
+			animationData={'/lottiejson/quiz-bump.json'}
+		></Lottie>
+	);
 }
 
 export default TestById;

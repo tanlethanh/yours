@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { LottieTestError } from 'components';
+import { Lottie } from 'components';
 import { AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -55,7 +55,11 @@ export function TestLayout({
 					</div>
 				</AnimatePresence>
 			) : (
-				<LottieTestError width={500} height={500}></LottieTestError>
+				<Lottie
+					width={500}
+					height={500}
+					animationData={'/lottiejson/loadingErrorGetTestById.json'}
+				></Lottie>
 			)}
 		</>
 	);

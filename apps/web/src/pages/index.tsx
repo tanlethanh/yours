@@ -1,6 +1,6 @@
 import resources from 'assets/resources.json';
+import { Lottie } from 'components';
 import Button from 'components/Button';
-import { Lottie } from 'components/lottie';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 					<Lottie
 						height={'100%'}
 						width={'100%'}
-						animationData={require('assets/lottiejson/solar-system.json')}
+						animationData={'lottiejson/solar-system.json'}
 					/>
 				</div>
 			</div>

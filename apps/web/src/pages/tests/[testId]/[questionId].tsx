@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { LottieCongrats, LottieFail, QuestionCard } from 'components';
+import { Lottie, QuestionCard } from 'components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
@@ -53,15 +53,17 @@ function TestPage() {
 						</div>
 						<div>
 							{isFail ? (
-								<LottieFail
+								<Lottie
 									width={400}
 									height={400}
-								></LottieFail>
+									animationData={'/lottiejson/fail.json'}
+								></Lottie>
 							) : (
-								<LottieCongrats
+								<Lottie
 									width={400}
 									height={400}
-								></LottieCongrats>
+									animationData={'/lottiejson/champion.json'}
+								></Lottie>
 							)}
 						</div>
 					</div>

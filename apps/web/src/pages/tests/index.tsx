@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { LottieQuizBump } from 'components';
+import { Lottie } from 'components';
 import router from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 import { withAuth } from 'utils';
@@ -17,7 +17,11 @@ function Tests() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center space-y-5">
-			<LottieQuizBump width={500} height={500}></LottieQuizBump>
+			<Lottie
+				width={500}
+				height={500}
+				animationData={'/lottiejson/quiz-bump.json'}
+			></Lottie>
 		</div>
 	);
 }

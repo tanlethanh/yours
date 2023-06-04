@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiAxios } from '@yours/configs';
-import { Lottie } from 'components/lottie';
+import { Lottie } from 'components';
 import { useRouter } from 'next/router';
 
 const PracticeBlock = () => {
@@ -45,7 +45,7 @@ const PracticeBlock = () => {
 							<Lottie
 								height={280}
 								width={280}
-								animationData={require('assets/lottiejson/online-test.json')}
+								animationData={'/lottiejson/online-test.json'}
 							/>
 						</div>
 					) : (
@@ -63,7 +63,7 @@ const PracticeBlock = () => {
 					<Lottie
 						height={80}
 						width={80}
-						animationData={require('assets/lottiejson/loading.json')}
+						animationData={'/lottiejson/loading.json'}
 					/>
 				)}
 			</div>
