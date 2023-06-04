@@ -12,3 +12,6 @@ dist/**
 .env
 
 private/
+
+next-env.d.ts
+.sst/
