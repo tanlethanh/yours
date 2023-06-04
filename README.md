@@ -2,6 +2,8 @@
 # Yours - It's not yours, It's mine hehe
 This project is all needed tools which I build myself and for myself. And public version may help your life.
 
+Hello world
+
 ## Setup
 
 ### Install all needed packages
