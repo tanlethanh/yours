@@ -1,4 +1,5 @@
 import { type ButtonHTMLAttributes, type FC } from 'react';
+import { motion } from 'framer-motion';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	title: string;
@@ -6,15 +7,22 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: FC<Props> = ({ title, className, ...props }) => {
 	return (
-		<button
-			className={
-				'w-fit px-8 py-3 border border-gray-300 rounded-md text-mainText hover:bg-white hover:text-black ' +
-				className
-			}
-			{...props}
+		<motion.div
+			className="gradientPrimary rounded-md p-[1.8px]"
+			whileHover={{
+				scale: 1.2,
+			}}
 		>
-			{title}
-		</button>
+			<button
+				className={
+					'w-fit px-8 py-3 text-mainText bg-primary rounded-md ' +
+					className
+				}
+				{...props}
+			>
+				{title}
+			</button>
+		</motion.div>
 	);
 };
 
