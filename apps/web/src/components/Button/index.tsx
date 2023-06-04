@@ -10,7 +10,7 @@ const Button: FC<Props> = ({ title, className, ...props }) => {
 		<motion.div
 			className="gradientPrimary rounded-md p-[1.8px]"
 			whileHover={{
-				scale: 1.1,
+				scale: 1.2,
 			}}
 		>
 			<button
