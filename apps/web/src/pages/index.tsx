@@ -16,10 +16,10 @@ const Home: NextPage = () => {
 			</Head>
 
 			<div className="relative bg-red-500">
-				<div className="absolute left-10">
+				<div className="absolute left-0 right-0 ml-auto mr-auto">
 					<Lottie
-						height={1000}
-						width={1000}
+						height={'100%'}
+						width={'100%'}
 						animationData={require('assets/lottiejson/solar-system.json')}
 					/>
 				</div>

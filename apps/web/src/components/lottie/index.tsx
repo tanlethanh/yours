@@ -2,10 +2,10 @@ import { type FC } from 'react';
 import PureLottie, { type Options } from 'react-lottie';
 
 interface Props {
-	width?: number;
-	height?: number;
+	width?: number | string;
+	height?: number | string;
 	animationData: unknown;
-	options?: Options;
+	options?: Partial<Options>;
 }
 
 export const Lottie: FC<Props> = ({
