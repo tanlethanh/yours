@@ -1,13 +1,15 @@
-import { useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { Lottie, QuestionCard } from 'components';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 import { TestLayout, withAuth } from 'utils';
 
-function TestPage() {
-	const router = useRouter();
-	const { testId, questionId } = router.query;
+interface Props {
+	testId: string;
+	questionId: string;
+}
+
+const TestPage: FC<Props> = ({ testId, questionId }) => {
 	const [isFinal, setIsFinal] = useState(false);
 	const context = useContext(DataTestsContext);
 	const score =
@@ -47,7 +49,6 @@ function TestPage() {
 								href={'/dashboard'}
 								className="w-fit px-8 py-3 border border-gray-300 rounded-md"
 							>
-								{' '}
 								Về trang chính
 							</Link>
 						</div>
@@ -71,6 +72,6 @@ function TestPage() {
 			</>
 		</TestLayout>
 	);
-}
+};
 
 export default withAuth(TestPage);

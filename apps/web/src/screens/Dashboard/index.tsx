@@ -8,7 +8,11 @@ import TextStatistic from './components/TextStatistic';
 
 function Dashboard() {
 	return (
-		<MainLayout withHeader={true}>
+		<MainLayout
+			withHeader={true}
+			className="bg-white"
+			headerClassName="text-black"
+		>
 			<div className="flex flex-row flex-wrap justify-around gap-y-6 pt-8">
 				<Head>
 					<title>Sipo English | Dashboard</title>

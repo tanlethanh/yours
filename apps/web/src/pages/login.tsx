@@ -20,9 +20,9 @@ function Login() {
 				// User is signed in.
 				console.log('User is currently logged in');
 				if (!router.query.redirect) {
-					router.replace('/dashboard');
+					router.push('/english-app/dashboard');
 				} else {
-					router.replace(router.query.redirect as string);
+					router.push(router.query.redirect as string);
 				}
 			} else {
 				// No user is signed in.
