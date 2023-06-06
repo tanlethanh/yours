@@ -1,17 +1,24 @@
+import { type FC, type HtmlHTMLAttributes } from 'react';
 import { firebaseAuth } from '@yours/configs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { merge } from 'utils';
 import { useAuth } from 'utils/hooks/useAuth';
 
-export function Header() {
+type Props = HtmlHTMLAttributes<HTMLDivElement>;
+
+export const Header: FC<Props> = ({ className }) => {
 	const { user, loading } = useAuth();
 
 	const logOut = async () => {
 		await firebaseAuth.signOut();
 	};
 
+	const defaultClassname =
+		'max-w-[1200px] m-auto flex flex-row items-center justify-between text-mainText mt-4';
+
 	return (
-		<div className="max-w-[1200px] m-auto flex flex-row items-center justify-between text-mainText mt-4">
+		<div className={merge([defaultClassname, className])}>
 			<Link className="text-2xl font-semibold" href={'/'}>
 				Yours
 			</Link>
@@ -45,4 +52,4 @@ export function Header() {
 			)}
 		</div>
 	);
-}
+};
