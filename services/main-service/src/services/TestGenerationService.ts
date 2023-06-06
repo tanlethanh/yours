@@ -25,6 +25,7 @@ import {
 	isEqualPureString,
 	shuffleArray,
 } from '@yours/utils';
+import { shuffle } from 'lodash';
 
 class TestGenerationService {
 	async generateTest(
@@ -58,7 +59,7 @@ class TestGenerationService {
 	private async filterSentences(
 		user: IUser,
 		strategy: TestGenerationStrategies = TestGenerationStrategies.DEFAULT,
-		numberOfQuestion = 8,
+		numberOfQuestion = 10,
 	) {
 		const curUser = await User.findById(user._id);
 
@@ -92,7 +93,7 @@ class TestGenerationService {
 		}
 
 		if (strategy === TestGenerationStrategies.DEFAULT) {
-			const numberNew = numberOfQuestion * 0.7;
+			const numberNew = numberOfQuestion * 0.8;
 			const numberOld = numberOfQuestion - numberNew;
 
 			// Sort by usage and time
@@ -117,12 +118,10 @@ class TestGenerationService {
 			});
 
 			// Shuffle other sentences and add labels
-			const others = shuffleArray(allSentences.slice(numberNew)).map(
-				(ele) => {
-					ele.pickedType = PickedType.RANDOM;
-					return ele;
-				},
-			);
+			const others = shuffle(allSentences.slice(numberNew)).map((ele) => {
+				ele.pickedType = PickedType.RANDOM;
+				return ele;
+			});
 
 			results.push(...others.slice(0, numberOld));
 
