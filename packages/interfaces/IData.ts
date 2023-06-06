@@ -62,6 +62,7 @@ export interface ISentence extends Document {
 	number_of_wrongs: number;
 	list_question_core: Schema.Types.ObjectId | IQuestionCore;
 	is_deleted: Boolean;
+	pickedType?: string;
 }
 
 export enum QuestionType {
