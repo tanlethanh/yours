@@ -8,10 +8,13 @@ import {
 	mongoDB,
 } from '@yours/backend';
 import express from 'express';
+import morgan from 'morgan';
 
 import { ApiRoute } from './routes';
 
 const app = express();
+
+app.use(morgan('tiny'));
 
 mongoDB.connect();
 mongoDB.initData();
