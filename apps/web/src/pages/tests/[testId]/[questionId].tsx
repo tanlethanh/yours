@@ -1,15 +1,13 @@
-import { FC, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Lottie, QuestionCard } from 'components';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { DataTestsContext } from 'state/DataTestsContext';
 import { TestLayout, withAuth } from 'utils';
 
-interface Props {
-	testId: string;
-	questionId: string;
-}
-
-const TestPage: FC<Props> = ({ testId, questionId }) => {
+function TestPage() {
+	const router = useRouter();
+	const { testId, questionId } = router.query;
 	const [isFinal, setIsFinal] = useState(false);
 	const context = useContext(DataTestsContext);
 	const score =
@@ -72,6 +70,6 @@ const TestPage: FC<Props> = ({ testId, questionId }) => {
 			</>
 		</TestLayout>
 	);
-};
+}
 
 export default withAuth(TestPage);
