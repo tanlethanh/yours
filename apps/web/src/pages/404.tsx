@@ -7,7 +7,7 @@ export default function NotFoundPage() {
 			<Lottie
 				width={500}
 				height={500}
-				animationData={'/lottiejson/loading.json'}
+				animationData={'/404-page-animation.json'}
 			></Lottie>
 			<Link
 				href={'/'}

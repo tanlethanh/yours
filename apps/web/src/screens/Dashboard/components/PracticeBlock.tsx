@@ -45,7 +45,7 @@ const PracticeBlock = () => {
 							<Lottie
 								height={280}
 								width={280}
-								animationData={'/lottiejson/online-test.json'}
+								animationData={'/online-test.json'}
 							/>
 						</div>
 					) : (
@@ -63,7 +63,7 @@ const PracticeBlock = () => {
 					<Lottie
 						height={80}
 						width={80}
-						animationData={'/lottiejson/loading.json'}
+						animationData={'/loading.json'}
 					/>
 				)}
 			</div>

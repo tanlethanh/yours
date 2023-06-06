@@ -58,7 +58,7 @@ export function TestLayout({
 				<Lottie
 					width={500}
 					height={500}
-					animationData={'/lottiejson/loadingErrorGetTestById.json'}
+					animationData={'/loadingErrorGetTestById.json'}
 				></Lottie>
 			)}
 		</>

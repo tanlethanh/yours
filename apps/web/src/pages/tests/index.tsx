@@ -20,7 +20,7 @@ function Tests() {
 			<Lottie
 				width={500}
 				height={500}
-				animationData={'/lottiejson/quiz-bump.json'}
+				animationData={'/quiz-bump.json'}
 			></Lottie>
 		</div>
 	);

@@ -56,13 +56,13 @@ function TestPage() {
 								<Lottie
 									width={400}
 									height={400}
-									animationData={'/lottiejson/fail.json'}
+									animationData={'/fail.json'}
 								></Lottie>
 							) : (
 								<Lottie
 									width={400}
 									height={400}
-									animationData={'/lottiejson/champion.json'}
+									animationData={'/champion.json'}
 								></Lottie>
 							)}
 						</div>
