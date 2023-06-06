@@ -22,6 +22,7 @@
         "express": "^4.18.2",
         "firebase-admin": "^11.5.0",
         "http-status-codes": "^2.2.0",
+        "lodash": "^4.17.21",
         "mongoose": "^7.0.1",
         "request": "^2.88.2"
     },
@@ -33,6 +34,7 @@
         "@types/mongoose": "^5.11.97",
         "@types/node": "^18.11.9",
         "@types/request": "^2.48.8",
+        "@types/lodash": "^4.14.195",
         "concurrently": "^7.5.0",
         "nodemon": "^2.0.20",
         "ts-node": "^10.9.1",
