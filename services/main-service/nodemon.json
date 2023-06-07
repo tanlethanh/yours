@@ -1,0 +1,15 @@
+{
+    "restartable": "rs",
+    "verbose": true,
+    "execMap": {
+        "js": "node --harmony"
+    },
+    "watch": [
+        "../../packages/backend",
+        "../../packages/utils",
+        "../../packages/interfaces"
+    ],
+    "env": {
+        "NODE_ENV": "development"
+    }
+}

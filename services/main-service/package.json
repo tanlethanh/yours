@@ -5,9 +5,9 @@
     "main": "src/index.ts",
     "type": "commonjs",
     "scripts": {
-        "build": "npx tsc --transpileOnly",
+        "build": "rimraf ./build && tsc && tsc-alias",
         "start": "node build/index.js",
-        "dev": "nodemon --watch src --watch ../../packages/backend --watch ../../packages/intefaces --watch ../../packages/utils src/index.ts",
+        "dev": "nodemon src/index.ts",
         "docker-dev": "docker compose -f docker-compose.dev.yml up",
         "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
     },
@@ -15,11 +15,8 @@
     "license": "ISC",
     "dependencies": {
         "@notionhq/client": "^2.2.3",
-        "@types/morgan": "^1.9.4",
-        "@yours/backend": "*",
-        "@yours/utils": "*",
         "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
+        "dotenv": "^16.1.4",
         "express": "^4.18.2",
         "firebase-admin": "^11.5.0",
         "http-status-codes": "^2.2.0",
@@ -29,6 +26,9 @@
         "request": "^2.88.2"
     },
     "devDependencies": {
+        "@yours/utils": "*",
+        "@yours/backend": "*",
+        "@types/morgan": "^1.9.4",
         "@types/cookie-parser": "^1.4.3",
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.14",
@@ -39,7 +39,10 @@
         "@types/request": "^2.48.8",
         "concurrently": "^7.5.0",
         "nodemon": "^2.0.20",
+        "rimraf": "^5.0.1",
         "ts-node": "^10.9.1",
+        "tsc-alias": "^1.8.6",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^4.9.5"
     }
 }
