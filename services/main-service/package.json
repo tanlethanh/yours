@@ -26,23 +26,22 @@
         "request": "^2.88.2"
     },
     "devDependencies": {
-        "@yours/utils": "*",
-        "@yours/backend": "*",
-        "@types/morgan": "^1.9.4",
         "@types/cookie-parser": "^1.4.3",
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.14",
         "@types/express-status-monitor": "^1.3.0",
         "@types/lodash": "^4.14.195",
         "@types/mongoose": "^5.11.97",
+        "@types/morgan": "^1.9.4",
         "@types/node": "^18.11.9",
         "@types/request": "^2.48.8",
+        "@yours/backend": "*",
+        "@yours/utils": "*",
         "concurrently": "^7.5.0",
         "nodemon": "^2.0.20",
         "rimraf": "^5.0.1",
         "ts-node": "^10.9.1",
         "tsc-alias": "^1.8.6",
-        "tsconfig-paths": "^4.2.0",
         "typescript": "^4.9.5"
     }
 }
