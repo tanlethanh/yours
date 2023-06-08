@@ -6,7 +6,7 @@
     "type": "commonjs",
     "scripts": {
         "build": "rimraf ./build && tsc && tsc-alias",
-        "start": "node build/index.js",
+        "start": "node src/index.js",
         "dev": "nodemon src/index.ts",
         "docker-dev": "docker compose -f docker-compose.dev.yml up",
         "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
@@ -35,8 +35,6 @@
         "@types/morgan": "^1.9.4",
         "@types/node": "^18.11.9",
         "@types/request": "^2.48.8",
-        "@yours/backend": "*",
-        "@yours/utils": "*",
         "concurrently": "^7.5.0",
         "nodemon": "^2.0.20",
         "rimraf": "^5.0.1",
