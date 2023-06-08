@@ -32,7 +32,7 @@ app.use(Handler.errorHandler);
 const server = http.createServer(app);
 
 // Start the server on the specified port
-const PORT = config().PORT;
+const PORT = config().PORT || 8266;
 server
 	.listen(PORT, () => {
 		return console.log(
