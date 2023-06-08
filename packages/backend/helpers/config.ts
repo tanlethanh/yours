@@ -3,7 +3,11 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 
 export function config() {
-	dotenv.config({ path: path.join(__dirname, '../../../.env') });
+	dotenv.config();
+
+	if (process.env.NODE_ENV != 'production') {
+		dotenv.config({ path: path.join(__dirname, '../../../.env') });
+	}
 
 	return {
 		NODE_ENV: process.env.NODE_ENV,
