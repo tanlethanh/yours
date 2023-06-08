@@ -8,12 +8,11 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN "npm install --omit=dev"
+RUN npm install --omit=dev
 
 COPY ./build .
 
-# check files list
 RUN ls -a
 
-CMD ["node", "services/main-service/src/index.js"]
+CMD ["node", "./services/main-service/src/index.js"]
 
