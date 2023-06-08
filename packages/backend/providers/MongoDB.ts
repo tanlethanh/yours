@@ -1,27 +1,46 @@
 import { config } from '@yours/backend';
 import { User } from '@yours/backend/models';
 import { IUser, UserRole } from '@yours/interfaces';
-import mongoose from 'mongoose';
+import mongoose, { Connection } from 'mongoose';
 
 class MongoDB {
-	connection?: Promise<typeof mongoose>;
-	defaultUser?: IUser | null;
+	connection?: Promise<Connection>;
 	connected?: boolean;
-
-	constructor() {
-		this.connected = false;
-	}
+	defaultUser?: IUser | null;
 
 	public async connect() {
+		this.connected = false;
+		const timeout = 10000;
+		const start = Date.now();
+
+		this.connection = new Promise((resolve, reject) => {
+			let clock: string | number | NodeJS.Timeout | undefined;
+
+			mongoose.connection.on('error', () => {
+				console.log('error here', Date.now() - start);
+				clock = setTimeout(() => {
+					if (Date.now() - start > timeout) {
+						reject('Can not connect to mongoDB');
+					} else {
+						mongoose.connect(config().MONGOOSE_URI);
+					}
+				}, 2000);
+			});
+
+			mongoose.connection.on('connected', () => {
+				console.log('MongoDB connected');
+				if (clock) clearTimeout(clock);
+				this.connected = true;
+				resolve(mongoose.connection);
+			});
+		});
+
 		try {
-			console.log(`MongoDB URI: ${config().MONGOOSE_URI}`);
-			this.connection = mongoose.connect(config().MONGOOSE_URI);
-			await this.connection;
-			this.connected = true;
-			console.log('MongoDB connected!');
+			await mongoose.connect(config().MONGOOSE_URI, {
+				serverSelectionTimeoutMS: 5000,
+			});
 		} catch (error) {
-			console.log('MongoDB error');
-			console.error((error as Error).message);
+			console.log({ error });
 		}
 	}
 
