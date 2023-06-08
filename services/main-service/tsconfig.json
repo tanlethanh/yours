@@ -1,5 +1,5 @@
 {
-    "include": ["./src/", "../../packages/backend", "../../packages/utils"],
+    "include": ["./src/", "../../packages/backend", "../../packages/utils", "../../private/*.json"],
     "exclude": ["../../node_modules"],
     "compilerOptions": {
         "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
@@ -12,6 +12,7 @@
         "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
         "strict": true /* Enable all strict type-checking options. */,
         "skipLibCheck": true,
+        "resolveJsonModule": true,
         "paths": {
             "@yours/backend": ["../../packages/backend"],
             "@yours/interfaces": ["../../packages/interfaces"],
