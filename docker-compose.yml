@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+  main-service:
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MONGOOSE_URI='mongodb://mongo:27018'
+      - FIREBASE_ADMIN_PATH=${FIREBASE_ADMIN_PATH}
+      - NODE_ENV=${NODE_ENV}
+      - NOTION_TOKEN=${NOTION_TOKEN}
+      - NOTION_OAUTH_ID=${NOTION_OAUTH_ID}
+      - NOTION_OAUTH_SECRET=${NOTION_OAUTH_SECRET}
+      - PORT=${PORT}
+    build:
+      context: ./services/main-service
+    ports:
+      - ${PORT}:${PORT}
+
+  mongo:
+    image: mongo:4.2.8
+    command: mongod --port 27018
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 27018:27018
+
+volumes:
+  mongodb:
+  mongodb_config:
