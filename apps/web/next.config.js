@@ -1,5 +1,8 @@
 require('dotenv').config({ path: '../../.env' });
 
+let API = 'http://localhost:4040';
+if (process.env.NODE_ENV == 'production') API = process.env.MAIN_SERVICE_API;
+
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: false,
@@ -8,7 +11,7 @@ module.exports = {
 		return [
 			{
 				source: '/api/:slug*',
-				destination: 'http://localhost:4040/api/:slug*',
+				destination: `${API}/api/:slug*`,
 			},
 		];
 	},
