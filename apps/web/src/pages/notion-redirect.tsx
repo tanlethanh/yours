@@ -10,7 +10,7 @@ function RedirectPage() {
 
 	const fetchData = async () => {
 		await apiAxios.post(`notion/auth?code=${query.code}`);
-		router.push('/dashboard');
+		router.push('/english-app/dashboard');
 	};
 
 	useEffect(() => {

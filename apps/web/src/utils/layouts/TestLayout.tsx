@@ -37,7 +37,7 @@ export function TestLayout({
 	}, []);
 	const handleLoading = () => {
 		setTimeout(() => {
-			router.replace('/dashboard');
+			router.replace('/english-app/dashboard');
 		}, 1000);
 	};
 	return (

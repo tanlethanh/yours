@@ -44,7 +44,7 @@ function TestPage() {
 								<p className="text-6xl">{`${context.countCorrect}/${context.testsDatas.length}`}</p>
 							</div>
 							<Link
-								href={'/dashboard'}
+								href={'/english-app/dashboard'}
 								className="w-fit px-8 py-3 border border-gray-300 rounded-md"
 							>
 								Về trang chính
