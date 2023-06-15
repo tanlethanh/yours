@@ -9,7 +9,7 @@ interface Props extends HtmlHTMLAttributes<HTMLDivElement> {
 
 export const MainLayout: FC<Props> = ({
 	withHeader = true,
-	headerClassName,
+	headerClassName = 'text-mainText',
 	children,
 	className,
 	...props

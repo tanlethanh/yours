@@ -15,7 +15,7 @@ export const Header: FC<Props> = ({ className }) => {
 	};
 
 	const defaultClassname =
-		'max-w-[1200px] m-auto flex flex-row items-center justify-between text-mainText mt-4';
+		'max-w-[1200px] m-auto flex flex-row items-center justify-between mt-4';
 
 	return (
 		<div className={merge([defaultClassname, className])}>
@@ -25,7 +25,7 @@ export const Header: FC<Props> = ({ className }) => {
 			{!loading && user ? (
 				<Link
 					className="flex flex-row space-x-4 justify-center items-center"
-					href={'/dashboard'}
+					href={'/english-app/dashboard'}
 				>
 					<div>
 						<h1 className="text-md font-normal">
