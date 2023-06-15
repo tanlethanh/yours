@@ -46,6 +46,9 @@ export const PracticeBlock: FC<Props> = ({ notionAuthUrl }) => {
 							>
 								Test now!
 							</button>
+							<h1 className="text-red-500">
+								Please check your Notion to review
+							</h1>
 							<Lottie
 								height={280}
 								width={280}
