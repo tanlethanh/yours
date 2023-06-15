@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { config, UserError } from '@yours/backend';
 import { User } from '@yours/backend/models';
 import { mongoDB } from '@yours/backend/providers';
@@ -10,46 +11,38 @@ export async function userFilter(req: Request, res: Response, next: Function) {
 	try {
 		let user;
 
-		if (
-			// For dev mode
-			config().USE_DEFAULT_USER &&
-			config().NODE_ENV == 'development'
-		) {
-			user = mongoDB.defaultUser;
-		} else {
-			// For production
-			const authToken = req.headers.authorization || '';
+		const authToken = req.headers.authorization || '';
 
-			if (!new RegExp('Bearer .*').test(authToken)) {
-				throw new UserError('Invalid auth token');
-			}
-
-			const idToken = authToken.split(' ')[1];
-
-			const decodedToken = await getAuth().verifyIdToken(idToken);
-			const uid = decodedToken.uid;
-
-			user = await User.findOne({
-				firebase_uid: uid,
-			});
-
-			if (!user) {
-				const firebaseUser = await getAuth().getUser(uid);
-
-				user = await User.create({
-					email: firebaseUser.email,
-					firebase_uid: uid,
-					role: UserRole.USER,
-				});
-			}
+		if (!new RegExp('Bearer .*').test(authToken)) {
+			throw new UserError('Invalid auth token');
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const idToken = authToken.split(' ')[1];
+
+		const decodedToken = await getAuth().verifyIdToken(idToken);
+		const uid = decodedToken.uid;
+
+		user = await User.findOne({
+			firebase_uid: uid,
+		});
+
+		if (!user) {
+			const firebaseUser = await getAuth().getUser(uid);
+
+			user = await User.create({
+				email: firebaseUser.email,
+				firebase_uid: uid,
+				role: UserRole.USER,
+			});
+		}
 		(req as any).user = user;
 
 		return next();
 	} catch (error) {
-		if (!(error instanceof UserError)) next(error);
+		if (config().USE_DEFAULT_USER && config().NODE_ENV == 'development') {
+			return ((req as any).user = mongoDB.defaultUser);
+		}
+		if (!(error instanceof UserError)) return next(error);
 		return res.status(StatusCodes.UNAUTHORIZED).json({
 			message: (error as Error).message,
 		});

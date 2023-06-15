@@ -4,7 +4,7 @@ import { log, LogTitle } from '@yours/backend/helpers';
 import request from 'request';
 
 export enum NotionProviderReturnCode {
-	GET_ACCESS_TOKE_SUCCESS,
+	GET_ACCESS_TOKEN_SUCCESS,
 	GET_ACCESS_TOKEN_FAIL,
 }
 
@@ -16,6 +16,13 @@ class NotionProvider {
 			`${config().NOTION_OAUTH_ID}:${config().NOTION_OAUTH_SECRET}`,
 		).toString('base64');
 
+		let REDIRECT_URI = 'http://localhost:3000';
+		if (process.env.NODE_ENV == 'production') {
+			REDIRECT_URI = process.env.REDIRECT_URI || '';
+		}
+
+		console.log({ REDIRECT_URI, code });
+
 		const options = {
 			url: 'https://api.notion.com/v1/oauth/token',
 			headers: {
@@ -26,7 +33,7 @@ class NotionProvider {
 			json: {
 				grant_type: 'authorization_code',
 				code: code,
-				redirect_uri: 'http://localhost:3000/notion-redirect',
+				redirect_uri: REDIRECT_URI + '/notion-redirect',
 			},
 		};
 
