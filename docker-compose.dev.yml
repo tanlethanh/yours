@@ -2,27 +2,30 @@ version: "3.1"
 
 services:
   main-service:
-    env_file: .env
+    restart: always
+    env_file:
+      - .env
     environment:
-      - MONGOOSE_URI=mongodb://mongo:27018/sipoenglish
+      - MONGOOSE_URI=mongodb://mongo:27018
+      - FIREBASE_ADMIN_PATH=${FIREBASE_ADMIN_PATH}
+      - NODE_ENV=${NODE_ENV}
+      - NOTION_TOKEN=${NOTION_TOKEN}
+      - NOTION_OAUTH_ID=${NOTION_OAUTH_ID}
+      - NOTION_OAUTH_SECRET=${NOTION_OAUTH_SECRET}
+      - PORT=${PORT}
     build:
       context: ./services/main-service
     ports:
       - ${PORT}:${PORT}
-      - 9229:9229
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    command: npm run dev
 
   mongo:
-    image: mongo:4.2.8
+    image: mongo:6.0.3
     command: mongod --port 27018
-    ports:
-      - 27018:27018
     volumes:
       - mongodb:/data/db
       - mongodb_config:/data/configdb
+    ports:
+      - 27018:27018
 
 volumes:
   mongodb:
