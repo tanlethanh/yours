@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { apiAxios } from '@yours/configs';
 import { Lottie } from 'components';
 import { useRouter } from 'next/router';
 
-const PracticeBlock = () => {
+interface Props {
+	notionAuthUrl: string;
+}
+
+export const PracticeBlock: FC<Props> = ({ notionAuthUrl }) => {
 	const router = useRouter();
 	const [connLoading, setConnLoading] = useState(true);
 	const [isNotionConnected, setIsNotionConnected] = useState(false);
@@ -20,7 +24,7 @@ const PracticeBlock = () => {
 	};
 
 	const connectNotion = () => {
-		router.push(process.env.NEXT_PUBLIC_AUTHORIZATION_URL as string);
+		router.push(notionAuthUrl);
 	};
 
 	useEffect(() => {

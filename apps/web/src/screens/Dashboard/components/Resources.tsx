@@ -1,4 +1,4 @@
-const Resources = () => {
+export const Resources = () => {
 	return (
 		<div className="w-[700px]">
 			<h1 className="text-xl font-medium text-zinc-700 mb-2">

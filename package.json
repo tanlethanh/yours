@@ -12,7 +12,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "turbo run build",
         "dev": "turbo run dev",
-        "lint": "turbo run lint"
+        "lint": "turbo run lint",
+        "deploy:web": "yarn sst deploy --stage prod"
     },
     "keywords": [],
     "author": "Tan Le",

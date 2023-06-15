@@ -25,7 +25,7 @@ function RedirectPage() {
 	}, [router.isReady]);
 
 	return (
-		<MainLayout withHeader={false}>
+		<MainLayout withHeader={false} className="bg-slate-200">
 			<div className="flex flex-col items-center justify-center h-screen">
 				<h1 className="text-2xl">Please wait</h1>
 				<p>{query.code}</p>
