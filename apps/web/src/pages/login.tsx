@@ -32,8 +32,12 @@ function Login() {
 		}
 	}, [user, loading]);
 
-	const sighInGoogleOnclick = () => {
-		signInWithPopup(firebaseAuth, googleProvider);
+	const sighInGoogleOnclick = async () => {
+		try {
+			await signInWithPopup(firebaseAuth, googleProvider);
+		} catch (error) {
+			console.log('Sign in error', error);
+		}
 	};
 
 	return render ? (
