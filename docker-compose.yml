@@ -6,20 +6,22 @@ services:
     env_file:
       - .env
     environment:
-      - MONGOOSE_URI='mongodb://mongo:27018'
+      - MONGOOSE_URI=mongodb://mongo:27018
       - FIREBASE_ADMIN_PATH=${FIREBASE_ADMIN_PATH}
       - NODE_ENV=${NODE_ENV}
       - NOTION_TOKEN=${NOTION_TOKEN}
       - NOTION_OAUTH_ID=${NOTION_OAUTH_ID}
       - NOTION_OAUTH_SECRET=${NOTION_OAUTH_SECRET}
+      - REDIRECT_URI=${REDIRECT_URI}
       - PORT=${PORT}
-    build:
-      context: ./services/main-service
+      - NODE_ENV=${NODE_ENV}
     ports:
-      - ${PORT}:${PORT}
+      - 80:${PORT}
+    build:
+      context: .
 
   mongo:
-    image: mongo:4.2.8
+    image: mongo:6.0.3
     command: mongod --port 27018
     volumes:
       - mongodb:/data/db
