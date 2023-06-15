@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     environment:
+      - NODE_ENV=development
       - MONGOOSE_URI=mongodb://mongo:27018
       - FIREBASE_ADMIN_PATH=${FIREBASE_ADMIN_PATH}
-      - NODE_ENV=${NODE_ENV}
       - NOTION_TOKEN=${NOTION_TOKEN}
       - NOTION_OAUTH_ID=${NOTION_OAUTH_ID}
       - NOTION_OAUTH_SECRET=${NOTION_OAUTH_SECRET}
@@ -17,6 +17,8 @@ services:
       context: ./services/main-service
     ports:
       - ${PORT}:${PORT}
+    volumes:
+      - ./services/main-service/build:/app/build
 
   mongo:
     image: mongo:6.0.3
