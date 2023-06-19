@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { config, UserError } from '@yours/backend';
 import { User } from '@yours/backend/models';
-import { mongoDB } from '@yours/backend/providers';
+import * as mongoDB from '@yours/backend/providers/mongo';
 import { IUser, UserRole } from '@yours/interfaces/IData';
 import { Request, Response } from 'express';
 import { getAuth } from 'firebase-admin/auth';
