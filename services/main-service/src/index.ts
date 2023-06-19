@@ -1,37 +1,31 @@
 import http from 'http';
 
-import { config } from '@yours/backend';
 import {
-	firebaseProvider,
-	Handler,
-	Middlewares,
-	mongoDB,
+	config,
+	internalErrorHandler,
+	mountCommonMiddleWares,
+	notFoundHandler,
 } from '@yours/backend';
+import * as firebase from '@yours/backend/providers/firebase';
+import * as mongoDB from '@yours/backend/providers/mongo';
 import express from 'express';
-import morgan from 'morgan';
 
-import { ApiRoute } from './routes';
+import { mountRoute } from './routes';
 
 const app = express();
 
-app.use(morgan('tiny'));
-
 mongoDB.connect();
 mongoDB.initData();
+firebase.initFirebaseApp();
 
-firebaseProvider.initFirebaseApp();
+mountCommonMiddleWares(app);
+mountRoute(app);
 
-Middlewares.mountCommonMiddleWares(app);
+app.use('*', notFoundHandler);
+app.use(internalErrorHandler);
 
-ApiRoute.mountRoute(app);
-
-app.use('*', Handler.useNotFoundHandler);
-app.use(Handler.errorHandler);
-
-// const expressApp = new ExpressApp();
 const server = http.createServer(app);
 
-// Start the server on the specified port
 const PORT = config().PORT || 8266;
 server
 	.listen(PORT, () => {

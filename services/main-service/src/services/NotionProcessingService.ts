@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { log, notionProvider, UserError } from '@yours/backend';
+import { UserError } from '@yours/backend';
 import {
 	DuplexQuestionCore,
 	FillWordQuestionCore,
@@ -8,6 +8,7 @@ import {
 	Sentence,
 	User,
 } from '@yours/backend/models';
+import * as notionProvider from '@yours/backend/providers/notion';
 import { Difficulty, IPage, ISentence } from '@yours/interfaces';
 import { Types } from 'mongoose';
 
@@ -30,13 +31,8 @@ class NotionProcessingService {
 		let notionData = null;
 		try {
 			notionData = await notionProvider.getAccessTokenFromCode(code);
-			log.consoleLog(
-				this.constructor.name,
-				'Get Auth Token',
-				JSON.stringify(notionData),
-			);
 		} catch (error) {
-			log.consoleLog(this.constructor.name, 'Error', error);
+			console.log(error);
 		}
 
 		if (!notionData) {
@@ -217,7 +213,7 @@ class NotionProcessingService {
 	}
 
 	async syncSinglePage(
-		userId: Types.ObjectId,
+		_userId: Types.ObjectId,
 		accessToken: string,
 		page: any,
 		pageImage: IPage,
