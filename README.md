@@ -1,9 +1,5 @@
 
-# Yours - It's not yours, It's mine hehe
-This project is all needed tools which I build myself and for myself. And public version may help your life.
-
-Hello world
-
+# Yours
 ## Setup
 
 ### Install all needed packages
@@ -13,7 +9,7 @@ yarn
 ```
 
 ### Database
-You need to setup mongodb in your local machine for development stage
+setup mongodb in local machine for development stage
 
 ### Setup private file
 In the root directory of project, make new directory has name **private**
@@ -49,5 +45,4 @@ Run project
 ```
 yarn dev
 ```
-You can detach debugger in vscode with my config
 
