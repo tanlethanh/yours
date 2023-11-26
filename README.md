@@ -1,5 +1,7 @@
-
 # Yours
+
+Review English web app by loading users' note from Notion
+
 ## Setup
 
 ### Install all needed packages
